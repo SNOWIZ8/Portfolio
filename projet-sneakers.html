@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sneakers Business — Arthur Viaud</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   VARIABLES & RESET (partagées)
+============================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:       #0A0F1E;
+  --teal:     #00F2EA;
+  --mauve:    #8A2BE2;
+  --cream:    #F0ECE2;
+  --muted:    rgba(240,236,226,0.52);
+  --glass-bg: rgba(255,255,255,0.03);
+  --glass-bd: 1px solid rgba(255,255,255,0.10);
+  --glass-blur: blur(12px);
+  --radius:   12px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+.cursor{position:fixed;width:10px;height:10px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .15s,height .15s}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(0,242,234,.32);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+/* MESH GRADIENT */
+.mesh{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:.12;animation:meshFloat linear infinite}
+.mb1{width:580px;height:580px;background:var(--teal);top:-150px;left:-100px;animation-duration:28s}
+.mb2{width:500px;height:500px;background:var(--mauve);top:50%;right:-120px;animation-duration:22s;animation-delay:-10s}
+.mb3{width:380px;height:380px;background:var(--teal);bottom:-80px;left:40%;animation-duration:34s;animation-delay:-16s;opacity:.08}
+@keyframes meshFloat{
+  0%{transform:translate(0,0) scale(1) rotate(0deg)}
+  25%{transform:translate(50px,-70px) scale(1.07) rotate(90deg)}
+  50%{transform:translate(-40px,60px) scale(.93) rotate(180deg)}
+  75%{transform:translate(65px,30px) scale(1.10) rotate(270deg)}
+  100%{transform:translate(0,0) scale(1) rotate(360deg)}
+}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px}
+
+/* =============================================
+   NAVBAR (identique à index.html)
+============================================= */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 56px;
+  background:rgba(10,15,30,.45);
+  backdrop-filter:var(--glass-blur) saturate(1.4);
+  border-bottom:var(--glass-bd);
+  transition:padding .3s;
+}
+nav.scrolled{padding:13px 56px}
+.logo-block{display:flex;flex-direction:column;gap:2px;text-decoration:none}
+.logo-name{font-family:'DM Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-1px;background:linear-gradient(105deg,var(--teal),#a78bff,var(--teal));background-size:220%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoShine 5s ease infinite}
+@keyframes logoShine{0%,100%{background-position:0%}50%{background-position:100%}}
+.logo-sub{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,236,226,.25)}
+.nav-links{display:flex;gap:36px;list-style:none;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;transition:color .25s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--teal);transition:width .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--cream)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.active::after{background:linear-gradient(90deg,var(--teal),var(--mauve))}
+.nav-cta{background:var(--glass-bg);border:var(--glass-bd);backdrop-filter:var(--glass-blur);color:var(--teal)!important;padding:9px 22px;border-radius:4px;font-size:11px!important;letter-spacing:1.5px;transition:background .25s,border-color .25s!important}
+.nav-cta:hover{background:rgba(0,242,234,.12)!important;border-color:rgba(0,242,234,.4)!important}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--cream)}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(10,15,30,.97);backdrop-filter:var(--glass-blur);z-index:490;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:3px;color:var(--cream);text-decoration:none;transition:color .25s}
+.mobile-menu a:hover{color:var(--teal)}
+.mob-close{position:absolute;top:28px;right:28px;background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;opacity:.6}
+
+/* SCROLL INDICATOR */
+.scroll-indicator{position:fixed;bottom:32px;right:32px;z-index:400;width:52px;height:52px;cursor:pointer}
+.si-track{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.1)}
+.si-fill{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--teal) 0%, var(--mauve) var(--pct,0%), transparent var(--pct,0%));transition:border-radius .6s ease;opacity:.85}
+.si-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* GLASS CARD */
+.glass-card{background:var(--glass-bg);border:var(--glass-bd);backdrop-filter:var(--glass-blur);border-radius:var(--radius);transition:background .3s,border-color .3s,transform .3s}
+.glass-card:hover{background:rgba(255,255,255,.05);border-color:rgba(0,242,234,.22);transform:translateY(-4px)}
+
+/* =============================================
+   PROJECT HERO HEADER
+============================================= */
+.proj-hero{
+  position:relative;z-index:10;
+  min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:130px 56px 72px;
+  border-bottom:var(--glass-bd);
+}
+.proj-eyebrow{
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);
+  margin-bottom:20px;opacity:0;animation:riseUp .7s ease forwards .2s;
+  display:flex;align-items:center;gap:12px;
+}
+.proj-eyebrow::before{content:'';width:32px;height:1px;background:var(--teal)}
+.proj-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(70px,13vw,160px);
+  line-height:.87;letter-spacing:3px;color:var(--cream);
+  opacity:0;animation:riseUp .85s ease forwards .35s;
+}
+.proj-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.22);color:transparent}
+.proj-title .t-teal{color:var(--teal)}
+.proj-accroche{
+  font-size:clamp(16px,1.8vw,22px);font-weight:300;font-style:italic;
+  color:var(--muted);max-width:680px;line-height:1.65;margin-top:28px;
+  opacity:0;animation:riseUp .85s ease forwards .52s;
+}
+/* decorative line */
+.hero-deco{
+  position:absolute;top:130px;right:56px;
+  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+  opacity:0;animation:riseUp .9s ease forwards .65s;
+}
+.deco-tag{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(240,236,226,.3);border:var(--glass-bd);
+  padding:5px 14px;border-radius:100px;background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+}
+
+/* =============================================
+   CONTENT LAYOUT
+============================================= */
+.proj-content{position:relative;z-index:10;padding:80px 56px}
+.content-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.bubble{padding:32px 28px}
+.bubble-title{
+  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--teal);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.bubble-title::before{content:'';width:22px;height:1px;background:var(--teal);flex-shrink:0}
+.bubble-text{font-size:15px;font-weight:300;line-height:1.8;color:rgba(240,236,226,.75)}
+
+/* Full-width bubble */
+.bubble-full{grid-column:1/-1}
+
+/* =============================================
+   SECTION TITLES
+============================================= */
+.s-head{display:flex;align-items:center;gap:18px;margin-bottom:40px}
+.s-num{font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(240,236,226,.18);letter-spacing:2px}
+.s-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px}
+.s-rule{flex:1;height:1px;background:rgba(255,255,255,.07)}
+
+/* =============================================
+   SECTION MÉDIAS — TikTok Showreel
+============================================= */
+.media-section{position:relative;z-index:10;padding:0 56px 80px}
+.tiktok-wrap{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:24px;max-width:680px;
+}
+.tiktok-slot{
+  aspect-ratio:9/16;border-radius:var(--radius);
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  position:relative;overflow:hidden;
+  transition:border-color .3s;cursor:pointer;
+}
+.tiktok-slot:hover{border-color:rgba(0,242,234,.3)}
+.tiktok-slot::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(138,43,226,.06) 0%,rgba(0,242,234,.06) 100%);
+}
+.tt-icon{font-size:38px;position:relative;z-index:1}
+.tt-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.3);position:relative;z-index:1}
+.tt-badge{
+  position:absolute;top:14px;left:14px;
+  background:rgba(254,44,85,.85);border-radius:100px;
+  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:3px 10px;color:#fff;font-weight:600;z-index:2;
+}
+/* intégration d'une vraie vidéo : remplace le div.tiktok-slot par :
+   <video src="ta-video.mp4" controls style="width:100%;height:100%;object-fit:cover;border-radius:12px"></video> */
+
+/* =============================================
+   GALERIE ASYMÉTRIQUE
+============================================= */
+.gallery-section{position:relative;z-index:10;padding:0 56px 80px}
+.gallery-asymm{
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr;
+  grid-template-rows:240px 240px;
+  gap:14px;
+}
+.gal-slot{
+  border-radius:var(--radius);
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  overflow:hidden;position:relative;cursor:pointer;
+  transition:border-color .3s,transform .3s;
+}
+.gal-slot:hover{border-color:rgba(0,242,234,.28);transform:scale(1.012)}
+.gal-slot:first-child{grid-row:1/3}
+.gal-slot img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:.85;transition:opacity .3s;
+}
+.gal-slot:hover img{opacity:1}
+.gal-placeholder{font-size:32px;opacity:.35;position:relative;z-index:1}
+.gal-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.28);position:relative;z-index:1}
+/* Pour ajouter une photo : <img src="sneaker1.jpg" alt=""> dans le .gal-slot */
+
+/* =============================================
+   PROJECT FOOTER NAV
+============================================= */
+.proj-footer{
+  position:relative;z-index:10;
+  padding:48px 56px;
+  border-top:var(--glass-bd);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.2);
+}
+.btn-back{
+  display:inline-flex;align-items:center;gap:10px;
+  color:var(--muted);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;
+  border:var(--glass-bd);background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  padding:14px 28px;border-radius:4px;
+  transition:color .25s,border-color .25s,background .25s,transform .22s;
+}
+.btn-back:hover{color:var(--cream);border-color:rgba(0,242,234,.35);background:rgba(0,242,234,.06);transform:translateX(-4px)}
+.btn-next{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,var(--teal),#00c4be);
+  color:#0A0F1E;padding:14px 28px;font-size:13px;
+  font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;border-radius:4px;border:none;
+  transition:transform .22s,box-shadow .3s;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+}
+.btn-next:hover{transform:translateX(4px);box-shadow:0 14px 32px rgba(0,242,234,.22)}
+
+/* =============================================
+   SITE FOOTER
+============================================= */
+footer{position:relative;z-index:10;padding:34px 56px;border-top:var(--glass-bd);display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.25)}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:3px;color:rgba(240,236,226,.22)}
+.f-links{display:flex;gap:26px}
+.f-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.28);text-decoration:none;transition:color .22s}
+.f-links a:hover{color:var(--teal)}
+.f-copy{font-size:11px;color:rgba(240,236,226,.16)}
+
+@keyframes riseUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  nav.scrolled{padding:12px 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .proj-hero{padding:100px 24px 56px;min-height:auto}
+  .hero-deco{display:none}
+  .proj-content,.media-section,.gallery-section{padding-left:24px;padding-right:24px}
+  .proj-content{padding-top:56px;padding-bottom:56px}
+  .content-grid{grid-template-columns:1fr}
+  .bubble-full{grid-column:auto}
+  .tiktok-wrap{max-width:100%;grid-template-columns:1fr 1fr}
+  .gallery-asymm{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,200px)}
+  .gal-slot:first-child{grid-row:auto;grid-column:1/-1}
+  .proj-footer{flex-direction:column;gap:16px;padding:36px 24px}
+  footer{flex-direction:column;gap:14px;text-align:center;padding:26px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div></div>
+<div class="grain"></div>
+
+<!-- SCROLL INDICATOR -->
+<div class="scroll-indicator" id="scrollInd" title="Haut de page">
+  <div class="si-track"></div>
+  <div class="si-fill" id="siFill"></div>
+  <div class="si-label" id="siLabel">↓</div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a href="index.html" onclick="closeMob()">Accueil</a>
+  <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
+  <a href="parcours.html" onclick="closeMob()">Parcours</a>
+  <a href="contact.html" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="logo-block">
+    <span class="logo-name">arthur.</span>
+    <span class="logo-sub">D'une inspiration naît une vision</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    <li><a href="parcours.html">Parcours</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMob()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ==================== PROJECT HERO ==================== -->
+<section class="proj-hero">
+  <div class="hero-deco">
+    <span class="deco-tag">Entrepreneuriat</span>
+    <span class="deco-tag">2022 — 2024</span>
+    <span class="deco-tag">Stratégie Digitale</span>
+  </div>
+  <div class="proj-eyebrow">ENTREPRENEURIAT & STRATÉGIE • 2022–2024</div>
+  <h1 class="proj-title">
+    <span>SNEAK</span><span class="t-stroke">ERS</span><br>
+    <span class="t-teal">BUSINESS</span>
+  </h1>
+  <p class="proj-accroche">"De la passion culturelle à la stratégie d'acquisition digitale."</p>
+</section>
+
+<!-- ==================== BULLES GLASSMORPHISM ==================== -->
+<section class="proj-content">
+  <div class="s-head">
+    <span class="s-num">01 ///</span>
+    <h2 class="s-title">Le Projet</h2>
+    <div class="s-rule"></div>
+  </div>
+
+  <div class="content-grid">
+
+    <!-- Bulle 1 -->
+    <div class="glass-card bubble reveal">
+      <div class="bubble-title">L'essor d'une culture</div>
+      <p class="bubble-text">Plus qu'une simple chaussure, la sneaker incarne un phénomène culturel mondial, symbole d'identité et d'expression. Entre 2022 et 2024, j'ai transformé cette passion en une activité d'achat-revente. Mon objectif : exploiter la rareté des modèles issus de collaborations exclusives sur un marché secondaire florissant, redéfinissant ainsi les codes de l'entrepreneuriat urbain.</p>
+    </div>
+
+    <!-- Bulle 2 -->
+    <div class="glass-card bubble reveal">
+      <div class="bubble-title">Digitaliser l'acquisition</div>
+      <p class="bubble-text">Pour dynamiser l'activité et me démarquer, j'ai déployé une stratégie de contenu ciblée sur les réseaux sociaux. L'utilisation stratégique de plateformes comme TikTok et Instagram (vidéos courtes, stories immersives, publications régulières) m'a permis d'élargir mon réseau de prospects, d'atteindre de nouvelles audiences et de fidéliser une clientèle passionnée.</p>
+    </div>
+
+    <!-- Bulle 3 -->
+    <div class="glass-card bubble reveal">
+      <div class="bubble-title">Analyse de marché et optimisation</div>
+      <p class="bubble-text">Toujours à l'écoute des tendances du marché, j'ai intégré les conseils d'experts du secteur pour affiner mes stratégies d'achat et de vente. Cette veille constante m'a aidé à anticiper la demande, à gérer mes stocks avec précision et à maximiser la rentabilité de chaque transaction.</p>
+    </div>
+
+    <!-- Bulle 4 -->
+    <div class="glass-card bubble reveal">
+      <div class="bubble-title">Un laboratoire professionnel</div>
+      <p class="bubble-text">Cette activité a été fondatrice. Elle m'a permis de forger des compétences solides en gestion de budget, en organisation et en prise de décision. Actuellement en pause pour me consacrer pleinement à mon double diplôme en Techniques de Commercialisation, cette expérience reste le socle de ma vision stratégique et commerciale.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== SHOWREEL TIKTOK ==================== -->
+<section class="media-section">
+  <div class="s-head">
+    <span class="s-num">02 ///</span>
+    <h2 class="s-title">Showreel TikTok</h2>
+    <div class="s-rule"></div>
+  </div>
+  <div class="tiktok-wrap">
+
+    <div class="tiktok-slot reveal">
+      <div class="tt-badge">TikTok</div>
+      <div class="tt-icon">🎬</div>
+      <div class="tt-label">Vidéo promo 01</div>
+      <!-- Remplace ce bloc par :
+           <video src="video1.mp4" controls></video>
+           ou un embed TikTok -->
+    </div>
+
+    <div class="tiktok-slot reveal">
+      <div class="tt-badge">TikTok</div>
+      <div class="tt-icon">🎬</div>
+      <div class="tt-label">Vidéo promo 02</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== GALERIE MODÈLES ==================== -->
+<section class="gallery-section">
+  <div class="s-head">
+    <span class="s-num">03 ///</span>
+    <h2 class="s-title">Modèles Iconiques</h2>
+    <div class="s-rule"></div>
+  </div>
+  <div class="gallery-asymm">
+    <!-- Grande case -->
+    <div class="gal-slot reveal">
+      <!-- <img src="sneaker-hero.jpg" alt="Modèle héro"> -->
+      <div class="gal-placeholder">👟</div>
+      <div class="gal-label">Hero Shot</div>
+    </div>
+    <!-- Cases secondaires -->
+    <div class="gal-slot reveal">
+      <div class="gal-placeholder">👟</div>
+      <div class="gal-label">Collab 01</div>
+    </div>
+    <div class="gal-slot reveal">
+      <div class="gal-placeholder">👟</div>
+      <div class="gal-label">Collab 02</div>
+    </div>
+    <div class="gal-slot reveal">
+      <div class="gal-placeholder">👟</div>
+      <div class="gal-label">Collab 03</div>
+    </div>
+    <div class="gal-slot reveal">
+      <div class="gal-placeholder">👟</div>
+      <div class="gal-label">Collab 04</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER NAVIGATION DU PROJET ==================== -->
+<div class="proj-footer">
+  <a href="portfolio.html" class="btn-back">← Retour au Portfolio</a>
+  <a href="projet-revofit.html" class="btn-next">Projet suivant : RevoFit →</a>
+</div>
+
+<!-- FOOTER GLOBAL -->
+<footer>
+  <div class="f-logo">Arthur Viaud · 2026</div>
+  <div class="f-links">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn ↗</a>
+  </div>
+  <div class="f-copy">D'une inspiration naît une vision</div>
+</footer>
+
+<script>
+/* --- Cursor --- */
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.glass-card,.gal-slot,.tiktok-slot').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px'});
+});
+
+/* --- Nav shrink --- */
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>60)});
+
+/* --- Scroll indicator --- */
+const siFill=document.getElementById('siFill');
+const siLabel=document.getElementById('siLabel');
+function updateScrollInd(){
+  const pct=Math.min(100,(scrollY/(document.documentElement.scrollHeight-innerHeight))*100);
+  siFill.style.setProperty('--pct',pct+'%');
+  const r1=50,r2=30+pct*.2,r3=40+Math.sin(pct/8)*12,r4=38+Math.cos(pct/6)*10;
+  siFill.style.borderRadius=`${r1}% ${100-r1}% ${r2}% ${100-r2}% / ${r3}% ${r4}% ${100-r4}% ${100-r3}%`;
+  siLabel.textContent=pct<5?'↓':Math.round(pct)+'%';
+}
+window.addEventListener('scroll',updateScrollInd);
+document.getElementById('scrollInd').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* --- Mobile menu --- */
+function toggleMob(){document.getElementById('mobileMenu').classList.toggle('open')}
+function closeMob(){document.getElementById('mobileMenu').classList.remove('open')}
+
+/* --- Scroll reveal --- */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80)});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

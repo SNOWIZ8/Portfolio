@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palm'Fest — Arthur Viaud</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0F1E;
+  --teal:#00F2EA;
+  --mauve:#8A2BE2;
+  --cream:#F0ECE2;
+  --muted:rgba(240,236,226,0.52);
+  --glass-bg:rgba(255,255,255,0.03);
+  --glass-bd:1px solid rgba(255,255,255,0.10);
+  --glass-blur:blur(12px);
+  --radius:12px;
+  /* accent propre à Palm'Fest */
+  --accent:#00F2EA;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
+
+.cursor{position:fixed;width:10px;height:10px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .15s,height .15s}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(0,242,234,.32);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.mesh{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:.13;animation:meshFloat linear infinite}
+.mb1{width:620px;height:620px;background:var(--teal);top:-120px;left:-60px;animation-duration:30s}
+.mb2{width:480px;height:480px;background:var(--mauve);bottom:-80px;right:-100px;animation-duration:24s;animation-delay:-12s}
+.mb3{width:340px;height:340px;background:var(--teal);top:50%;left:50%;animation-duration:20s;animation-delay:-7s;opacity:.07}
+@keyframes meshFloat{
+  0%{transform:translate(0,0) scale(1) rotate(0deg)}
+  25%{transform:translate(50px,-70px) scale(1.07) rotate(90deg)}
+  50%{transform:translate(-40px,60px) scale(.93) rotate(180deg)}
+  75%{transform:translate(65px,30px) scale(1.10) rotate(270deg)}
+  100%{transform:translate(0,0) scale(1) rotate(360deg)}
+}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;background:rgba(10,15,30,.45);backdrop-filter:var(--glass-blur) saturate(1.4);border-bottom:var(--glass-bd);transition:padding .3s}
+nav.scrolled{padding:13px 56px}
+.logo-block{display:flex;flex-direction:column;gap:2px;text-decoration:none}
+.logo-name{font-family:'DM Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-1px;background:linear-gradient(105deg,var(--teal),#a78bff,var(--teal));background-size:220%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoShine 5s ease infinite}
+@keyframes logoShine{0%,100%{background-position:0%}50%{background-position:100%}}
+.logo-sub{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,236,226,.25)}
+.nav-links{display:flex;gap:36px;list-style:none;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;transition:color .25s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--teal);transition:width .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--cream)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.active::after{background:linear-gradient(90deg,var(--teal),var(--mauve))}
+.nav-cta{background:var(--glass-bg);border:var(--glass-bd);backdrop-filter:var(--glass-blur);color:var(--teal)!important;padding:9px 22px;border-radius:4px;font-size:11px!important;letter-spacing:1.5px;transition:background .25s,border-color .25s!important}
+.nav-cta:hover{background:rgba(0,242,234,.12)!important;border-color:rgba(0,242,234,.4)!important}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--cream)}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(10,15,30,.97);backdrop-filter:var(--glass-blur);z-index:490;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:3px;color:var(--cream);text-decoration:none;transition:color .25s}
+.mobile-menu a:hover{color:var(--teal)}
+.mob-close{position:absolute;top:28px;right:28px;background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;opacity:.6}
+
+.scroll-indicator{position:fixed;bottom:32px;right:32px;z-index:400;width:52px;height:52px;cursor:pointer}
+.si-track{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.1)}
+.si-fill{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--teal) 0%, var(--mauve) var(--pct,0%), transparent var(--pct,0%));transition:border-radius .6s ease;opacity:.85}
+.si-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.glass-card{background:var(--glass-bg);border:var(--glass-bd);backdrop-filter:var(--glass-blur);border-radius:var(--radius);transition:background .3s,border-color .3s,transform .3s}
+.glass-card:hover{background:rgba(255,255,255,.05);border-color:rgba(0,242,234,.22);transform:translateY(-4px)}
+
+/* =============================================
+   PROJECT HERO — PALMFEST
+============================================= */
+.proj-hero{
+  position:relative;z-index:10;
+  min-height:90vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:130px 56px 72px;border-bottom:var(--glass-bd);overflow:hidden;
+}
+/* Compteur festivaliers en arrière-plan */
+.hero-watermark{
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(120px,18vw,240px);
+  color:rgba(255,255,255,.025);letter-spacing:5px;pointer-events:none;
+  white-space:nowrap;line-height:1;user-select:none;
+}
+.proj-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:20px;opacity:0;animation:riseUp .7s ease forwards .2s;display:flex;align-items:center;gap:12px}
+.proj-eyebrow::before{content:'';width:32px;height:1px;background:var(--teal)}
+.proj-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(70px,13vw,158px);line-height:.87;letter-spacing:3px;color:var(--cream);opacity:0;animation:riseUp .85s ease forwards .35s}
+.proj-title .t-apos{color:var(--teal)}
+.proj-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
+.proj-accroche{font-size:clamp(15px,1.7vw,21px);font-weight:300;font-style:italic;color:var(--muted);max-width:720px;line-height:1.65;margin-top:28px;opacity:0;animation:riseUp .85s ease forwards .52s}
+/* Stats rapides héro */
+.hero-kpi{
+  display:flex;align-items:center;gap:32px;margin-top:36px;
+  opacity:0;animation:riseUp .85s ease forwards .68s;flex-wrap:wrap;
+}
+.kpi-item{display:flex;flex-direction:column;gap:3px}
+.kpi-n{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;background:linear-gradient(90deg,var(--teal),var(--mauve));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.kpi-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.kpi-sep{width:1px;height:40px;background:rgba(255,255,255,.1)}
+.hero-deco{position:absolute;top:130px;right:56px;display:flex;flex-direction:column;align-items:flex-end;gap:8px;opacity:0;animation:riseUp .9s ease forwards .65s}
+.deco-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.3);border:var(--glass-bd);padding:5px 14px;border-radius:100px;background:var(--glass-bg);backdrop-filter:var(--glass-blur)}
+
+/* =============================================
+   CONTENT
+============================================= */
+.proj-content{position:relative;z-index:10;padding:80px 56px}
+.s-head{display:flex;align-items:center;gap:18px;margin-bottom:40px}
+.s-num{font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(240,236,226,.18);letter-spacing:2px}
+.s-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px}
+.s-rule{flex:1;height:1px;background:rgba(255,255,255,.07)}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.bubble{padding:32px 28px}
+.bubble-title{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.bubble-title::before{content:'';width:22px;height:1px;background:var(--teal);flex-shrink:0}
+.bubble-text{font-size:15px;font-weight:300;line-height:1.8;color:rgba(240,236,226,.75)}
+
+/* =============================================
+   ZONE A — CARROUSEL BEST ENGAGEMENT
+============================================= */
+.media-section{position:relative;z-index:10;padding:0 56px 80px}
+
+.zone-a{
+  border-radius:var(--radius);
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);
+  overflow:hidden;
+  display:grid;grid-template-columns:1.4fr 1fr;
+  min-height:360px;
+  transition:border-color .3s;
+}
+.zone-a:hover{border-color:rgba(0,242,234,.28)}
+.zone-a-visual{
+  position:relative;
+  background:linear-gradient(140deg,rgba(0,242,234,.08),rgba(138,43,226,.12));
+  display:flex;align-items:center;justify-content:center;
+  min-height:320px;border-right:var(--glass-bd);
+}
+/* PDF Carrousel mockup */
+.pdf-mock{
+  width:200px;height:260px;
+  background:rgba(255,255,255,.06);
+  border:var(--glass-bd);border-radius:8px;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.4);
+  position:relative;
+}
+.pdf-header{height:52px;background:linear-gradient(90deg,rgba(0,242,234,.15),rgba(138,43,226,.15));display:flex;align-items:center;padding:0 16px;gap:8px}
+.pdf-h-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);opacity:.7}
+.pdf-title{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.5)}
+.pdf-body{flex:1;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.pdf-line{height:5px;border-radius:100px;background:rgba(255,255,255,.06)}
+.pdf-line.w70{width:70%}
+.pdf-line.w90{width:90%}
+.pdf-line.w55{width:55%}
+.pdf-line.accent{background:linear-gradient(90deg,rgba(0,242,234,.35),rgba(138,43,226,.25));width:80%}
+.pdf-footer{height:36px;background:rgba(0,242,234,.06);display:flex;align-items:center;justify-content:center}
+.pdf-footer span{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(0,242,234,.6)}
+/* Badge performance */
+.perf-badge{
+  position:absolute;top:18px;right:18px;
+  background:linear-gradient(135deg,var(--teal),#00c4be);
+  color:#0A0F1E;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;
+  font-weight:700;padding:5px 12px;border-radius:100px;
+  display:flex;align-items:center;gap:5px;
+}
+.zone-a-info{padding:36px 32px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.zone-a-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal)}
+.zone-a-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;line-height:1.1}
+.zone-a-desc{font-size:14px;font-weight:300;line-height:1.7;color:rgba(240,236,226,.65)}
+
+/* =============================================
+   ZONE B — MOCKUP LINKEDIN / TÉLÉPHONE
+============================================= */
+.zones-bc{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+
+.zone-b{
+  border-radius:var(--radius);
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);
+  display:grid;grid-template-columns:auto 1fr;
+  gap:0;overflow:hidden;min-height:280px;
+  transition:border-color .3s;
+}
+.zone-b:hover{border-color:rgba(0,242,234,.28)}
+.phone-mock-wrap{
+  width:120px;background:linear-gradient(180deg,rgba(138,43,226,.1),rgba(0,242,234,.07));
+  border-right:var(--glass-bd);
+  display:flex;align-items:center;justify-content:center;padding:20px 16px;
+}
+.phone-mock{
+  width:80px;height:160px;
+  background:rgba(10,15,30,.9);border-radius:14px;
+  border:1px solid rgba(255,255,255,.15);
+  overflow:hidden;position:relative;
+  box-shadow:0 16px 40px rgba(0,0,0,.5);
+}
+.phone-notch{width:30px;height:6px;background:rgba(255,255,255,.1);border-radius:0 0 8px 8px;margin:0 auto}
+.phone-screen{padding:8px 7px;display:flex;flex-direction:column;gap:5px}
+.ph-line{height:4px;border-radius:100px;background:rgba(255,255,255,.06)}
+.ph-line.accent{background:linear-gradient(90deg,rgba(0,242,234,.4),rgba(138,43,226,.3));width:65%}
+.ph-line.w80{width:80%}
+.ph-line.w55{width:55%}
+.ph-line.w40{width:40%}
+.ph-line.w90{width:90%}
+.zone-b-info{padding:28px 24px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.zone-b-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal)}
+.zone-b-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;line-height:1.1}
+.zone-b-desc{font-size:13px;font-weight:300;line-height:1.65;color:rgba(240,236,226,.6)}
+
+/* =============================================
+   ZONE C — GALERIE FESTIVAL
+============================================= */
+.zone-c{
+  border-radius:var(--radius);
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);
+  overflow:hidden;min-height:280px;
+  transition:border-color .3s;display:flex;flex-direction:column;
+}
+.zone-c:hover{border-color:rgba(0,242,234,.28)}
+.zone-c-photos{display:grid;grid-template-columns:1fr 1fr;flex:1;gap:0}
+.gal-ph{
+  position:relative;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(140deg,rgba(0,242,234,.06),rgba(138,43,226,.08));
+  min-height:180px;cursor:pointer;transition:background .3s;
+  border-right:var(--glass-bd);
+}
+.gal-ph:last-child{border-right:none}
+.gal-ph:hover{background:linear-gradient(140deg,rgba(0,242,234,.1),rgba(138,43,226,.12))}
+.gal-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7;transition:opacity .3s}
+.gal-ph:hover img{opacity:.9}
+.gal-emoji{font-size:36px;opacity:.25;position:relative;z-index:1}
+.gal-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.25);position:relative;z-index:1}
+.zone-c-info{padding:20px 24px;border-top:var(--glass-bd)}
+.zone-c-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.zone-c-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px}
+
+/* =============================================
+   PROJECT FOOTER
+============================================= */
+.proj-footer{position:relative;z-index:10;padding:48px 56px;border-top:var(--glass-bd);display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2)}
+.btn-back{display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border:var(--glass-bd);background:var(--glass-bg);backdrop-filter:var(--glass-blur);padding:14px 28px;border-radius:4px;transition:color .25s,border-color .25s,background .25s,transform .22s}
+.btn-back:hover{color:var(--cream);border-color:rgba(0,242,234,.35);background:rgba(0,242,234,.06);transform:translateX(-4px)}
+.btn-next{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--teal),#00c4be);color:#0A0F1E;padding:14px 28px;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:transform .22s,box-shadow .3s;font-family:'DM Sans',sans-serif}
+.btn-next:hover{transform:translateX(4px);box-shadow:0 14px 32px rgba(0,242,234,.22)}
+
+footer{position:relative;z-index:10;padding:34px 56px;border-top:var(--glass-bd);display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.25)}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:3px;color:rgba(240,236,226,.22)}
+.f-links{display:flex;gap:26px}
+.f-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.28);text-decoration:none;transition:color .22s}
+.f-links a:hover{color:var(--teal)}
+.f-copy{font-size:11px;color:rgba(240,236,226,.16)}
+
+@keyframes riseUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  nav.scrolled{padding:12px 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .proj-hero{padding:100px 24px 56px;min-height:auto}
+  .hero-deco,.hero-watermark{display:none}
+  .hero-kpi{gap:20px}
+  .proj-content,.media-section{padding-left:24px;padding-right:24px;padding-top:56px;padding-bottom:56px}
+  .content-grid{grid-template-columns:1fr}
+  .zone-a{grid-template-columns:1fr}
+  .zone-a-visual{border-right:none;border-bottom:var(--glass-bd)}
+  .zones-bc{grid-template-columns:1fr}
+  .zone-b{grid-template-columns:1fr}
+  .phone-mock-wrap{display:none}
+  .proj-footer{flex-direction:column;gap:16px;padding:36px 24px}
+  footer{flex-direction:column;gap:14px;text-align:center;padding:26px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div></div>
+<div class="grain"></div>
+
+<div class="scroll-indicator" id="scrollInd">
+  <div class="si-track"></div>
+  <div class="si-fill" id="siFill"></div>
+  <div class="si-label" id="siLabel">↓</div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a href="index.html" onclick="closeMob()">Accueil</a>
+  <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
+  <a href="parcours.html" onclick="closeMob()">Parcours</a>
+  <a href="contact.html" onclick="closeMob()">Contact</a>
+</div>
+
+<nav id="nav">
+  <a href="index.html" class="logo-block">
+    <span class="logo-name">arthur.</span>
+    <span class="logo-sub">D'une inspiration naît une vision</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    <li><a href="parcours.html">Parcours</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ==================== HERO PALM'FEST ==================== -->
+<section class="proj-hero">
+  <div class="hero-watermark">10 000</div>
+  <div class="hero-deco">
+    <span class="deco-tag">Stage Communication</span>
+    <span class="deco-tag">B2B · Mécénat</span>
+    <span class="deco-tag">La Palmyre · 2024</span>
+  </div>
+  <div class="proj-eyebrow">STAGE COMMUNICATION & STRATÉGIE B2B • 2024</div>
+  <h1 class="proj-title">
+    <span>PALM</span><span class="t-apos">'</span><br>
+    <span class="t-stroke">FE</span><span>ST</span>
+  </h1>
+  <p class="proj-accroche">"Convertir l'énergie d'un festival de 10 000 personnes en stratégie d'acquisition mécénat."</p>
+  <div class="hero-kpi">
+    <div class="kpi-item">
+      <span class="kpi-n">10K</span>
+      <span class="kpi-l">Festivaliers</span>
+    </div>
+    <div class="kpi-sep"></div>
+    <div class="kpi-item">
+      <span class="kpi-n">B2B</span>
+      <span class="kpi-l">Canal principal</span>
+    </div>
+    <div class="kpi-sep"></div>
+    <div class="kpi-item">
+      <span class="kpi-n">3M</span>
+      <span class="kpi-l">Stage complet</span>
+    </div>
+    <div class="kpi-sep"></div>
+    <div class="kpi-item">
+      <span class="kpi-n">↑↑</span>
+      <span class="kpi-l">Best Engagement</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BULLES ==================== -->
+<section class="proj-content">
+  <div class="s-head">
+    <span class="s-num">01 ///</span>
+    <h2 class="s-title">La Mission</h2>
+    <div class="s-rule"></div>
+  </div>
+  <div class="content-grid">
+
+    <div class="glass-card bubble reveal">
+      <div class="bubble-title">Un ancrage territorial fort</div>
+      <p class="bubble-text">Le Palm'Fest est un festival associatif rassemblant près de 10 000 festivaliers au Point Sublime de La Palmyre. Mon défi en tant que chargé de communication : concevoir et activer une stratégie digitale B2B pour convertir de nouveaux acteurs économiques locaux en mécènes, essentiels à l'équilibre budgétaire de l'événement.</p>
+    </div>
+
+    <div class="glass-card bubble reveal">
+      <div class="bubble-title">Stratégie et création de contenus</div>
+      <p class="bubble-text">Après un diagnostic stratégique et la définition d'objectifs SMART, j'ai ciblé LinkedIn comme canal principal d'acquisition. J'ai piloté un calendrier éditorial complet, de la conception des messages à la création des visuels (Photoshop) et au montage des vidéos (CapCut), tout en assurant une stricte cohérence avec la charte graphique du festival.</p>
+    </div>
+
+    <div class="glass-card bubble reveal" style="grid-column:1/-1">
+      <div class="bubble-title">Analyse et engagement</div>
+      <p class="bubble-text">L'analyse des KPIs a permis d'optimiser la stratégie en continu. L'introduction de formats innovants, comme le carrousel PDF éducatif sur les coulisses du festival, a généré d'excellents taux de clics et d'engagement. Ce stage m'a permis d'ancrer une présence professionnelle solide pour le festival et de renforcer ma capacité à travailler en totale autonomie.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== ZONES MÉDIAS ==================== -->
+<section class="media-section">
+  <div class="s-head">
+    <span class="s-num">02 ///</span>
+    <h2 class="s-title">Créations & Médias</h2>
+    <div class="s-rule"></div>
+  </div>
+
+  <!-- ZONE A — CARROUSEL PDF -->
+  <div class="zone-a reveal">
+    <div class="zone-a-visual">
+      <div class="perf-badge">★ Best Engagement Rate</div>
+      <div class="pdf-mock">
+        <div class="pdf-header">
+          <div class="pdf-h-dot"></div>
+          <span class="pdf-title">Que cache vraiment un festival ?</span>
+        </div>
+        <div class="pdf-body">
+          <div class="pdf-line accent"></div>
+          <div class="pdf-line w90"></div>
+          <div class="pdf-line w70"></div>
+          <div class="pdf-line w55"></div>
+          <div class="pdf-line accent"></div>
+          <div class="pdf-line w90"></div>
+          <div class="pdf-line w70"></div>
+          <div class="pdf-line w55"></div>
+        </div>
+        <div class="pdf-footer"><span>Palm'Fest · LinkedIn</span></div>
+      </div>
+      <!-- Pour intégrer le vrai carrousel : remplace .pdf-mock par <img src="carrousel-palmfest.jpg" style="max-width:80%;border-radius:8px"> -->
+    </div>
+    <div class="zone-a-info">
+      <div class="zone-a-tag">Format Gagnant · LinkedIn</div>
+      <div class="zone-a-title">Que cache vraiment un festival ?</div>
+      <p class="zone-a-desc">Carrousel PDF éducatif sur les coulisses du festival — format innovant qui a généré d'excellents taux de clics et d'engagement. Conçu de A à Z : copywriting, design Photoshop, et déploiement LinkedIn.</p>
+    </div>
+  </div>
+
+  <!-- ZONES B + C -->
+  <div class="zones-bc">
+
+    <!-- ZONE B — VIDÉO / TÉLÉPHONE -->
+    <div class="zone-b reveal">
+      <div class="phone-mock-wrap">
+        <div class="phone-mock">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="ph-line accent"></div>
+            <div class="ph-line w80"></div>
+            <div class="ph-line w55"></div>
+            <div class="ph-line w40"></div>
+            <div class="ph-line accent"></div>
+            <div class="ph-line w90"></div>
+            <div class="ph-line w80"></div>
+            <div class="ph-line w55"></div>
+            <div class="ph-line w40"></div>
+          </div>
+          <!-- Pour insérer une vraie vidéo : <video src="video-palmfest.mp4" autoplay muted loop style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"> -->
+        </div>
+      </div>
+      <div class="zone-b-info">
+        <div class="zone-b-tag">Création Vidéo · CapCut</div>
+        <div class="zone-b-title">Vidéo Promotionnelle</div>
+        <p class="zone-b-desc">Montage vidéo promotionnel réalisé sur CapCut — format Reels/Stories pour LinkedIn et Instagram, dans le respect de la charte graphique du festival.</p>
+      </div>
+    </div>
+
+    <!-- ZONE C — GALERIE FESTIVAL -->
+    <div class="zone-c reveal">
+      <div class="zone-c-photos">
+        <div class="gal-ph">
+          <!-- <img src="palmfest-aerien.jpg" alt="Vue aérienne Palm'Fest"> -->
+          <div class="gal-emoji">🌊</div>
+          <div class="gal-lbl">Vue mer · La Palmyre</div>
+        </div>
+        <div class="gal-ph">
+          <!-- <img src="palmfest-foret.jpg" alt="Site festival forêt"> -->
+          <div class="gal-emoji">🌲</div>
+          <div class="gal-lbl">Site forêt · Point Sublime</div>
+        </div>
+      </div>
+      <div class="zone-c-info">
+        <div class="zone-c-tag">L'Envergure · 10 000 festivaliers</div>
+        <div class="zone-c-title">Le Point Sublime · La Palmyre</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER PROJET -->
+<div class="proj-footer">
+  <a href="portfolio.html" class="btn-back">← Retour au Portfolio</a>
+  <a href="parcours.html" class="btn-next">Découvrir mon Parcours →</a>
+</div>
+
+<footer>
+  <div class="f-logo">Arthur Viaud · 2026</div>
+  <div class="f-links">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn ↗</a>
+  </div>
+  <div class="f-copy">D'une inspiration naît une vision</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.glass-card,.zone-a,.zone-b,.zone-c,.mock-card,.gal-ph').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px'});
+});
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>60)});
+const siFill=document.getElementById('siFill'),siLabel=document.getElementById('siLabel');
+function upd(){
+  const p=Math.min(100,(scrollY/(document.documentElement.scrollHeight-innerHeight))*100);
+  siFill.style.setProperty('--pct',p+'%');
+  siFill.style.borderRadius=`${50}% ${50}% ${30+p*.2}% ${70-p*.2}% / ${40+Math.sin(p/8)*12}% ${38+Math.cos(p/6)*10}% ${60-Math.sin(p/8)*10}% ${50}%`;
+  siLabel.textContent=p<5?'↓':Math.round(p)+'%';
+}
+window.addEventListener('scroll',upd);
+document.getElementById('scrollInd').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+function toggleMob(){document.getElementById('mobileMenu').classList.toggle('open')}
+function closeMob(){document.getElementById('mobileMenu').classList.remove('open')}
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80)});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

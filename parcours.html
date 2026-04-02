@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parcours Académique — Arthur Viaud</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0F1E;
+  --teal:#00F2EA;
+  --mauve:#8A2BE2;
+  --cream:#F0ECE2;
+  --muted:rgba(240,236,226,0.52);
+  --glass-bg:rgba(255,255,255,0.03);
+  --glass-bd:1px solid rgba(255,255,255,0.10);
+  --glass-blur:blur(12px);
+  --radius:12px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+.cursor{position:fixed;width:10px;height:10px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .15s,height .15s}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(0,242,234,.32);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+/* MESH */
+.mesh{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:.12;animation:meshFloat linear infinite}
+.mb1{width:560px;height:560px;background:var(--teal);top:-100px;left:-80px;animation-duration:30s}
+.mb2{width:500px;height:500px;background:var(--mauve);bottom:-60px;right:-80px;animation-duration:24s;animation-delay:-11s}
+.mb3{width:320px;height:320px;background:var(--teal);top:55%;left:55%;animation-duration:20s;animation-delay:-7s;opacity:.07}
+@keyframes meshFloat{
+  0%{transform:translate(0,0) scale(1) rotate(0deg)}
+  25%{transform:translate(50px,-70px) scale(1.07) rotate(90deg)}
+  50%{transform:translate(-40px,60px) scale(.93) rotate(180deg)}
+  75%{transform:translate(65px,30px) scale(1.10) rotate(270deg)}
+  100%{transform:translate(0,0) scale(1) rotate(360deg)}
+}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px}
+
+/* =============================================
+   NAVBAR
+============================================= */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;background:rgba(10,15,30,.45);backdrop-filter:var(--glass-blur) saturate(1.4);border-bottom:var(--glass-bd);transition:padding .3s}
+nav.scrolled{padding:13px 56px}
+.logo-block{display:flex;flex-direction:column;gap:2px;text-decoration:none}
+.logo-name{font-family:'DM Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-1px;background:linear-gradient(105deg,var(--teal),#a78bff,var(--teal));background-size:220%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoShine 5s ease infinite}
+@keyframes logoShine{0%,100%{background-position:0%}50%{background-position:100%}}
+.logo-sub{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,236,226,.25)}
+.nav-links{display:flex;gap:36px;list-style:none;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;transition:color .25s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--teal);transition:width .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--cream)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.active::after{background:linear-gradient(90deg,var(--teal),var(--mauve))}
+.nav-cta{background:var(--glass-bg);border:var(--glass-bd);backdrop-filter:var(--glass-blur);color:var(--teal)!important;padding:9px 22px;border-radius:4px;font-size:11px!important;letter-spacing:1.5px;transition:background .25s,border-color .25s!important}
+.nav-cta:hover{background:rgba(0,242,234,.12)!important;border-color:rgba(0,242,234,.4)!important}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--cream)}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(10,15,30,.97);backdrop-filter:var(--glass-blur);z-index:490;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:3px;color:var(--cream);text-decoration:none;transition:color .25s}
+.mobile-menu a:hover{color:var(--teal)}
+.mob-close{position:absolute;top:28px;right:28px;background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;opacity:.6}
+
+/* SCROLL INDICATOR */
+.scroll-indicator{position:fixed;bottom:32px;right:32px;z-index:400;width:52px;height:52px;cursor:pointer}
+.si-track{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.1)}
+.si-fill{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--teal) 0%,var(--mauve) var(--pct,0%),transparent var(--pct,0%));transition:border-radius .6s ease;opacity:.85}
+.si-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.glass-card{background:var(--glass-bg);border:var(--glass-bd);backdrop-filter:var(--glass-blur);border-radius:var(--radius)}
+
+/* =============================================
+   PAGE HERO
+============================================= */
+.page-hero{
+  position:relative;z-index:10;
+  min-height:65vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:130px 56px 64px;border-bottom:var(--glass-bd);overflow:hidden;
+}
+/* Watermark pays en fond */
+.hero-bg-text{
+  position:absolute;right:-30px;bottom:-40px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(130px,20vw,260px);
+  color:rgba(255,255,255,.022);letter-spacing:6px;
+  pointer-events:none;user-select:none;line-height:1;
+}
+.page-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:18px;opacity:0;animation:riseUp .7s ease forwards .2s;display:flex;align-items:center;gap:12px}
+.page-eyebrow::before{content:'';width:32px;height:1px;background:var(--teal)}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,9vw,120px);line-height:.87;letter-spacing:3px;opacity:0;animation:riseUp .85s ease forwards .35s}
+.page-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
+.page-title .t-teal{color:var(--teal)}
+.page-accroche{font-size:clamp(15px,1.6vw,20px);font-weight:300;font-style:italic;color:var(--muted);max-width:600px;line-height:1.65;margin-top:24px;opacity:0;animation:riseUp .85s ease forwards .52s}
+/* Flags deco */
+.hero-flags{position:absolute;top:130px;right:56px;display:flex;flex-direction:column;gap:10px;opacity:0;animation:riseUp .9s ease forwards .65s}
+.flag-item{display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.35);background:var(--glass-bg);border:var(--glass-bd);backdrop-filter:var(--glass-blur);padding:6px 14px;border-radius:100px}
+.flag-emoji{font-size:14px}
+
+/* =============================================
+   LAYOUT PRINCIPAL
+============================================= */
+.parcours-wrap{
+  position:relative;z-index:10;
+  padding:80px 56px;
+  max-width:1400px;margin:0 auto;
+}
+
+/* =============================================
+   TIMELINE VERTICALE
+============================================= */
+.timeline{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 60px 1fr;
+  gap:0;
+}
+/* Ligne centrale */
+.timeline::before{
+  content:'';
+  position:absolute;
+  left:50%;transform:translateX(-50%);
+  top:0;bottom:0;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(0,242,234,.25) 10%,rgba(138,43,226,.25) 90%,transparent);
+}
+
+/* BLOC FRANCE (gauche) */
+.tl-block-left{
+  padding:0 48px 80px 0;
+}
+.tl-block-right{
+  padding:80px 0 80px 48px;
+}
+
+/* Nœud timeline central */
+.tl-node-col{
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:6px;gap:0;z-index:2;
+}
+.tl-node{
+  width:18px;height:18px;border-radius:50%;
+  background:linear-gradient(135deg,var(--teal),var(--mauve));
+  box-shadow:0 0 0 4px rgba(0,242,234,.12),0 0 20px rgba(0,242,234,.2);
+  flex-shrink:0;
+}
+.tl-node-right{
+  margin-top:80px;
+}
+
+/* Étiquette année */
+.tl-year{
+  font-family:'Bebas Neue',sans-serif;font-size:11px;
+  letter-spacing:2px;color:var(--teal);
+  writing-mode:vertical-rl;margin-top:10px;opacity:.5;
+}
+
+/* ENTÊTE D'ÉTAPE */
+.step-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.step-tag::before{content:'';width:18px;height:1px;background:var(--teal)}
+.step-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.5vw,44px);letter-spacing:2px;line-height:1;margin-bottom:8px}
+.step-sub{font-size:14px;font-weight:300;color:var(--muted);margin-bottom:28px;line-height:1.5}
+
+/* =============================================
+   ACCORDÉON UEs
+============================================= */
+.accordion{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.acc-item{
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);border-radius:8px;
+  overflow:hidden;transition:border-color .3s;
+}
+.acc-item.open{border-color:rgba(0,242,234,.28)}
+.acc-trigger{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;background:none;border:none;cursor:pointer;
+  text-align:left;gap:12px;
+  transition:background .25s;
+}
+.acc-trigger:hover{background:rgba(255,255,255,.03)}
+.acc-label{font-size:12px;font-weight:500;color:var(--cream);letter-spacing:.5px}
+.acc-tag{
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--teal);background:rgba(0,242,234,.08);
+  border:1px solid rgba(0,242,234,.15);
+  padding:3px 10px;border-radius:100px;white-space:nowrap;
+}
+.acc-icon{
+  width:20px;height:20px;border-radius:50%;
+  border:var(--glass-bd);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:var(--teal);flex-shrink:0;
+  transition:transform .35s,background .25s;
+}
+.acc-item.open .acc-icon{transform:rotate(45deg);background:rgba(0,242,234,.1)}
+.acc-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .4s;
+  padding:0 20px;
+}
+.acc-item.open .acc-body{max-height:300px;padding:0 20px 18px}
+.acc-content{font-size:14px;font-weight:300;line-height:1.8;color:rgba(240,236,226,.65);border-top:var(--glass-bd);padding-top:14px}
+
+/* =============================================
+   PROGRESS BARS CANADA
+============================================= */
+.grades-block{margin-top:4px;display:flex;flex-direction:column;gap:22px}
+.grade-row{}
+.grade-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.grade-label{font-size:13px;font-weight:400;color:var(--cream)}
+.grade-score{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;
+  background:linear-gradient(90deg,var(--teal),var(--mauve));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.grade-bar-wrap{
+  height:5px;border-radius:100px;
+  background:rgba(255,255,255,.07);overflow:hidden;
+}
+.grade-bar{
+  height:100%;border-radius:100px;
+  background:linear-gradient(90deg,var(--teal),var(--mauve));
+  width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);
+}
+/* mention */
+.grade-mention{
+  font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;
+  color:rgba(0,242,234,.55);margin-top:5px;
+}
+
+/* CANADA CARD */
+.canada-card{
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
+  padding:32px 28px;margin-bottom:28px;
+  border-color:rgba(138,43,226,.25);
+}
+.canada-card .step-tag{color:var(--mauve)}
+.canada-card .step-tag::before{background:var(--mauve)}
+
+/* Résultats S5 label */
+.s5-label{
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--mauve);margin-bottom:20px;
+  display:flex;align-items:center;gap:8px;
+}
+.s5-label::before{content:'';width:18px;height:1px;background:var(--mauve)}
+
+/* =============================================
+   SECTION TÉLÉCHARGEMENT CV
+============================================= */
+.cv-section{
+  position:relative;z-index:10;
+  padding:0 56px 100px;
+}
+.cv-block{
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
+  padding:60px 48px;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:24px;
+  position:relative;overflow:hidden;
+  border-color:rgba(0,242,234,.15);
+}
+.cv-block::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(0,242,234,.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cv-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(0,242,234,.07);border:var(--glass-bd);
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  border-color:rgba(0,242,234,.2);position:relative;z-index:1;
+}
+.cv-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;position:relative;z-index:1}
+.cv-sub{font-size:15px;font-weight:300;color:var(--muted);max-width:480px;line-height:1.6;position:relative;z-index:1}
+.btn-cv{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,var(--teal),#00c4be);
+  color:#0A0F1E;padding:18px 42px;font-size:13px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;text-decoration:none;
+  border-radius:4px;transition:transform .22s,box-shadow .3s;
+  position:relative;z-index:1;font-family:'DM Sans',sans-serif;
+}
+.btn-cv:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(0,242,234,.28)}
+.cv-formats{font-size:11px;letter-spacing:1.5px;color:rgba(240,236,226,.3);text-transform:uppercase;position:relative;z-index:1}
+
+/* =============================================
+   PAGE FOOTER NAV
+============================================= */
+.page-footer-nav{
+  position:relative;z-index:10;
+  padding:48px 56px;border-top:var(--glass-bd);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.2);
+}
+.btn-back{display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border:var(--glass-bd);background:var(--glass-bg);backdrop-filter:var(--glass-blur);padding:14px 28px;border-radius:4px;transition:color .25s,border-color .25s,background .25s,transform .22s}
+.btn-back:hover{color:var(--cream);border-color:rgba(0,242,234,.35);background:rgba(0,242,234,.06);transform:translateX(-4px)}
+.btn-next{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--teal),#00c4be);color:#0A0F1E;padding:14px 28px;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:transform .22s,box-shadow .3s;font-family:'DM Sans',sans-serif}
+.btn-next:hover{transform:translateX(4px);box-shadow:0 14px 32px rgba(0,242,234,.22)}
+
+footer{position:relative;z-index:10;padding:34px 56px;border-top:var(--glass-bd);display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.25)}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:3px;color:rgba(240,236,226,.22)}
+.f-links{display:flex;gap:26px}
+.f-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.28);text-decoration:none;transition:color .22s}
+.f-links a:hover{color:var(--teal)}
+.f-copy{font-size:11px;color:rgba(240,236,226,.16)}
+
+@keyframes riseUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media(max-width:960px){
+  nav{padding:16px 24px}
+  nav.scrolled{padding:12px 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .page-hero{padding:100px 24px 52px;min-height:auto}
+  .hero-flags,.hero-bg-text{display:none}
+  .parcours-wrap{padding:52px 24px}
+  /* Timeline passe en colonne sur mobile */
+  .timeline{
+    grid-template-columns:1fr;
+  }
+  .timeline::before{left:20px;transform:none}
+  .tl-block-left{padding:0 0 48px 44px}
+  .tl-block-right{padding:0 0 48px 44px}
+  .tl-node-col{
+    position:absolute;left:11px;
+    flex-direction:row;align-items:flex-start;
+    padding-top:6px;
+  }
+  .tl-node-right{margin-top:0}
+  .tl-year{writing-mode:horizontal-tb;margin-top:0;margin-left:8px;font-size:10px}
+  .tl-france-wrap,.tl-canada-wrap{position:relative}
+  .cv-section{padding-left:24px;padding-right:24px;padding-bottom:64px}
+  .cv-block{padding:40px 24px}
+  .btn-cv{padding:15px 28px}
+  .page-footer-nav{flex-direction:column;gap:16px;padding:36px 24px}
+  footer{flex-direction:column;gap:14px;text-align:center;padding:26px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div></div>
+<div class="grain"></div>
+
+<div class="scroll-indicator" id="scrollInd">
+  <div class="si-track"></div>
+  <div class="si-fill" id="siFill"></div>
+  <div class="si-label" id="siLabel">↓</div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a href="index.html" onclick="closeMob()">Accueil</a>
+  <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
+  <a href="parcours.html" onclick="closeMob()">Parcours</a>
+  <a href="contact.html" onclick="closeMob()">Contact</a>
+</div>
+
+<nav id="nav">
+  <a href="index.html" class="logo-block">
+    <span class="logo-name">arthur.</span>
+    <span class="logo-sub">D'une inspiration naît une vision</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="parcours.html" class="active">Parcours</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ==================== PAGE HERO ==================== -->
+<section class="page-hero">
+  <div class="hero-bg-text">ACADÉMIQUE</div>
+  <div class="hero-flags">
+    <div class="flag-item"><span class="flag-emoji">🇫🇷</span>IUT de Poitiers · 2023–2025</div>
+    <div class="flag-item"><span class="flag-emoji">🇨🇦</span>UQAC · Chicoutimi · 2025–2026</div>
+  </div>
+  <div class="page-eyebrow">DOUBLE DIPLOMATION • FRANCE — CANADA</div>
+  <h1 class="page-title">
+    <span>PARCOURS</span><br>
+    <span class="t-stroke">ACA</span><span class="t-teal">DÉMIQUE</span>
+  </h1>
+  <p class="page-accroche">"Une vision internationale pour une communication à 360°."</p>
+</section>
+
+<!-- ==================== TIMELINE ==================== -->
+<div class="parcours-wrap">
+  <div class="timeline">
+
+    <!-- ========== FRANCE (gauche) ========== -->
+    <div class="tl-france-wrap">
+      <div class="tl-block-left reveal">
+
+        <div class="step-tag">🇫🇷 Le Socle Stratégique · 2023–2025</div>
+        <div class="step-title">BUT Techniques de<br>Commercialisation</div>
+        <div class="step-sub">IUT de Poitiers · Spécialisation en Marketing Digital, E-business et Entrepreneuriat.</div>
+
+        <!-- ACCORDÉON UEs -->
+        <div class="accordion" id="accordion">
+
+          <div class="acc-item" data-idx="0">
+            <button class="acc-trigger" onclick="toggleAcc(0)">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="acc-tag">UE1</span>
+                <span class="acc-label">Marketing</span>
+              </div>
+              <div class="acc-icon">+</div>
+            </button>
+            <div class="acc-body">
+              <div class="acc-content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. Analyse de marché, segmentation, positionnement stratégique et mix marketing. Développement de plans marketing opérationnels adaptés aux enjeux digitaux contemporains.
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" data-idx="1">
+            <button class="acc-trigger" onclick="toggleAcc(1)">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="acc-tag">UE2</span>
+                <span class="acc-label">Vente</span>
+              </div>
+              <div class="acc-icon">+</div>
+            </button>
+            <div class="acc-body">
+              <div class="acc-content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Techniques de négociation commerciale, gestion de la relation client et développement du portefeuille. Construction d'argumentaires de vente adaptés aux différents profils d'acheteurs. Animation et pilotage d'une force de vente en environnement multicanal.
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" data-idx="2">
+            <button class="acc-trigger" onclick="toggleAcc(2)">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="acc-tag">UE3</span>
+                <span class="acc-label">Communication</span>
+              </div>
+              <div class="acc-icon">+</div>
+            </button>
+            <div class="acc-body">
+              <div class="acc-content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Stratégie de communication globale, création de contenus digitaux et gestion des réseaux sociaux. Conception de campagnes multicanales alliant créativité et performance. Community management, storytelling de marque et production de supports visuels et audiovisuels.
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" data-idx="3">
+            <button class="acc-trigger" onclick="toggleAcc(3)">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="acc-tag">UE4</span>
+                <span class="acc-label">E-business</span>
+              </div>
+              <div class="acc-icon">+</div>
+            </button>
+            <div class="acc-body">
+              <div class="acc-content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Conception et optimisation de parcours d'achat en ligne, stratégies SEO/SEA et analyse de la performance digitale. Maîtrise des outils d'analytics, gestion de plateformes e-commerce et développement de stratégies d'acquisition et de fidélisation client en environnement numérique.
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" data-idx="4">
+            <button class="acc-trigger" onclick="toggleAcc(4)">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="acc-tag">UE5</span>
+                <span class="acc-label">Entrepreneuriat</span>
+              </div>
+              <div class="acc-icon">+</div>
+            </button>
+            <div class="acc-body">
+              <div class="acc-content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Idéation, validation de marché et structuration d'un projet entrepreneurial. Élaboration de business plans, étude de faisabilité financière et développement du leadership. Gestion de projet en mode agile, prise de décision en incertitude et culture de l'innovation.
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /accordion -->
+
+      </div>
+    </div>
+
+    <!-- ========== NŒUDS CENTRAUX ========== -->
+    <div class="tl-node-col">
+      <div class="tl-node"></div>
+      <div class="tl-year">2023 – 2025</div>
+    </div>
+
+    <!-- ========== CANADA (droite) ========== -->
+    <div class="tl-canada-wrap">
+      <div class="tl-block-right reveal">
+
+        <div class="canada-card glass-card">
+          <div class="step-tag">🇨🇦 L'Ouverture Internationale · 2025–2026</div>
+          <div class="step-title">Baccalauréat en<br>Administration</div>
+          <div class="step-sub">UQAC — Université du Québec à Chicoutimi · Une immersion académique nord-américaine pour développer mon adaptabilité interculturelle et approfondir ma vision business globale.</div>
+        </div>
+
+        <!-- PROGRESS BARS -->
+        <div class="s5-label">Résultats du Semestre 5</div>
+        <div class="grades-block">
+
+          <div class="grade-row">
+            <div class="grade-header">
+              <span class="grade-label">Ressources Humaines</span>
+              <span class="grade-score" data-score="82.47">82.47</span>
+            </div>
+            <div class="grade-bar-wrap"><div class="grade-bar" data-target="82.47"></div></div>
+            <div class="grade-mention">Très bien</div>
+          </div>
+
+          <div class="grade-row">
+            <div class="grade-header">
+              <span class="grade-label">Marketing Numérique</span>
+              <span class="grade-score" data-score="81.17">81.17</span>
+            </div>
+            <div class="grade-bar-wrap"><div class="grade-bar" data-target="81.17"></div></div>
+            <div class="grade-mention">Très bien</div>
+          </div>
+
+          <div class="grade-row">
+            <div class="grade-header">
+              <span class="grade-label">Recherche Marketing</span>
+              <span class="grade-score" data-score="80.19">80.19</span>
+            </div>
+            <div class="grade-bar-wrap"><div class="grade-bar" data-target="80.19"></div></div>
+            <div class="grade-mention">Très bien</div>
+          </div>
+
+          <div class="grade-row">
+            <div class="grade-header">
+              <span class="grade-label">Gestion Financière</span>
+              <span class="grade-score" data-score="77.30">77.30</span>
+            </div>
+            <div class="grade-bar-wrap"><div class="grade-bar" data-target="77.30"></div></div>
+            <div class="grade-mention">Bien</div>
+          </div>
+
+        </div><!-- /grades -->
+
+        <!-- Nœud canada -->
+        <div style="display:flex;align-items:center;gap:12px;margin-top:40px">
+          <div style="width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--mauve),var(--teal));box-shadow:0 0 14px rgba(138,43,226,.4)"></div>
+          <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.35)">2026 — Retour en France</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Nœud Canada (colonne centrale bas) -->
+    <div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;padding-top:86px">
+      <div class="tl-node" style="background:linear-gradient(135deg,var(--mauve),#6a1fd1);box-shadow:0 0 0 4px rgba(138,43,226,.12),0 0 20px rgba(138,43,226,.2)"></div>
+      <div class="tl-year" style="color:var(--mauve)">2025 – 2026</div>
+    </div>
+    <div></div>
+
+  </div><!-- /timeline -->
+</div><!-- /parcours-wrap -->
+
+<!-- ==================== TÉLÉCHARGEMENT CV ==================== -->
+<section class="cv-section">
+  <div class="cv-block reveal">
+    <div class="cv-icon">📄</div>
+    <h2 class="cv-title">Télécharger mon CV</h2>
+    <p class="cv-sub">Retrouvez le détail complet de mon parcours, mes expériences professionnelles et mes compétences dans mon CV au format PDF.</p>
+    <a href="cv-arthur-viaud.pdf" class="btn-cv" download>
+      <span>↓</span> Télécharger mon CV détaillé (PDF)
+    </a>
+    <span class="cv-formats">Format PDF · Mis à jour Avril 2026</span>
+  </div>
+</section>
+
+<!-- FOOTER NAVIGATION -->
+<div class="page-footer-nav">
+  <a href="portfolio.html" class="btn-back">← Découvrir mes Projets</a>
+  <a href="contact.html" class="btn-next">Me Contacter →</a>
+</div>
+
+<footer>
+  <div class="f-logo">Arthur Viaud · 2026</div>
+  <div class="f-links">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn ↗</a>
+  </div>
+  <div class="f-copy">D'une inspiration naît une vision</div>
+</footer>
+
+<script>
+/* --- Cursor --- */
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.acc-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px'});
+});
+
+/* --- Nav shrink --- */
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>60)});
+
+/* --- Scroll indicator --- */
+const siFill=document.getElementById('siFill'),siLabel=document.getElementById('siLabel');
+function upd(){
+  const p=Math.min(100,(scrollY/(document.documentElement.scrollHeight-innerHeight))*100);
+  siFill.style.setProperty('--pct',p+'%');
+  siFill.style.borderRadius=`${50}% ${50}% ${30+p*.2}% ${70-p*.2}% / ${40+Math.sin(p/8)*12}% ${38+Math.cos(p/6)*10}% ${60-Math.sin(p/8)*10}% ${50}%`;
+  siLabel.textContent=p<5?'↓':Math.round(p)+'%';
+}
+window.addEventListener('scroll',upd);
+document.getElementById('scrollInd').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* --- Mobile menu --- */
+function toggleMob(){document.getElementById('mobileMenu').classList.toggle('open')}
+function closeMob(){document.getElementById('mobileMenu').classList.remove('open')}
+
+/* --- Accordéon --- */
+function toggleAcc(idx){
+  const items=document.querySelectorAll('.acc-item');
+  items.forEach((item,i)=>{
+    if(i===idx){
+      item.classList.toggle('open');
+    } else {
+      item.classList.remove('open');
+    }
+  });
+}
+
+/* --- Progress bars (déclenchées au scroll) --- */
+const barsAnimated={};
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const bar=entry.target;
+      const target=parseFloat(bar.dataset.target);
+      if(!barsAnimated[target]){
+        barsAnimated[target]=true;
+        setTimeout(()=>{bar.style.width=target+'%';},200);
+      }
+    }
+  });
+},{threshold:.2});
+document.querySelectorAll('.grade-bar').forEach(b=>barObs.observe(b));
+
+/* --- Scroll reveal --- */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*100)});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

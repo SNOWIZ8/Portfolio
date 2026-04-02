@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arthur Viaud — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   VARIABLES & RESET
+============================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:       #0A0F1E;
+  --teal:     #00F2EA;
+  --mauve:    #8A2BE2;
+  --cream:    #F0ECE2;
+  --muted:    rgba(240,236,226,0.52);
+  --glass-bg: rgba(255,255,255,0.03);
+  --glass-bd: 1px solid rgba(255,255,255,0.10);
+  --glass-blur: blur(12px);
+  --radius:   12px;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--cream);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* =============================================
+   CURSOR
+============================================= */
+.cursor{
+  position:fixed;width:10px;height:10px;
+  background:var(--teal);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+  transition:width .15s,height .15s;
+}
+.cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(0,242,234,0.32);
+  border-radius:50%;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+}
+
+/* =============================================
+   MESH GRADIENT BACKGROUND
+============================================= */
+.mesh{
+  position:fixed;inset:0;z-index:0;
+  overflow:hidden;pointer-events:none;
+}
+.mesh-blob{
+  position:absolute;border-radius:50%;
+  filter:blur(100px);opacity:.15;
+  animation:meshFloat linear infinite;
+}
+.mb1{width:640px;height:640px;background:var(--teal);top:-160px;left:-120px;animation-duration:28s}
+.mb2{width:540px;height:540px;background:var(--mauve);top:40%;right:-140px;animation-duration:22s;animation-delay:-10s}
+.mb3{width:440px;height:440px;background:var(--teal);bottom:-100px;left:30%;animation-duration:35s;animation-delay:-17s;opacity:.10}
+.mb4{width:320px;height:320px;background:var(--mauve);top:20%;left:45%;animation-duration:18s;animation-delay:-6s;opacity:.08}
+@keyframes meshFloat{
+  0%  {transform:translate(0,0) scale(1) rotate(0deg)}
+  25% {transform:translate(50px,-70px) scale(1.07) rotate(90deg)}
+  50% {transform:translate(-40px,60px) scale(.93) rotate(180deg)}
+  75% {transform:translate(65px,30px) scale(1.10) rotate(270deg)}
+  100%{transform:translate(0,0) scale(1) rotate(360deg)}
+}
+
+/* GRAIN */
+.grain{
+  position:fixed;inset:0;z-index:1;
+  pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px;
+}
+
+/* =============================================
+   NAVBAR
+============================================= */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 56px;
+  background:rgba(10,15,30,.45);
+  backdrop-filter:var(--glass-blur) saturate(1.4);
+  border-bottom:var(--glass-bd);
+  transition:padding .3s;
+}
+nav.scrolled{padding:13px 56px}
+.logo-block{display:flex;flex-direction:column;gap:2px;text-decoration:none}
+.logo-name{
+  font-family:'DM Sans',sans-serif;font-size:22px;
+  font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(105deg,var(--teal),#a78bff,var(--teal));
+  background-size:220%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:logoShine 5s ease infinite;
+}
+@keyframes logoShine{0%,100%{background-position:0%}50%{background-position:100%}}
+.logo-sub{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,236,226,.25)}
+.nav-links{display:flex;gap:36px;list-style:none;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;
+  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  transition:color .25s;position:relative;padding-bottom:2px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;
+  width:0;height:1px;background:var(--teal);transition:width .3s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--cream)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.active::after{background:linear-gradient(90deg,var(--teal),var(--mauve))}
+.nav-cta{
+  background:var(--glass-bg);
+  border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);
+  color:var(--teal)!important;
+  padding:9px 22px;border-radius:4px;
+  font-size:11px!important;letter-spacing:1.5px;
+  transition:background .25s,border-color .25s!important;
+}
+.nav-cta:hover{
+  background:rgba(0,242,234,.12)!important;
+  border-color:rgba(0,242,234,.4)!important;
+}
+.nav-cta::after{display:none!important}
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--cream);transition:.3s}
+.mobile-menu{
+  display:none;position:fixed;inset:0;
+  background:rgba(10,15,30,.97);backdrop-filter:var(--glass-blur);
+  z-index:490;flex-direction:column;align-items:center;justify-content:center;gap:40px;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  font-family:'Bebas Neue',sans-serif;font-size:56px;
+  letter-spacing:3px;color:var(--cream);text-decoration:none;transition:color .25s;
+}
+.mobile-menu a:hover{color:var(--teal)}
+.mob-close{position:absolute;top:28px;right:28px;background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;opacity:.6}
+
+/* =============================================
+   SCROLL INDICATOR (morphing circle)
+============================================= */
+.scroll-indicator{
+  position:fixed;bottom:32px;right:32px;z-index:400;
+  width:52px;height:52px;cursor:pointer;
+}
+.si-track{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(255,255,255,.1);
+}
+.si-fill{
+  position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(var(--teal) 0%, var(--mauve) var(--pct,0%), transparent var(--pct,0%));
+  transition:border-radius .6s ease;
+  opacity:.85;
+}
+.si-label{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+}
+
+/* =============================================
+   SCROLL REVEAL
+============================================= */
+.reveal{
+  opacity:0;transform:translateY(32px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* =============================================
+   HERO
+============================================= */
+.hero{
+  position:relative;z-index:10;
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:110px 56px 70px;
+}
+.hero-wrap{
+  max-width:1280px;width:100%;margin:0 auto;
+  display:grid;grid-template-columns:1fr 290px;
+  gap:72px;align-items:center;
+}
+.h-eyebrow{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:28px;opacity:0;
+  animation:riseUp .7s ease forwards .2s;
+}
+.e-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--teal);animation:pulseDot 2s ease infinite;
+}
+@keyframes pulseDot{
+  0%,100%{box-shadow:0 0 0 0 rgba(0,242,234,.55)}
+  50%{box-shadow:0 0 0 8px rgba(0,242,234,0)}
+}
+.e-txt{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal)}
+.hero-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(84px,12vw,152px);
+  line-height:.87;letter-spacing:2px;
+  opacity:0;animation:riseUp .85s ease forwards .38s;
+}
+.hn-solid{color:var(--cream)}
+.hn-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
+.hn-teal{color:var(--teal)}
+.hero-tagline{
+  font-size:clamp(15px,1.6vw,19px);
+  font-weight:300;font-style:italic;
+  color:var(--muted);line-height:1.7;
+  max-width:520px;margin-top:24px;
+  opacity:0;animation:riseUp .85s ease forwards .56s;
+}
+.hero-tagline strong{font-style:normal;font-weight:500;color:var(--cream)}
+.hero-btns{
+  margin-top:42px;display:flex;
+  align-items:center;gap:20px;flex-wrap:wrap;
+  opacity:0;animation:riseUp .85s ease forwards .74s;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:9px;
+  background:linear-gradient(135deg,var(--teal),#00c4be);
+  color:#0A0F1E;padding:14px 32px;font-size:12px;
+  font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;border-radius:4px;border:none;
+  transition:transform .22s,box-shadow .3s;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,242,234,.25)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--muted);font-size:12px;letter-spacing:1.5px;
+  text-transform:uppercase;text-decoration:none;
+  border-bottom:1px solid rgba(240,236,226,.18);
+  padding-bottom:3px;transition:color .22s,border-color .22s;
+  font-family:'DM Sans',sans-serif;
+}
+.btn-ghost:hover{color:var(--cream);border-color:rgba(240,236,226,.5)}
+.dispo-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);
+  padding:7px 16px;border-radius:100px;
+  font-size:12px;color:var(--teal);
+}
+.dp-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pulseDot 2s ease infinite .4s}
+
+/* PHOTO */
+.photo-zone{opacity:0;animation:riseUp .9s ease forwards .48s}
+.photo-frame{
+  width:100%;aspect-ratio:.78;
+  border-radius:8px 50px 8px 50px;
+  background:var(--glass-bg);
+  border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  position:relative;overflow:hidden;
+}
+.photo-frame img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+}
+.photo-frame::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,242,234,.06),transparent 55%);
+  z-index:1;pointer-events:none;
+}
+.photo-frame::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:38%;
+  background:linear-gradient(to top,rgba(10,15,30,.55),transparent);
+  z-index:1;pointer-events:none;
+}
+.ph-ph{display:flex;flex-direction:column;align-items:center;gap:12px;z-index:2}
+.ph-icon{
+  width:74px;height:74px;border-radius:50%;
+  background:rgba(0,242,234,.08);
+  border:1px dashed rgba(0,242,234,.28);
+  display:flex;align-items:center;justify-content:center;font-size:28px;
+}
+.ph-lbl{font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(240,236,226,.2)}
+.corner{position:absolute;width:20px;height:20px;border-color:var(--teal);border-style:solid;opacity:.32;z-index:2}
+.c-tl{top:13px;left:13px;border-width:1px 0 0 1px}
+.c-tr{top:13px;right:13px;border-width:1px 1px 0 0}
+.c-bl{bottom:13px;left:13px;border-width:0 0 1px 1px}
+.c-br{bottom:13px;right:13px;border-width:0 1px 1px 0}
+
+/* =============================================
+   STATS BAR
+============================================= */
+.stats-bar{
+  position:relative;z-index:10;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:var(--glass-bd);border-bottom:var(--glass-bd);
+  background:rgba(255,255,255,.015);
+  opacity:0;animation:riseUp .8s ease forwards .92s;
+}
+.stat-item{
+  padding:32px 0;text-align:center;
+  border-right:var(--glass-bd);
+}
+.stat-item:last-child{border-right:none}
+.stat-n{
+  font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;color:var(--cream);
+}
+.stat-n em{font-style:normal;font-size:26px;color:var(--teal)}
+.stat-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* =============================================
+   SCROLL CARET
+============================================= */
+.scroll-caret{
+  position:relative;z-index:10;padding:28px 56px;
+  display:flex;align-items:center;gap:14px;
+  opacity:0;animation:riseUp .8s ease forwards 1.1s;
+}
+.sc-line{
+  width:44px;height:1px;background:rgba(240,236,226,.12);
+  position:relative;overflow:hidden;
+}
+.sc-line::after{
+  content:'';position:absolute;top:0;left:-100%;
+  width:100%;height:1px;background:var(--teal);animation:lineSweep 2.6s ease infinite;
+}
+@keyframes lineSweep{0%{left:-100%}50%{left:100%}100%{left:100%}}
+.sc-lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,236,226,.27)}
+
+/* =============================================
+   SECTION UTILITY
+============================================= */
+.section{position:relative;z-index:10;padding:80px 56px}
+.s-alt{background:rgba(255,255,255,.018);border-top:var(--glass-bd)}
+.s-head{display:flex;align-items:center;gap:18px;margin-bottom:52px}
+.s-num{font-family:'Bebas Neue',sans-serif;font-size:15px;color:rgba(240,236,226,.18);letter-spacing:2px}
+.s-title{font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:3px}
+.s-rule{flex:1;height:1px;background:rgba(255,255,255,.07)}
+
+/* =============================================
+   GLASSMORPHISM CARD
+============================================= */
+.glass-card{
+  background:var(--glass-bg);
+  border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);
+  border-radius:var(--radius);
+  padding:28px 26px;
+  transition:background .3s,border-color .3s,transform .3s;
+}
+.glass-card:hover{
+  background:rgba(255,255,255,.05);
+  border-color:rgba(0,242,234,.25);
+  transform:translateY(-4px);
+}
+
+/* =============================================
+   TOOLS GRID
+============================================= */
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:13px}
+.tool-card{
+  display:flex;align-items:center;gap:14px;padding:22px 18px;
+}
+.tl{
+  width:38px;height:38px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:13px;flex-shrink:0;
+}
+.tl-ps{background:#001e2a;color:#31a8ff}
+.tl-pr{background:#250028;color:#ea77ff}
+.tl-cc{background:#111;color:#fe2c55;font-size:11px}
+.tl-fr{background:#080808;color:#fff;font-size:16px}
+.tl-xl{background:#0a240a;color:#1d7a42}
+.tl-st{background:rgba(0,242,234,.08);color:var(--teal);font-size:16px}
+.tool-name{font-size:13px;font-weight:500;color:var(--cream)}
+.tool-cat{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* =============================================
+   DISPO CARDS
+============================================= */
+.dispo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.dispo-card{padding:36px 32px}
+.dispo-card.prime{border-color:rgba(0,242,234,.3);background:rgba(0,242,234,.04)}
+.d-badge{
+  display:inline-block;background:linear-gradient(135deg,var(--teal),#00c4be);
+  color:#0A0F1E;font-size:9px;letter-spacing:2px;
+  text-transform:uppercase;font-weight:700;padding:3px 10px;
+  border-radius:3px;margin-bottom:18px;
+}
+.d-date{
+  font-family:'Bebas Neue',sans-serif;font-size:38px;
+  letter-spacing:1.5px;line-height:1;color:var(--cream);
+}
+.dispo-card.prime .d-date{
+  background:linear-gradient(90deg,var(--teal),var(--mauve));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.d-dur{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.5}
+.d-locs{margin-top:18px;display:flex;flex-wrap:wrap;gap:7px}
+.loc-tag{
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:4px 12px;border-radius:100px;
+  background:rgba(255,255,255,.05);
+  color:rgba(240,236,226,.45);
+  border:var(--glass-bd);
+}
+.dispo-card.prime .loc-tag{border-color:rgba(0,242,234,.2);color:rgba(0,242,234,.65)}
+
+/* =============================================
+   PORTFOLIO TEASER (project cards on home)
+============================================= */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.proj-card{
+  position:relative;overflow:hidden;
+  min-height:260px;border-radius:var(--radius);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:28px;cursor:pointer;
+  background:linear-gradient(135deg,rgba(0,242,234,.06),rgba(138,43,226,.06));
+  border:var(--glass-bd);transition:transform .3s,border-color .3s;
+  text-decoration:none;
+}
+.proj-card:hover{transform:translateY(-5px);border-color:rgba(0,242,234,.25)}
+.proj-card:nth-child(3){grid-column:1/-1}
+.proj-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.proj-title{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;color:var(--cream)}
+.proj-arrow{
+  position:absolute;top:22px;right:22px;
+  width:36px;height:36px;border-radius:50%;
+  border:var(--glass-bd);display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--cream);background:var(--glass-bg);
+  transition:background .25s,border-color .25s;
+}
+.proj-card:hover .proj-arrow{background:var(--teal);border-color:var(--teal);color:#0A0F1E}
+.proj-emoji{position:absolute;top:22px;left:22px;font-size:40px;opacity:.18}
+
+/* =============================================
+   FOOTER
+============================================= */
+footer{
+  position:relative;z-index:10;padding:34px 56px;
+  border-top:var(--glass-bd);
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(0,0,0,.25);
+}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:3px;color:rgba(240,236,226,.22)}
+.f-links{display:flex;gap:26px}
+.f-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.28);text-decoration:none;transition:color .22s}
+.f-links a:hover{color:var(--teal)}
+.f-copy{font-size:11px;color:rgba(240,236,226,.16)}
+
+@keyframes riseUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero{padding:90px 24px 52px}
+  .hero-wrap{grid-template-columns:1fr;gap:44px}
+  .photo-zone{max-width:260px;margin:0 auto}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .stat-item{border-bottom:var(--glass-bd)}
+  .stat-item:nth-child(odd){border-right:var(--glass-bd)}
+  .stat-item:nth-child(even){border-right:none}
+  .section{padding:60px 24px}
+  .dispo-grid,.proj-grid{grid-template-columns:1fr}
+  .proj-card:nth-child(3){grid-column:auto}
+  footer{flex-direction:column;gap:14px;text-align:center;padding:26px 24px}
+  .scroll-caret{padding:22px 24px}
+  nav.scrolled{padding:12px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="mesh">
+  <div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div>
+  <div class="mesh-blob mb3"></div><div class="mesh-blob mb4"></div>
+</div>
+<div class="grain"></div>
+
+<!-- SCROLL INDICATOR -->
+<div class="scroll-indicator" id="scrollInd" title="Haut de page">
+  <div class="si-track"></div>
+  <div class="si-fill" id="siFill"></div>
+  <div class="si-label" id="siLabel">↑</div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
+  <a href="parcours.html" onclick="closeMob()">Parcours</a>
+  <a href="contact.html" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="logo-block">
+    <span class="logo-name">arthur.</span>
+    <span class="logo-sub">D'une inspiration naît une vision</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="parcours.html">Parcours</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMob()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-wrap">
+    <div>
+      <div class="h-eyebrow">
+        <div class="e-dot"></div>
+        <span class="e-txt">Disponible · Stage Communication & Marketing</span>
+      </div>
+      <h1 class="hero-name">
+        <span class="hn-solid">Arthur</span><br>
+        <span class="hn-stroke">Via</span><span class="hn-teal">ud</span>
+      </h1>
+      <p class="hero-tagline">
+        <strong>Créateur de contenus & Communicant</strong> — transformer vos projets
+        en expériences visuelles percutantes.<br>Double diplomation France · Canada.
+      </p>
+      <div class="hero-btns">
+        <a href="portfolio.html" class="btn-primary">Voir mes projets ↗</a>
+        <a href="contact.html" class="btn-ghost">Me contacter →</a>
+        <div class="dispo-pill"><div class="dp-dot"></div>Dispo dès Mai 2026</div>
+      </div>
+    </div>
+    <!-- PHOTO ZONE — remplace le commentaire par <img src="ta-photo.jpg" alt="Arthur Viaud"> -->
+    <div class="photo-zone">
+      <div class="photo-frame">
+        <div class="corner c-tl"></div><div class="corner c-tr"></div>
+        <div class="corner c-bl"></div><div class="corner c-br"></div>
+        <div class="ph-ph">
+          <div class="ph-icon">👤</div>
+          <span class="ph-lbl">Ta photo ici</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-n">3<em>+</em></div><div class="stat-l">Années d'études</div></div>
+  <div class="stat-item"><div class="stat-n">2<em>x</em></div><div class="stat-l">Double diplôme FR · CA</div></div>
+  <div class="stat-item"><div class="stat-n">4<em>+</em></div><div class="stat-l">Expériences pros</div></div>
+  <div class="stat-item"><div class="stat-n">3<em>↗</em></div><div class="stat-l">Langues parlées</div></div>
+</div>
+<div class="scroll-caret"><div class="sc-line"></div><span class="sc-lbl">Scroll pour explorer</span></div>
+
+<!-- ==================== OUTILS ==================== -->
+<section class="section s-alt">
+  <div class="s-head">
+    <span class="s-num">01 ///</span>
+    <h2 class="s-title">Outils & Compétences</h2>
+    <div class="s-rule"></div>
+  </div>
+  <div class="tools-grid">
+    <div class="glass-card tool-card reveal"><div class="tl tl-ps">Ps</div><div><div class="tool-name">Photoshop</div><div class="tool-cat">Design visuel</div></div></div>
+    <div class="glass-card tool-card reveal"><div class="tl tl-pr">Pr</div><div><div class="tool-name">Premiere Pro</div><div class="tool-cat">Montage vidéo</div></div></div>
+    <div class="glass-card tool-card reveal"><div class="tl tl-cc">CC</div><div><div class="tool-name">CapCut</div><div class="tool-cat">Contenu social</div></div></div>
+    <div class="glass-card tool-card reveal"><div class="tl tl-fr">⬡</div><div><div class="tool-name">Framer</div><div class="tool-cat">Design web</div></div></div>
+    <div class="glass-card tool-card reveal"><div class="tl tl-xl">xl</div><div><div class="tool-name">Excel</div><div class="tool-cat">Analyse données</div></div></div>
+    <div class="glass-card tool-card reveal"><div class="tl tl-st">✍</div><div><div class="tool-name">Storytelling</div><div class="tool-cat">Rédaction & contenu</div></div></div>
+  </div>
+</section>
+
+<!-- ==================== PROJETS TEASER ==================== -->
+<section class="section">
+  <div class="s-head">
+    <span class="s-num">02 ///</span>
+    <h2 class="s-title">Projets en Vedette</h2>
+    <div class="s-rule"></div>
+  </div>
+  <div class="proj-grid">
+    <a href="projet-sneakers.html" class="proj-card reveal">
+      <div class="proj-emoji">👟</div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-tag">Entrepreneuriat · 2022–2024</div>
+      <div class="proj-title">Sneakers Business</div>
+    </a>
+    <a href="projet-revofit.html" class="proj-card reveal">
+      <div class="proj-emoji">💪</div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-tag">Projet Entrepreneurial · 2024</div>
+      <div class="proj-title">RevoFit</div>
+    </a>
+    <a href="projet-palmfest.html" class="proj-card reveal">
+      <div class="proj-emoji">🌴</div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-tag">Stage Communication · 2024</div>
+      <div class="proj-title">Palm'Fest — Stratégie B2B</div>
+    </a>
+  </div>
+</section>
+
+<!-- ==================== DISPONIBILITÉS ==================== -->
+<section class="section s-alt">
+  <div class="s-head">
+    <span class="s-num">03 ///</span>
+    <h2 class="s-title">Disponibilités</h2>
+    <div class="s-rule"></div>
+  </div>
+  <div class="dispo-grid">
+    <div class="glass-card dispo-card prime reveal">
+      <div class="d-badge">Priorité</div>
+      <div class="d-date">Mai → Juillet 2026</div>
+      <div class="d-dur">Stage 3 mois · 4 mai au 24 juillet</div>
+      <div class="d-locs">
+        <span class="loc-tag">Royan</span><span class="loc-tag">La Rochelle</span>
+        <span class="loc-tag">Bordeaux</span><span class="loc-tag">Poitiers</span>
+        <span class="loc-tag">Grenoble</span><span class="loc-tag">Paris</span>
+      </div>
+    </div>
+    <div class="glass-card dispo-card reveal">
+      <div class="d-date">Août → Déc. 2026</div>
+      <div class="d-dur">Stage longue durée · fin août à décembre</div>
+      <div class="d-locs">
+        <span class="loc-tag">Royan</span><span class="loc-tag">La Rochelle</span>
+        <span class="loc-tag">Bordeaux</span><span class="loc-tag">Poitiers</span>
+        <span class="loc-tag">Grenoble</span><span class="loc-tag">Paris</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Arthur Viaud · 2026</div>
+  <div class="f-links">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn ↗</a>
+  </div>
+  <div class="f-copy">D'une inspiration naît une vision</div>
+</footer>
+
+<script>
+/* --- Cursor --- */
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.glass-card,.proj-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px'});
+});
+
+/* --- Nav shrink --- */
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>60)});
+
+/* --- Scroll indicator (morphing circle) --- */
+const siFill=document.getElementById('siFill');
+const siLabel=document.getElementById('siLabel');
+const siEl=document.getElementById('scrollInd');
+function updateScrollInd(){
+  const pct=Math.min(100,(scrollY/(document.documentElement.scrollHeight-innerHeight))*100);
+  siFill.style.setProperty('--pct',pct+'%');
+  const r1=50,r2=30+pct*.2,r3=40+Math.sin(pct/8)*12,r4=38+Math.cos(pct/6)*10;
+  siFill.style.borderRadius=`${r1}% ${100-r1}% ${r2}% ${100-r2}% / ${r3}% ${r4}% ${100-r4}% ${100-r3}%`;
+  siLabel.textContent=pct<5?'↓':Math.round(pct)+'%';
+}
+window.addEventListener('scroll',updateScrollInd);
+siEl.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* --- Mobile menu --- */
+function toggleMob(){document.getElementById('mobileMenu').classList.toggle('open')}
+function closeMob(){document.getElementById('mobileMenu').classList.remove('open')}
+
+/* --- Scroll reveal --- */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80)});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
