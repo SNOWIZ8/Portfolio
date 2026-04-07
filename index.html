@@ -6,179 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arthur Viaud — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 <style>
-/* =============================================
-   VARIABLES & RESET
-============================================= */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:       #0A0F1E;
-  --teal:     #00F2EA;
-  --mauve:    #8A2BE2;
-  --cream:    #F0ECE2;
-  --muted:    rgba(240,236,226,0.52);
-  --glass-bg: rgba(255,255,255,0.03);
-  --glass-bd: 1px solid rgba(255,255,255,0.10);
-  --glass-blur: blur(12px);
-  --radius:   12px;
-}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--cream);
-  font-family:'DM Sans',sans-serif;
-  min-height:100vh;
-  overflow-x:hidden;
-  cursor:none;
-}
-
-/* =============================================
-   CURSOR
-============================================= */
-.cursor{
-  position:fixed;width:10px;height:10px;
-  background:var(--teal);border-radius:50%;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  mix-blend-mode:difference;
-  transition:width .15s,height .15s;
-}
-.cursor-ring{
-  position:fixed;width:36px;height:36px;
-  border:1px solid rgba(0,242,234,0.32);
-  border-radius:50%;pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);
-}
-
-/* =============================================
-   MESH GRADIENT BACKGROUND
-============================================= */
-.mesh{
-  position:fixed;inset:0;z-index:0;
-  overflow:hidden;pointer-events:none;
-}
-.mesh-blob{
-  position:absolute;border-radius:50%;
-  filter:blur(100px);opacity:.15;
-  animation:meshFloat linear infinite;
-}
-.mb1{width:640px;height:640px;background:var(--teal);top:-160px;left:-120px;animation-duration:28s}
-.mb2{width:540px;height:540px;background:var(--mauve);top:40%;right:-140px;animation-duration:22s;animation-delay:-10s}
-.mb3{width:440px;height:440px;background:var(--teal);bottom:-100px;left:30%;animation-duration:35s;animation-delay:-17s;opacity:.10}
-.mb4{width:320px;height:320px;background:var(--mauve);top:20%;left:45%;animation-duration:18s;animation-delay:-6s;opacity:.08}
-@keyframes meshFloat{
-  0%  {transform:translate(0,0) scale(1) rotate(0deg)}
-  25% {transform:translate(50px,-70px) scale(1.07) rotate(90deg)}
-  50% {transform:translate(-40px,60px) scale(.93) rotate(180deg)}
-  75% {transform:translate(65px,30px) scale(1.10) rotate(270deg)}
-  100%{transform:translate(0,0) scale(1) rotate(360deg)}
-}
-
-/* GRAIN */
-.grain{
-  position:fixed;inset:0;z-index:1;
-  pointer-events:none;opacity:.04;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:180px;
-}
-
-/* =============================================
-   NAVBAR
-============================================= */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 56px;
-  background:rgba(10,15,30,.45);
-  backdrop-filter:var(--glass-blur) saturate(1.4);
-  border-bottom:var(--glass-bd);
-  transition:padding .3s;
-}
-nav.scrolled{padding:13px 56px}
-.logo-block{display:flex;flex-direction:column;gap:2px;text-decoration:none}
-.logo-name{
-  font-family:'DM Sans',sans-serif;font-size:22px;
-  font-weight:800;letter-spacing:-1px;
-  background:linear-gradient(105deg,var(--teal),#a78bff,var(--teal));
-  background-size:220%;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:logoShine 5s ease infinite;
-}
-@keyframes logoShine{0%,100%{background-position:0%}50%{background-position:100%}}
-.logo-sub{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,236,226,.25)}
-.nav-links{display:flex;gap:36px;list-style:none;align-items:center}
-.nav-links a{
-  color:var(--muted);text-decoration:none;
-  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
-  transition:color .25s;position:relative;padding-bottom:2px;
-}
-.nav-links a::after{
-  content:'';position:absolute;bottom:-3px;left:0;
-  width:0;height:1px;background:var(--teal);transition:width .3s;
-}
-.nav-links a:hover,.nav-links a.active{color:var(--cream)}
-.nav-links a:hover::after,.nav-links a.active::after{width:100%}
-.nav-links a.active::after{background:linear-gradient(90deg,var(--teal),var(--mauve))}
-.nav-cta{
-  background:var(--glass-bg);
-  border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);
-  color:var(--teal)!important;
-  padding:9px 22px;border-radius:4px;
-  font-size:11px!important;letter-spacing:1.5px;
-  transition:background .25s,border-color .25s!important;
-}
-.nav-cta:hover{
-  background:rgba(0,242,234,.12)!important;
-  border-color:rgba(0,242,234,.4)!important;
-}
-.nav-cta::after{display:none!important}
-/* Hamburger */
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:24px;height:1.5px;background:var(--cream);transition:.3s}
-.mobile-menu{
-  display:none;position:fixed;inset:0;
-  background:rgba(10,15,30,.97);backdrop-filter:var(--glass-blur);
-  z-index:490;flex-direction:column;align-items:center;justify-content:center;gap:40px;
-}
-.mobile-menu.open{display:flex}
-.mobile-menu a{
-  font-family:'Bebas Neue',sans-serif;font-size:56px;
-  letter-spacing:3px;color:var(--cream);text-decoration:none;transition:color .25s;
-}
-.mobile-menu a:hover{color:var(--teal)}
-.mob-close{position:absolute;top:28px;right:28px;background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;opacity:.6}
-
-/* =============================================
-   SCROLL INDICATOR (morphing circle)
-============================================= */
-.scroll-indicator{
-  position:fixed;bottom:32px;right:32px;z-index:400;
-  width:52px;height:52px;cursor:pointer;
-}
-.si-track{
-  position:absolute;inset:0;border-radius:50%;
-  border:1px solid rgba(255,255,255,.1);
-}
-.si-fill{
-  position:absolute;inset:0;border-radius:50%;
-  background:conic-gradient(var(--teal) 0%, var(--mauve) var(--pct,0%), transparent var(--pct,0%));
-  transition:border-radius .6s ease;
-  opacity:.85;
-}
-.si-label{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
-}
-
-/* =============================================
-   SCROLL REVEAL
-============================================= */
-.reveal{
-  opacity:0;transform:translateY(32px);
-  transition:opacity .7s ease,transform .7s ease;
-}
-.reveal.visible{opacity:1;transform:translateY(0)}
 
 /* =============================================
    HERO
@@ -230,25 +59,6 @@ nav.scrolled{padding:13px 56px}
   align-items:center;gap:20px;flex-wrap:wrap;
   opacity:0;animation:riseUp .85s ease forwards .74s;
 }
-.btn-primary{
-  display:inline-flex;align-items:center;gap:9px;
-  background:linear-gradient(135deg,var(--teal),#00c4be);
-  color:#0A0F1E;padding:14px 32px;font-size:12px;
-  font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
-  text-decoration:none;border-radius:4px;border:none;
-  transition:transform .22s,box-shadow .3s;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,242,234,.25)}
-.btn-ghost{
-  display:inline-flex;align-items:center;gap:8px;
-  color:var(--muted);font-size:12px;letter-spacing:1.5px;
-  text-transform:uppercase;text-decoration:none;
-  border-bottom:1px solid rgba(240,236,226,.18);
-  padding-bottom:3px;transition:color .22s,border-color .22s;
-  font-family:'DM Sans',sans-serif;
-}
-.btn-ghost:hover{color:var(--cream);border-color:rgba(240,236,226,.5)}
 .dispo-pill{
   display:inline-flex;align-items:center;gap:7px;
   background:var(--glass-bg);border:var(--glass-bd);
@@ -444,29 +254,9 @@ nav.scrolled{padding:13px 56px}
 .proj-emoji{position:absolute;top:22px;left:22px;font-size:40px;opacity:.18}
 
 /* =============================================
-   FOOTER
-============================================= */
-footer{
-  position:relative;z-index:10;padding:34px 56px;
-  border-top:var(--glass-bd);
-  display:flex;justify-content:space-between;align-items:center;
-  background:rgba(0,0,0,.25);
-}
-.f-logo{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:3px;color:rgba(240,236,226,.22)}
-.f-links{display:flex;gap:26px}
-.f-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.28);text-decoration:none;transition:color .22s}
-.f-links a:hover{color:var(--teal)}
-.f-copy{font-size:11px;color:rgba(240,236,226,.16)}
-
-@keyframes riseUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-
-/* =============================================
    RESPONSIVE
 ============================================= */
-@media(max-width:900px){
-  nav{padding:16px 24px}
-  .nav-links{display:none}
-  .hamburger{display:flex}
+@media(max-width:960px){
   .hero{padding:90px 24px 52px}
   .hero-wrap{grid-template-columns:1fr;gap:44px}
   .photo-zone{max-width:260px;margin:0 auto}
@@ -477,9 +267,7 @@ footer{
   .section{padding:60px 24px}
   .dispo-grid,.proj-grid{grid-template-columns:1fr}
   .proj-card:nth-child(3){grid-column:auto}
-  footer{flex-direction:column;gap:14px;text-align:center;padding:26px 24px}
   .scroll-caret{padding:22px 24px}
-  nav.scrolled{padding:12px 24px}
 }
 </style>
 </head>
@@ -658,43 +446,6 @@ footer{
   <div class="f-copy">D'une inspiration naît une vision</div>
 </footer>
 
-<script>
-/* --- Cursor --- */
-const cur=document.getElementById('cur'),ring=document.getElementById('ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-(function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
-document.querySelectorAll('a,button,.glass-card,.proj-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px'});
-  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px'});
-});
-
-/* --- Nav shrink --- */
-window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>60)});
-
-/* --- Scroll indicator (morphing circle) --- */
-const siFill=document.getElementById('siFill');
-const siLabel=document.getElementById('siLabel');
-const siEl=document.getElementById('scrollInd');
-function updateScrollInd(){
-  const pct=Math.min(100,(scrollY/(document.documentElement.scrollHeight-innerHeight))*100);
-  siFill.style.setProperty('--pct',pct+'%');
-  const r1=50,r2=30+pct*.2,r3=40+Math.sin(pct/8)*12,r4=38+Math.cos(pct/6)*10;
-  siFill.style.borderRadius=`${r1}% ${100-r1}% ${r2}% ${100-r2}% / ${r3}% ${r4}% ${100-r4}% ${100-r3}%`;
-  siLabel.textContent=pct<5?'↓':Math.round(pct)+'%';
-}
-window.addEventListener('scroll',updateScrollInd);
-siEl.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-
-/* --- Mobile menu --- */
-function toggleMob(){document.getElementById('mobileMenu').classList.toggle('open')}
-function closeMob(){document.getElementById('mobileMenu').classList.remove('open')}
-
-/* --- Scroll reveal --- */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80)});
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-</script>
+<script src="shared.js" defer></script>
 </body>
 </html>
