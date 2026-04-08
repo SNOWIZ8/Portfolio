@@ -82,44 +82,62 @@
 .s-rule{flex:1;height:1px;background:rgba(255,255,255,.07)}
 
 /* =============================================
-   SECTION MÉDIAS — TikTok Showreel
+   SECTION MÉDIAS — Media Hub
 ============================================= */
 .media-section{position:relative;z-index:10;padding:0 56px 80px}
-.tiktok-wrap{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:24px;max-width:680px;
+
+/* Vidéo paysage principale */
+.reel-main{
+  width:100%;border-radius:var(--radius);
+  overflow:hidden;
+  border:var(--glass-bd);
+  position:relative;
+  background:#000;
+  margin-bottom:14px;
 }
-.tiktok-slot{
-  aspect-ratio:9/16;border-radius:var(--radius);
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-  position:relative;overflow:hidden;
-  transition:border-color .3s;cursor:pointer;
+.reel-main video{
+  width:100%;display:block;
+  aspect-ratio:16/9;object-fit:cover;
 }
-.tiktok-slot:hover{border-color:rgba(0,242,234,.3)}
-.tiktok-slot::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(138,43,226,.06) 0%,rgba(0,242,234,.06) 100%);
+.reel-main-label{
+  position:absolute;bottom:16px;left:20px;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(10,15,30,.7);backdrop-filter:blur(8px);
+  border:var(--glass-bd);border-radius:100px;
+  padding:5px 14px;font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--cream);
 }
-.tt-icon{font-size:38px;position:relative;z-index:1}
-.tt-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.3);position:relative;z-index:1}
-.tt-badge{
-  position:absolute;top:14px;left:14px;
-  background:rgba(254,44,85,.85);border-radius:100px;
-  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
-  padding:3px 10px;color:#fff;font-weight:600;z-index:2;
+.reel-dot{width:5px;height:5px;border-radius:50%;background:var(--teal)}
+
+/* Grille 4 portraits */
+.reel-portraits{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
 }
-/* intégration d'une vraie vidéo : remplace le div.tiktok-slot par :
-   <video src="ta-video.mp4" controls style="width:100%;height:100%;object-fit:cover;border-radius:12px"></video> */
+.reel-slot{
+  aspect-ratio:9/16;
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:var(--glass-bd);
+  background:#000;
+  position:relative;
+  transition:border-color .3s,transform .3s;
+  cursor:pointer;
+  max-height:340px;
+}
+.reel-slot:hover{border-color:rgba(0,242,234,.3);transform:translateY(-4px)}
+.reel-slot video{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
 
 /* =============================================
-   GALERIE ASYMÉTRIQUE
+   GALERIE ASYMÉTRIQUE — 3 photos
 ============================================= */
 .gallery-section{position:relative;z-index:10;padding:0 56px 80px}
 .gallery-asymm{
   display:grid;
-  grid-template-columns:1.6fr 1fr 1fr;
+  grid-template-columns:1.5fr 1fr;
   grid-template-rows:240px 240px;
   gap:14px;
 }
@@ -140,7 +158,18 @@
 .gal-slot:hover img{opacity:1}
 .gal-placeholder{font-size:32px;opacity:.35;position:relative;z-index:1}
 .gal-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.28);position:relative;z-index:1}
-/* Pour ajouter une photo : <img src="sneaker1.jpg" alt=""> dans le .gal-slot */
+
+/* Bulle avec image Instagram */
+.bubble-insta{
+  margin-top:16px;
+  border-radius:8px;overflow:hidden;
+  border:var(--glass-bd);
+  max-height:160px;
+}
+.bubble-insta img{
+  width:100%;display:block;
+  object-fit:cover;height:160px;
+}
 
 /* =============================================
    RESPONSIVE
@@ -152,9 +181,11 @@
   .proj-content{padding-top:56px;padding-bottom:56px}
   .content-grid{grid-template-columns:1fr}
   .bubble-full{grid-column:auto}
-  .tiktok-wrap{max-width:100%;grid-template-columns:1fr 1fr}
-  .gallery-asymm{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,200px)}
-  .gal-slot:first-child{grid-row:auto;grid-column:1/-1}
+  .reel-portraits{grid-template-columns:repeat(2,1fr)}
+  .reel-slot{max-height:260px}
+  .gallery-asymm{grid-template-columns:1fr;grid-template-rows:auto}
+  .gal-slot{min-height:200px}
+  .gal-slot:first-child{grid-row:auto}
 }
 </style>
 </head>
@@ -178,6 +209,7 @@
   <a href="index.html" onclick="closeMob()">Accueil</a>
   <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
   <a href="parcours.html" onclick="closeMob()">Parcours</a>
+  <a href="a-propos.html" onclick="closeMob()">À Propos</a>
   <a href="contact.html" onclick="closeMob()">Contact</a>
 </div>
 
@@ -190,6 +222,7 @@
   <ul class="nav-links">
     <li><a href="portfolio.html" class="active">Portfolio</a></li>
     <li><a href="parcours.html">Parcours</a></li>
+    <li><a href="a-propos.html">À Propos</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
   </ul>
@@ -233,6 +266,9 @@
     <div class="glass-card bubble reveal">
       <div class="bubble-title">Digitaliser l'acquisition</div>
       <p class="bubble-text">Pour dynamiser l'activité et me démarquer, j'ai déployé une stratégie de contenu ciblée sur les réseaux sociaux. L'utilisation stratégique de plateformes comme TikTok et Instagram (vidéos courtes, stories immersives, publications régulières) m'a permis d'élargir mon réseau de prospects, d'atteindre de nouvelles audiences et de fidéliser une clientèle passionnée.</p>
+      <div class="bubble-insta">
+        <img src="assets/images/sneakers/SNK4.jpg" alt="Feed Instagram Sneakers Business">
+      </div>
     </div>
 
     <!-- Bulle 3 -->
@@ -250,31 +286,39 @@
   </div>
 </section>
 
-<!-- ==================== SHOWREEL TIKTOK ==================== -->
+<!-- ==================== MEDIA HUB ==================== -->
 <section class="media-section">
   <div class="s-head">
     <span class="s-num">02 ///</span>
-    <h2 class="s-title">Showreel TikTok</h2>
+    <h2 class="s-title">Media Hub</h2>
     <div class="s-rule"></div>
   </div>
-  <div class="tiktok-wrap">
 
-    <div class="tiktok-slot reveal">
-      <div class="tt-badge">TikTok</div>
-      <div class="tt-icon">🎬</div>
-      <div class="tt-label">Vidéo promo 01</div>
-      <!-- Remplace ce bloc par :
-           <video src="video1.mp4" controls></video>
-           ou un embed TikTok -->
+  <!-- Vidéo paysage principale -->
+  <div class="reel-main reveal">
+    <video src="assets/videos/sneakers/SNKVD1.mp4" autoplay muted loop playsinline></video>
+    <div class="reel-main-label">
+      <div class="reel-dot"></div>
+      Showreel Paysage
     </div>
-
-    <div class="tiktok-slot reveal">
-      <div class="tt-badge">TikTok</div>
-      <div class="tt-icon">🎬</div>
-      <div class="tt-label">Vidéo promo 02</div>
-    </div>
-
   </div>
+
+  <!-- Grille 4 portraits -->
+  <div class="reel-portraits">
+    <div class="reel-slot reveal">
+      <video src="assets/videos/sneakers/SNKVD2.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <div class="reel-slot reveal">
+      <video src="assets/videos/sneakers/SNKVD3.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <div class="reel-slot reveal">
+      <video src="assets/videos/sneakers/SNKVD4.MOV" autoplay muted loop playsinline></video>
+    </div>
+    <div class="reel-slot reveal">
+      <video src="assets/videos/sneakers/SNKVD5.mp4" autoplay muted loop playsinline></video>
+    </div>
+  </div>
+
 </section>
 
 <!-- ==================== GALERIE MODÈLES ==================== -->
@@ -285,28 +329,16 @@
     <div class="s-rule"></div>
   </div>
   <div class="gallery-asymm">
-    <!-- Grande case -->
+    <!-- Grande case — SNK1 -->
     <div class="gal-slot reveal">
-      <!-- <img src="sneaker-hero.jpg" alt="Modèle héro"> -->
-      <div class="gal-placeholder">👟</div>
-      <div class="gal-label">Hero Shot</div>
+      <img src="assets/images/sneakers/SNK1.JPG" alt="Sneakers Business — Photo 1">
     </div>
     <!-- Cases secondaires -->
     <div class="gal-slot reveal">
-      <div class="gal-placeholder">👟</div>
-      <div class="gal-label">Collab 01</div>
+      <img src="assets/images/sneakers/SNK2.jpg" alt="Sneakers Business — Photo 2">
     </div>
     <div class="gal-slot reveal">
-      <div class="gal-placeholder">👟</div>
-      <div class="gal-label">Collab 02</div>
-    </div>
-    <div class="gal-slot reveal">
-      <div class="gal-placeholder">👟</div>
-      <div class="gal-label">Collab 03</div>
-    </div>
-    <div class="gal-slot reveal">
-      <div class="gal-placeholder">👟</div>
-      <div class="gal-label">Collab 04</div>
+      <img src="assets/images/sneakers/SNK3.jpg" alt="Sneakers Business — Photo 3">
     </div>
   </div>
 </section>
@@ -323,8 +355,9 @@
   <div class="f-links">
     <a href="portfolio.html">Portfolio</a>
     <a href="parcours.html">Parcours</a>
+    <a href="a-propos.html">À Propos</a>
     <a href="contact.html">Contact</a>
-    <a href="https://linkedin.com" target="_blank">LinkedIn ↗</a>
+    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
   </div>
   <div class="f-copy">D'une inspiration naît une vision</div>
 </footer>

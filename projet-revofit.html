@@ -58,61 +58,79 @@
 .skill-dot{width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--mauve));margin-top:7px;flex-shrink:0}
 
 /* =============================================
-   GRILLE MOCKUPS
+   TRIPTYQUE BRAND & UI
 ============================================= */
 .mockup-section{position:relative;z-index:10;padding:0 56px 80px}
-.mockup-grid{
+.triptych{
   display:grid;
-  grid-template-columns:1.4fr 1fr 1fr;
+  grid-template-columns:1fr 1.05fr 1fr;
   gap:18px;
-  align-items:start;
+  align-items:end;
 }
-.mock-card{
-  border-radius:var(--radius);
+.tripty-col{
+  display:flex;flex-direction:column;align-items:center;gap:0;
+}
+/* Colonne image latérale */
+.tripty-side .tripty-media{
+  width:100%;border-radius:var(--radius);
+  overflow:hidden;
   background:var(--glass-bg);border:var(--glass-bd);
   backdrop-filter:var(--glass-blur);
-  overflow:hidden;transition:transform .3s,border-color .3s;
-  cursor:pointer;
+  transition:transform .3s,border-color .3s;
 }
-.mock-card:hover{transform:translateY(-6px);border-color:rgba(138,43,226,.3)}
-.mock-screen{
-  padding:24px 20px 0;
-  background:linear-gradient(160deg,rgba(138,43,226,.08),rgba(0,242,234,.05));
-  min-height:280px;
-  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
-  position:relative;overflow:hidden;
+.tripty-side .tripty-media:hover{transform:translateY(-6px);border-color:rgba(138,43,226,.3)}
+.tripty-side .tripty-media img{
+  width:100%;display:block;
+  object-fit:cover;min-height:320px;
 }
-.mock-card:nth-child(2) .mock-screen,.mock-card:nth-child(3) .mock-screen{min-height:200px}
-/* Faux écran d'app */
-.mock-inner{
-  width:100%;border-radius:10px 10px 0 0;
-  background:rgba(10,15,30,.8);
-  border:1px solid rgba(255,255,255,.08);
-  border-bottom:none;
-  padding:18px;min-height:180px;
-  display:flex;flex-direction:column;gap:10px;
+/* Colonne centrale — téléphone */
+.tripty-center .phone-3d{
+  width:100%;max-width:200px;
+  filter:drop-shadow(0 40px 80px rgba(0,0,0,.6));
 }
-.mock-card:nth-child(2) .mock-inner,.mock-card:nth-child(3) .mock-inner{min-height:130px}
-.mock-topbar{display:flex;align-items:center;gap:6px;margin-bottom:4px}
-.mock-dot{width:8px;height:8px;border-radius:50%}
-.md1{background:#ff5f56}.md2{background:#ffbd2e}.md3{background:#27c93f}
-.mock-line{height:6px;border-radius:100px;background:rgba(255,255,255,.06);margin:4px 0}
-.mock-line.w80{width:80%}
-.mock-line.w60{width:60%}
-.mock-line.w40{width:40%}
-.mock-line.accent{background:linear-gradient(90deg,rgba(0,242,234,.3),rgba(138,43,226,.2));width:55%}
-.mock-label-wrap{padding:14px 16px}
-.mock-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-.mock-name{font-size:13px;font-weight:500;color:var(--cream);margin-top:3px}
-/* Pour insérer un vrai visuel :
-   remplace .mock-screen par <img src="mockup.png" style="width:100%;display:block"> */
+.phone-shell{
+  width:100%;
+  background:#0d1220;
+  border:1.5px solid rgba(255,255,255,.18);
+  border-radius:36px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.04) inset,
+    0 32px 80px rgba(0,0,0,.7),
+    0 0 40px rgba(138,43,226,.12);
+  aspect-ratio:9/20;
+}
+.phone-notch{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:90px;height:22px;
+  background:#0d1220;border-radius:0 0 14px 14px;
+  z-index:10;
+}
+.phone-video{
+  position:absolute;inset:0;
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+}
+/* Étiquette sous chaque colonne */
+.tripty-label{
+  padding:14px 0;text-align:center;width:100%;
+}
+.tripty-tag{
+  display:block;font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--mauve);margin-bottom:4px;
+}
+.tripty-name{
+  display:block;font-size:13px;font-weight:500;color:rgba(240,236,226,.7);
+}
 
 @media(max-width:960px){
   .proj-hero{padding:100px 24px 56px;min-height:auto}
   .hero-deco{display:none}
   .proj-content,.mockup-section{padding-left:24px;padding-right:24px;padding-top:56px;padding-bottom:56px}
   .content-grid{grid-template-columns:1fr}
-  .mockup-grid{grid-template-columns:1fr;max-width:420px}
+  .triptych{grid-template-columns:1fr;gap:24px}
+  .tripty-center .phone-3d{max-width:160px}
 }
 </style>
 </head>
@@ -134,6 +152,7 @@
   <a href="index.html" onclick="closeMob()">Accueil</a>
   <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
   <a href="parcours.html" onclick="closeMob()">Parcours</a>
+  <a href="a-propos.html" onclick="closeMob()">À Propos</a>
   <a href="contact.html" onclick="closeMob()">Contact</a>
 </div>
 
@@ -145,6 +164,7 @@
   <ul class="nav-links">
     <li><a href="portfolio.html" class="active">Portfolio</a></li>
     <li><a href="parcours.html">Parcours</a></li>
+    <li><a href="a-propos.html">À Propos</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
   </ul>
@@ -155,16 +175,16 @@
 <section class="proj-hero">
   <div class="hero-stripe"></div>
   <div class="hero-deco">
-    <span class="deco-tag">Projet Entrepreneurial</span>
+    <span class="deco-tag">Projet Académique</span>
     <span class="deco-tag">2024</span>
     <span class="deco-tag">BUT TC — IUT de Poitiers</span>
   </div>
-  <div class="proj-eyebrow">PROJET ENTREPRENEURIAL • 2024</div>
+  <div class="proj-eyebrow">PROJET ACADÉMIQUE • 2024</div>
   <h1 class="proj-title">
     <span class="t-stroke">REV</span><span class="t-mauve">O</span><br>
     <span>FIT</span>
   </h1>
-  <p class="proj-accroche">"L'alliance de la performance sportive et de l'innovation numérique."</p>
+  <p class="proj-accroche">"La conceptualisation d'une marketplace visant à redéfinir l'économie de la création vestimentaire."</p>
 </section>
 
 <!-- ==================== BULLES ==================== -->
@@ -177,89 +197,67 @@
   <div class="content-grid">
 
     <div class="glass-card bubble reveal">
-      <div class="bubble-title">Réinventer l'expérience fitness</div>
-      <p class="bubble-text">Développé durant ma deuxième année de BUT Techniques de Commercialisation, RevoFit est né d'une volonté de répondre aux nouveaux standards du sport connecté. Passionné par la musculation et le dépassement de soi, j'ai co-conçu ce concept pour offrir un accompagnement 2.0 alliant rigueur physique et interface digitale intuitive.</p>
+      <div class="bubble-title">Un concept né en cours</div>
+      <p class="bubble-text">Imaginé dans le cadre d'un projet de création d'entreprise en deuxième année de BUT, RevoFit est un concept né d'une volonté de valoriser le travail minutieux des designers indépendants. Nous avons théorisé et designé une plateforme spécialisée dans les créations vestimentaires et la customisation.</p>
     </div>
 
     <div class="glass-card bubble reveal">
-      <div class="bubble-title">Une identité de marque percutante</div>
-      <p class="bubble-text">De l'analyse de marché initiale à la création de la charte graphique, j'ai piloté la stratégie de communication globale.</p>
-      <div class="skill-list">
-        <div class="skill-item"><div class="skill-dot"></div><span><strong style="color:var(--cream);font-weight:500">Marketing Digital</strong> — Définition des personas et parcours utilisateurs.</span></div>
-        <div class="skill-item"><div class="skill-dot"></div><span><strong style="color:var(--cream);font-weight:500">Design Visuel</strong> — Création d'une identité visuelle énergique sous Photoshop.</span></div>
-        <div class="skill-item"><div class="skill-dot"></div><span><strong style="color:var(--cream);font-weight:500">Social Ads</strong> — Élaboration d'un plan de lancement ciblé pour maximiser l'acquisition.</span></div>
-      </div>
+      <div class="bubble-title">Stratégie de communication globale</div>
+      <p class="bubble-text">De l'analyse de marché initiale à la création de la charte graphique, j'ai piloté la stratégie de communication globale pour donner vie à ce concept, avec pour but d'attirer à la fois les créateurs et une clientèle exigeante.</p>
     </div>
 
     <div class="glass-card bubble reveal" style="grid-column:1/-1">
-      <div class="bubble-title">Coordination et synergie d'équipe</div>
-      <p class="bubble-text">RevoFit a été un laboratoire de gestion de projet. En tant que communicant, j'ai assuré la cohérence entre les différents pôles (commercial, design, financier) pour garantir un rendu professionnel dans des délais courts. Un exercice qui a renforcé mon esprit d'équipe et mon leadership créatif.</p>
+      <div class="bubble-title">Un laboratoire grandeur nature</div>
+      <p class="bubble-text">Ce projet d'étude à 4 a été un véritable laboratoire grandeur nature. J'ai assuré la cohérence entre le pôle commercial, l'étude financière et notre image de marque, garantissant un Business Model viable sur le papier et un positionnement haut de gamme assumé.</p>
     </div>
 
   </div>
 </section>
 
-<!-- ==================== MOCKUPS ==================== -->
+<!-- ==================== TRIPTYQUE BRAND & UI ==================== -->
 <section class="mockup-section">
   <div class="s-head">
     <span class="s-num">02 ///</span>
-    <h2 class="s-title">Visuels & Supports</h2>
+    <h2 class="s-title">Brand & Interface</h2>
     <div class="s-rule"></div>
   </div>
-  <div class="mockup-grid">
+  <div class="triptych">
 
-    <!-- Mockup 1 — App principale -->
-    <div class="mock-card reveal">
-      <div class="mock-screen">
-        <div class="mock-inner">
-          <div class="mock-topbar"><div class="mock-dot md1"></div><div class="mock-dot md2"></div><div class="mock-dot md3"></div></div>
-          <div class="mock-line w80"></div>
-          <div class="mock-line accent"></div>
-          <div class="mock-line w60"></div>
-          <div class="mock-line w40"></div>
-          <div class="mock-line w80"></div>
-          <div class="mock-line accent"></div>
-          <div class="mock-line w60"></div>
-          <!-- <img src="revofit-app.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"> -->
-        </div>
+    <!-- Col 1 — Logo & Charte -->
+    <div class="tripty-col tripty-side reveal">
+      <div class="tripty-media">
+        <img src="assets/images/revofit/RVF1.png" alt="RevoFit — Logo & Charte graphique">
       </div>
-      <div class="mock-label-wrap">
-        <div class="mock-label">Interface App</div>
-        <div class="mock-name">Dashboard utilisateur</div>
+      <div class="tripty-label">
+        <span class="tripty-tag">Identité Visuelle</span>
+        <span class="tripty-name">Logo & Charte</span>
       </div>
     </div>
 
-    <!-- Mockup 2 -->
-    <div class="mock-card reveal">
-      <div class="mock-screen">
-        <div class="mock-inner">
-          <div class="mock-topbar"><div class="mock-dot md1"></div><div class="mock-dot md2"></div><div class="mock-dot md3"></div></div>
-          <div class="mock-line w60"></div>
-          <div class="mock-line accent"></div>
-          <div class="mock-line w80"></div>
-          <div class="mock-line w40"></div>
+    <!-- Col 2 — Smartphone + Vidéo (centre) -->
+    <div class="tripty-col tripty-center reveal">
+      <div class="phone-3d">
+        <div class="phone-shell">
+          <div class="phone-notch"></div>
+          <video class="phone-video"
+            src="assets/videos/revofit/RVFVideo1.mp4"
+            autoplay muted loop playsinline></video>
         </div>
       </div>
-      <div class="mock-label-wrap">
-        <div class="mock-label">Charte Graphique</div>
-        <div class="mock-name">Identité visuelle</div>
+      <div class="tripty-label">
+        <span class="tripty-tag">Démo Produit</span>
+        <span class="tripty-name">Interface Digitale</span>
       </div>
     </div>
 
-    <!-- Mockup 3 -->
-    <div class="mock-card reveal">
-      <div class="mock-screen">
-        <div class="mock-inner">
-          <div class="mock-topbar"><div class="mock-dot md1"></div><div class="mock-dot md2"></div><div class="mock-dot md3"></div></div>
-          <div class="mock-line w80"></div>
-          <div class="mock-line w40"></div>
-          <div class="mock-line accent"></div>
-          <div class="mock-line w60"></div>
-        </div>
+    <!-- Col 3 — UI Screens -->
+    <div class="tripty-col tripty-side reveal">
+      <div class="tripty-media">
+        <img src="assets/images/revofit/RVF2.png" alt="RevoFit — Écrans UI">
       </div>
-      <div class="mock-label-wrap">
-        <div class="mock-label">Social Ads</div>
-        <div class="mock-name">Plan de lancement</div>
+      <div class="tripty-label">
+        <span class="tripty-tag">Design UI</span>
+        <span class="tripty-name">Écrans App</span>
       </div>
     </div>
 
@@ -277,8 +275,9 @@
   <div class="f-links">
     <a href="portfolio.html">Portfolio</a>
     <a href="parcours.html">Parcours</a>
+    <a href="a-propos.html">À Propos</a>
     <a href="contact.html">Contact</a>
-    <a href="https://linkedin.com" target="_blank">LinkedIn ↗</a>
+    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
   </div>
   <div class="f-copy">D'une inspiration naît une vision</div>
 </footer>

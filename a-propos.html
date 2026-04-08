@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>À Propos — Arthur Viaud</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+
+/* =============================================
+   PAGE HERO
+============================================= */
+.page-hero{
+  position:relative;z-index:10;
+  min-height:72vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:130px 56px 72px;border-bottom:var(--glass-bd);overflow:hidden;
+}
+.hero-bg-text{
+  position:absolute;right:-30px;bottom:-50px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(120px,18vw,240px);
+  color:rgba(255,255,255,.02);letter-spacing:6px;
+  pointer-events:none;user-select:none;line-height:1;white-space:nowrap;
+}
+.page-eyebrow{
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--mauve);margin-bottom:18px;
+  opacity:0;animation:riseUp .7s ease forwards .2s;
+  display:flex;align-items:center;gap:12px;
+}
+.page-eyebrow::before{content:'';width:32px;height:1px;background:var(--mauve)}
+.page-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,8vw,110px);
+  line-height:.87;letter-spacing:3px;
+  opacity:0;animation:riseUp .85s ease forwards .35s;
+}
+.page-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
+.page-title .t-mauve{color:var(--mauve)}
+.page-accroche{
+  font-size:clamp(15px,1.6vw,20px);font-weight:300;font-style:italic;
+  color:var(--muted);max-width:620px;line-height:1.65;margin-top:24px;
+  opacity:0;animation:riseUp .85s ease forwards .52s;
+}
+/* Deco tags */
+.hero-deco{
+  position:absolute;top:130px;right:56px;
+  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+  opacity:0;animation:riseUp .9s ease forwards .65s;
+}
+.deco-tag{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(240,236,226,.3);border:var(--glass-bd);
+  padding:5px 14px;border-radius:100px;
+  background:var(--glass-bg);backdrop-filter:var(--glass-blur);
+}
+
+/* =============================================
+   SECTION PRINCIPALE — Texte + Photo
+============================================= */
+.about-wrap{
+  position:relative;z-index:10;
+  padding:80px 56px;
+  max-width:1300px;margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:64px;
+  align-items:start;
+}
+
+/* Bloc texte */
+.about-text-block{}
+.s-head{display:flex;align-items:center;gap:18px;margin-bottom:36px}
+.s-num{font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(240,236,226,.18);letter-spacing:2px}
+.s-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px}
+.s-rule{flex:1;height:1px;background:rgba(255,255,255,.07)}
+
+.about-lead{
+  font-size:clamp(16px,1.7vw,21px);font-weight:300;font-style:italic;
+  color:rgba(240,236,226,.8);line-height:1.7;margin-bottom:28px;
+}
+.about-lead strong{font-style:normal;font-weight:500;color:var(--cream)}
+.about-body{
+  font-size:15px;font-weight:300;line-height:1.9;
+  color:rgba(240,236,226,.68);
+}
+.about-body p{margin-bottom:22px}
+.about-body p:last-child{margin-bottom:0}
+
+/* Quote décorative */
+.about-quote{
+  margin:36px 0;padding:28px 32px;
+  background:rgba(138,43,226,.06);
+  border-left:3px solid var(--mauve);
+  border-radius:0 var(--radius) var(--radius) 0;
+  font-size:17px;font-weight:300;font-style:italic;
+  color:rgba(240,236,226,.75);line-height:1.7;
+}
+
+/* Colonne photo + infos */
+.about-side{}
+.photo-card{
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
+  overflow:hidden;margin-bottom:18px;
+  position:relative;
+}
+.photo-card img{
+  width:100%;display:block;
+  object-fit:cover;object-position:center top;
+  aspect-ratio:.82;
+}
+.photo-placeholder{
+  aspect-ratio:.82;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  background:linear-gradient(135deg,rgba(138,43,226,.08),rgba(0,242,234,.05));
+}
+.ph-icon{
+  width:74px;height:74px;border-radius:50%;
+  background:rgba(138,43,226,.1);
+  border:1px dashed rgba(138,43,226,.3);
+  display:flex;align-items:center;justify-content:center;font-size:28px;
+}
+.ph-lbl{font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(240,236,226,.2)}
+.photo-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:30%;
+  background:linear-gradient(to top,rgba(10,15,30,.5),transparent);
+  pointer-events:none;
+}
+
+/* Infos condensées */
+.info-card{
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
+  padding:24px;
+}
+.info-row{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;border-bottom:var(--glass-bd);
+  font-size:13px;
+}
+.info-row:last-child{border-bottom:none;padding-bottom:0}
+.info-icon{width:22px;text-align:center;font-size:14px;flex-shrink:0}
+.info-label{color:var(--muted);flex-shrink:0;min-width:80px}
+.info-value{color:var(--cream);font-weight:400}
+
+/* =============================================
+   SECTION PASSIONS
+============================================= */
+.passions-section{
+  position:relative;z-index:10;
+  padding:0 56px 80px;
+}
+.passions-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+.passion-card{
+  background:var(--glass-bg);border:var(--glass-bd);
+  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
+  padding:28px 24px;
+  transition:background .3s,border-color .3s,transform .3s;
+}
+.passion-card:hover{
+  background:rgba(255,255,255,.05);
+  border-color:rgba(138,43,226,.28);
+  transform:translateY(-4px);
+}
+.passion-icon{font-size:32px;margin-bottom:14px}
+.passion-title{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;
+  color:var(--cream);margin-bottom:10px;
+}
+.passion-desc{
+  font-size:13px;font-weight:300;line-height:1.7;
+  color:rgba(240,236,226,.6);
+}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media(max-width:960px){
+  .page-hero{padding:100px 24px 56px;min-height:auto}
+  .hero-deco,.hero-bg-text{display:none}
+  .about-wrap{grid-template-columns:1fr;gap:40px;padding:56px 24px}
+  .about-side{max-width:320px}
+  .passions-section{padding-left:24px;padding-right:24px;padding-bottom:56px}
+  .passions-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .passions-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="mesh">
+  <div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div>
+  <div class="mesh-blob mb3"></div><div class="mesh-blob mb4"></div>
+</div>
+<div class="grain"></div>
+
+<div class="scroll-indicator" id="scrollInd">
+  <div class="si-track"></div>
+  <div class="si-fill" id="siFill"></div>
+  <div class="si-label" id="siLabel">↓</div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a href="index.html" onclick="closeMob()">Accueil</a>
+  <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
+  <a href="parcours.html" onclick="closeMob()">Parcours</a>
+  <a href="a-propos.html" onclick="closeMob()">À Propos</a>
+  <a href="contact.html" onclick="closeMob()">Contact</a>
+</div>
+
+<nav id="nav">
+  <a href="index.html" class="logo-block">
+    <span class="logo-name">arthur.</span>
+    <span class="logo-sub">D'une inspiration naît une vision</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="parcours.html">Parcours</a></li>
+    <li><a href="a-propos.html" class="active">À Propos</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ==================== PAGE HERO ==================== -->
+<section class="page-hero">
+  <div class="hero-bg-text">L'HUMAIN</div>
+  <div class="hero-deco">
+    <span class="deco-tag">France · Canada</span>
+    <span class="deco-tag">Communicant & Créateur</span>
+    <span class="deco-tag">BUT TC 3ème année</span>
+  </div>
+  <div class="page-eyebrow">L'HUMAIN DERRIÈRE LE CRÉATEUR</div>
+  <h1 class="page-title">
+    <span>À</span><br>
+    <span class="t-stroke">PRO</span><span class="t-mauve">POS</span>
+  </h1>
+  <p class="page-accroche">"Passionné avant d'être stratège, créateur avant d'être communicant."</p>
+</section>
+
+<!-- ==================== TEXTE + PHOTO ==================== -->
+<div class="about-wrap">
+
+  <!-- Texte -->
+  <div class="about-text-block reveal">
+    <div class="s-head">
+      <span class="s-num">01 ///</span>
+      <h2 class="s-title">Mon Histoire</h2>
+      <div class="s-rule"></div>
+    </div>
+
+    <p class="about-lead">
+      Passionné par <strong>l'événementiel, la culture musicale et l'univers de la mode urbaine</strong>, j'ai toujours eu à cœur d'allier mes centres d'intérêt à mon parcours académique et professionnel.
+    </p>
+
+    <div class="about-body">
+      <p>Pour moi, la communication n'est pas qu'une question d'outils, c'est l'art de transmettre une émotion et de fédérer une communauté autour d'un projet qui vibre.</p>
+
+      <div class="about-quote">
+        "Mon parcours est le reflet direct de cette philosophie : j'ai pu lier entrepreneuriat et culture vestimentaire en conceptualisant la marketplace RevoFit lors d'un projet d'étude, plonger dans la stratégie d'acquisition avec mon activité Sneakers Business, et vivre l'adrénaline du terrain lors de mon stage au Palm'Fest."
+      </div>
+
+      <p>Actuellement en double diplomation entre la France et le Canada, j'enrichis ma vision stratégique nord-américaine tout en cultivant ma créativité visuelle. Cette immersion interculturelle à l'UQAC Chicoutimi me permet d'appréhender des problématiques de communication globale avec un regard neuf, toujours ancré dans l'émotion et l'authenticité.</p>
+    </div>
+  </div>
+
+  <!-- Photo + infos -->
+  <div class="about-side reveal">
+    <div class="photo-card">
+      <!-- Remplace par : <img src="assets/images/photo-arthur.jpg" alt="Arthur Viaud"> -->
+      <div class="photo-placeholder">
+        <div class="ph-icon">👤</div>
+        <span class="ph-lbl">Photo à venir</span>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-row">
+        <span class="info-icon">🎓</span>
+        <span class="info-label">Statut</span>
+        <span class="info-value">BUT TC 3ème année</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">🇫🇷</span>
+        <span class="info-label">France</span>
+        <span class="info-value">IUT de Poitiers</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">🇨🇦</span>
+        <span class="info-label">Canada</span>
+        <span class="info-value">UQAC Chicoutimi</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">🌍</span>
+        <span class="info-label">Langues</span>
+        <span class="info-value">FR · EN · ES</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">📍</span>
+        <span class="info-label">Objectif</span>
+        <span class="info-value">Stage · Mai 2026</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==================== PASSIONS ==================== -->
+<section class="passions-section">
+  <div class="s-head">
+    <span class="s-num">02 ///</span>
+    <h2 class="s-title">Univers & Passions</h2>
+    <div class="s-rule"></div>
+  </div>
+  <div class="passions-grid">
+
+    <div class="passion-card reveal">
+      <div class="passion-icon">🎵</div>
+      <div class="passion-title">Événementiel & Musique</div>
+      <p class="passion-desc">La culture musicale et les événements live sont au cœur de qui je suis. Mon stage au Palm'Fest n'est pas un hasard — c'est la rencontre entre ma passion et ma vocation professionnelle.</p>
+    </div>
+
+    <div class="passion-card reveal">
+      <div class="passion-icon">👟</div>
+      <div class="passion-title">Mode Urbaine & Sneakers</div>
+      <p class="passion-desc">La sneaker culture va bien au-delà de la chaussure : c'est un phénomène social, un langage identitaire. Cette passion m'a amené à créer ma première activité entrepreneuriale entre 2022 et 2024.</p>
+    </div>
+
+    <div class="passion-card reveal">
+      <div class="passion-icon">🎬</div>
+      <div class="passion-title">Création Visuelle & Vidéo</div>
+      <p class="passion-desc">Photoshop, Premiere Pro, CapCut — des outils que j'explore de manière autodidacte depuis des années. La création de contenu est pour moi un terrain de jeu autant qu'un levier professionnel.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER NAV -->
+<div class="page-footer-nav">
+  <a href="parcours.html" class="btn-back">← Mon Parcours</a>
+  <a href="contact.html" class="btn-next">Me Contacter →</a>
+</div>
+
+<footer>
+  <div class="f-logo">Arthur Viaud · 2026</div>
+  <div class="f-links">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="a-propos.html">À Propos</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
+  </div>
+  <div class="f-copy">D'une inspiration naît une vision</div>
+</footer>
+
+<script src="shared.js" defer></script>
+</body>
+</html>

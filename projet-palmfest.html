@@ -116,69 +116,62 @@
 .zone-a-desc{font-size:14px;font-weight:300;line-height:1.7;color:rgba(240,236,226,.65)}
 
 /* =============================================
-   ZONE B — MOCKUP LINKEDIN / TÉLÉPHONE
+   ZONE B — VIDÉO CINÉMA 16:9
 ============================================= */
-.zones-bc{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.zones-bc{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;margin-top:18px}
 
 .zone-b{
   border-radius:var(--radius);
   background:var(--glass-bg);border:var(--glass-bd);
   backdrop-filter:var(--glass-blur);
-  display:grid;grid-template-columns:auto 1fr;
-  gap:0;overflow:hidden;min-height:280px;
+  overflow:hidden;
   transition:border-color .3s;
+  display:flex;flex-direction:column;
 }
 .zone-b:hover{border-color:rgba(0,242,234,.28)}
-.phone-mock-wrap{
-  width:120px;background:linear-gradient(180deg,rgba(138,43,226,.1),rgba(0,242,234,.07));
-  border-right:var(--glass-bd);
-  display:flex;align-items:center;justify-content:center;padding:20px 16px;
+.cinema-screen{
+  width:100%;
+  background:#000;
+  overflow:hidden;
+  position:relative;
 }
-.phone-mock{
-  width:80px;height:160px;
-  background:rgba(10,15,30,.9);border-radius:14px;
-  border:1px solid rgba(255,255,255,.15);
-  overflow:hidden;position:relative;
-  box-shadow:0 16px 40px rgba(0,0,0,.5);
+.cinema-screen video{
+  width:100%;display:block;
+  aspect-ratio:16/9;object-fit:cover;
 }
-.phone-notch{width:30px;height:6px;background:rgba(255,255,255,.1);border-radius:0 0 8px 8px;margin:0 auto}
-.phone-screen{padding:8px 7px;display:flex;flex-direction:column;gap:5px}
-.ph-line{height:4px;border-radius:100px;background:rgba(255,255,255,.06)}
-.ph-line.accent{background:linear-gradient(90deg,rgba(0,242,234,.4),rgba(138,43,226,.3));width:65%}
-.ph-line.w80{width:80%}
-.ph-line.w55{width:55%}
-.ph-line.w40{width:40%}
-.ph-line.w90{width:90%}
-.zone-b-info{padding:28px 24px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.cinema-bar{
+  position:absolute;bottom:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg,var(--teal),var(--mauve));
+  opacity:.6;
+}
+.zone-b-info{padding:24px;display:flex;flex-direction:column;gap:10px}
 .zone-b-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal)}
-.zone-b-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;line-height:1.1}
+.zone-b-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;line-height:1.1}
 .zone-b-desc{font-size:13px;font-weight:300;line-height:1.65;color:rgba(240,236,226,.6)}
 
 /* =============================================
-   ZONE C — GALERIE FESTIVAL
+   ZONE C — AFFICHE OFFICIELLE
 ============================================= */
 .zone-c{
   border-radius:var(--radius);
   background:var(--glass-bg);border:var(--glass-bd);
   backdrop-filter:var(--glass-blur);
-  overflow:hidden;min-height:280px;
+  overflow:hidden;
   transition:border-color .3s;display:flex;flex-direction:column;
 }
 .zone-c:hover{border-color:rgba(0,242,234,.28)}
-.zone-c-photos{display:grid;grid-template-columns:1fr 1fr;flex:1;gap:0}
-.gal-ph{
-  position:relative;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:8px;
-  background:linear-gradient(140deg,rgba(0,242,234,.06),rgba(138,43,226,.08));
-  min-height:180px;cursor:pointer;transition:background .3s;
-  border-right:var(--glass-bd);
+.affiche-wrap{
+  flex:1;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg,rgba(0,242,234,.04),rgba(138,43,226,.07));
+  min-height:220px;
 }
-.gal-ph:last-child{border-right:none}
-.gal-ph:hover{background:linear-gradient(140deg,rgba(0,242,234,.1),rgba(138,43,226,.12))}
-.gal-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7;transition:opacity .3s}
-.gal-ph:hover img{opacity:.9}
-.gal-emoji{font-size:36px;opacity:.25;position:relative;z-index:1}
-.gal-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.25);position:relative;z-index:1}
+.affiche-wrap img{
+  width:100%;height:100%;
+  object-fit:contain;display:block;
+  max-height:280px;
+}
 .zone-c-info{padding:20px 24px;border-top:var(--glass-bd)}
 .zone-c-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
 .zone-c-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px}
@@ -192,8 +185,6 @@
   .zone-a{grid-template-columns:1fr}
   .zone-a-visual{border-right:none;border-bottom:var(--glass-bd)}
   .zones-bc{grid-template-columns:1fr}
-  .zone-b{grid-template-columns:1fr}
-  .phone-mock-wrap{display:none}
 }
 </style>
 </head>
@@ -215,6 +206,7 @@
   <a href="index.html" onclick="closeMob()">Accueil</a>
   <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
   <a href="parcours.html" onclick="closeMob()">Parcours</a>
+  <a href="a-propos.html" onclick="closeMob()">À Propos</a>
   <a href="contact.html" onclick="closeMob()">Contact</a>
 </div>
 
@@ -226,6 +218,7 @@
   <ul class="nav-links">
     <li><a href="portfolio.html" class="active">Portfolio</a></li>
     <li><a href="parcours.html">Parcours</a></li>
+    <li><a href="a-propos.html">À Propos</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
   </ul>
@@ -304,57 +297,34 @@
     <div class="s-rule"></div>
   </div>
 
-  <!-- ZONE A — CARROUSEL PDF -->
+  <!-- ZONE A — CARROUSEL PDF (cover + lien) -->
   <div class="zone-a reveal">
     <div class="zone-a-visual">
       <div class="perf-badge">★ Best Engagement Rate</div>
-      <div class="pdf-mock">
-        <div class="pdf-header">
-          <div class="pdf-h-dot"></div>
-          <span class="pdf-title">Que cache vraiment un festival ?</span>
-        </div>
-        <div class="pdf-body">
-          <div class="pdf-line accent"></div>
-          <div class="pdf-line w90"></div>
-          <div class="pdf-line w70"></div>
-          <div class="pdf-line w55"></div>
-          <div class="pdf-line accent"></div>
-          <div class="pdf-line w90"></div>
-          <div class="pdf-line w70"></div>
-          <div class="pdf-line w55"></div>
-        </div>
-        <div class="pdf-footer"><span>Palm'Fest · LinkedIn</span></div>
-      </div>
-      <!-- Pour intégrer le vrai carrousel : remplace .pdf-mock par <img src="carrousel-palmfest.jpg" style="max-width:80%;border-radius:8px"> -->
+      <a href="assets/documents/PM2.pdf" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+        <img src="assets/images/palmfest/PM2-cover.png"
+          alt="Carrousel PDF — Que cache vraiment un festival ?"
+          style="max-width:80%;max-height:280px;border-radius:8px;object-fit:contain;box-shadow:0 24px 60px rgba(0,0,0,.5);display:block;">
+      </a>
     </div>
     <div class="zone-a-info">
       <div class="zone-a-tag">Format Gagnant · LinkedIn</div>
       <div class="zone-a-title">Que cache vraiment un festival ?</div>
       <p class="zone-a-desc">Carrousel PDF éducatif sur les coulisses du festival — format innovant qui a généré d'excellents taux de clics et d'engagement. Conçu de A à Z : copywriting, design Photoshop, et déploiement LinkedIn.</p>
+      <a href="assets/documents/PM2.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;margin-top:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);text-decoration:none;transition:opacity .25s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
+        Voir le carrousel ↗
+      </a>
     </div>
   </div>
 
   <!-- ZONES B + C -->
   <div class="zones-bc">
 
-    <!-- ZONE B — VIDÉO / TÉLÉPHONE -->
+    <!-- ZONE B — VIDÉO CINÉMA 16:9 -->
     <div class="zone-b reveal">
-      <div class="phone-mock-wrap">
-        <div class="phone-mock">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="ph-line accent"></div>
-            <div class="ph-line w80"></div>
-            <div class="ph-line w55"></div>
-            <div class="ph-line w40"></div>
-            <div class="ph-line accent"></div>
-            <div class="ph-line w90"></div>
-            <div class="ph-line w80"></div>
-            <div class="ph-line w55"></div>
-            <div class="ph-line w40"></div>
-          </div>
-          <!-- Pour insérer une vraie vidéo : <video src="video-palmfest.mp4" autoplay muted loop style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"> -->
-        </div>
+      <div class="cinema-screen">
+        <video src="assets/videos/palmfest/PMVideo1.mp4" autoplay muted loop playsinline></video>
+        <div class="cinema-bar"></div>
       </div>
       <div class="zone-b-info">
         <div class="zone-b-tag">Création Vidéo · CapCut</div>
@@ -363,23 +333,14 @@
       </div>
     </div>
 
-    <!-- ZONE C — GALERIE FESTIVAL -->
+    <!-- ZONE C — AFFICHE OFFICIELLE -->
     <div class="zone-c reveal">
-      <div class="zone-c-photos">
-        <div class="gal-ph">
-          <!-- <img src="palmfest-aerien.jpg" alt="Vue aérienne Palm'Fest"> -->
-          <div class="gal-emoji">🌊</div>
-          <div class="gal-lbl">Vue mer · La Palmyre</div>
-        </div>
-        <div class="gal-ph">
-          <!-- <img src="palmfest-foret.jpg" alt="Site festival forêt"> -->
-          <div class="gal-emoji">🌲</div>
-          <div class="gal-lbl">Site forêt · Point Sublime</div>
-        </div>
+      <div class="affiche-wrap">
+        <img src="assets/images/palmfest/PM1.png" alt="Affiche officielle Palm'Fest 2024">
       </div>
       <div class="zone-c-info">
-        <div class="zone-c-tag">L'Envergure · 10 000 festivaliers</div>
-        <div class="zone-c-title">Le Point Sublime · La Palmyre</div>
+        <div class="zone-c-tag">Communication Visuelle</div>
+        <div class="zone-c-title">Affiche Officielle 2024</div>
       </div>
     </div>
 
@@ -397,8 +358,9 @@
   <div class="f-links">
     <a href="portfolio.html">Portfolio</a>
     <a href="parcours.html">Parcours</a>
+    <a href="a-propos.html">À Propos</a>
     <a href="contact.html">Contact</a>
-    <a href="https://linkedin.com" target="_blank">LinkedIn ↗</a>
+    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
   </div>
   <div class="f-copy">D'une inspiration naît une vision</div>
 </footer>
