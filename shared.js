@@ -19,10 +19,18 @@ if (IS_DESKTOP) document.body.classList.add('is-desktop');
     document.body.insertBefore(overlay, document.body.firstChild);
   }
 
-  // Reveal — slide overlay upward
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => overlay.classList.add('pt-out'));
-  });
+  // Sur page-home : le loader gère l'entrée — overlay immédiatement masqué (sans transition)
+  if (document.body.classList.contains('page-home')) {
+    overlay.style.transition = 'none';
+    overlay.classList.add('pt-out');
+    requestAnimationFrame(() => { overlay.style.transition = ''; });
+    // Le click handler de navigation reste actif pour quitter la page
+  } else {
+    // Reveal — slide overlay upward
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => overlay.classList.add('pt-out'));
+    });
+  }
 
   // On internal link click → cover page then navigate
   document.addEventListener('click', e => {
@@ -210,6 +218,9 @@ function closeMob() {
   if (!IS_DESKTOP) return;
 
   document.querySelectorAll('.proj-card, .glass-card, .dispo-card').forEach(card => {
+    // page-home : home.js gère le tilt des proj-cards avec perspective et glare
+    if (card.classList.contains('proj-card') && document.body.classList.contains('page-home')) return;
+
     card.addEventListener('mouseenter', () => {
       card.style.transition = 'transform .2s ease, background .3s, border-color .3s';
     });
@@ -231,6 +242,8 @@ function closeMob() {
 
 // ─── STATS COUNTER ANIMATION ───────────────────────────────────────────────
 (function initCounters() {
+  // page-home : home.js gère le slot machine
+  if (document.body.classList.contains('page-home')) return;
   const stats = document.querySelectorAll('.stat-n');
   if (!stats.length) return;
 
@@ -263,6 +276,8 @@ function closeMob() {
 
 // ─── HERO LETTER SPLIT ─────────────────────────────────────────────────────
 (function initHeroSplit() {
+  // page-home : home.js gère la séquence d'entrée complète après le loader
+  if (document.body.classList.contains('page-home')) return;
   const heroName = document.querySelector('.hero-name');
   if (!heroName) return;
 
@@ -319,6 +334,8 @@ function closeMob() {
 
 // ─── PARALLAX HERO (DESKTOP ONLY) ─────────────────────────────────────────
 (function initParallax() {
+  // page-home : home.js gère un parallax multi-couches plus précis
+  if (document.body.classList.contains('page-home')) return;
   if (!IS_DESKTOP) return;
 
   const heroContent = document.querySelector('.hero-wrap > div:first-child');

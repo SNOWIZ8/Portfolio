@@ -4,21 +4,41 @@
 <script defer src="/_vercel/speed-insights/script.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arthur Viaud — Portfolio</title>
+<title>Arthur Viaud — Créateur de Contenus & Communicant</title>
+<meta name="description" content="Portfolio d'Arthur Viaud — Créateur de contenus & Communicant. Stage communication & marketing digital disponible dès mai 2026.">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <link rel="stylesheet" href="home.css">
 </head>
-<body>
+<body class="page-home">
 
-<div id="page-overlay"></div>
+<!-- ==================== LOADING SCREEN ==================== -->
+<div id="loader">
+  <div class="loader-curtain lc-left"></div>
+  <div class="loader-curtain lc-right"></div>
+  <div class="loader-content">
+    <div id="loader-logo">
+      <span class="ll">a</span><span class="ll">r</span><span class="ll">t</span><span class="ll">h</span><span class="ll">u</span><span class="ll">r</span><span class="ll">.</span>
+    </div>
+    <div class="loader-bar-wrap" id="loaderBarWrap">
+      <div id="loader-fill"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== EFFETS GLOBAUX ==================== -->
+<div id="spotlight"></div>
 <div class="cursor" id="cur"></div>
 <div class="cursor-ring" id="ring"></div>
 <div class="mesh">
-  <div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div>
-  <div class="mesh-blob mb3"></div><div class="mesh-blob mb4"></div>
+  <div class="mesh-blob mb1"></div>
+  <div class="mesh-blob mb2"></div>
+  <div class="mesh-blob mb3"></div>
+  <div class="mesh-blob mb4"></div>
 </div>
 <div class="grain"></div>
+<div class="grid-overlay" id="gridOverlay"></div>
+<div id="page-overlay"></div>
 
 <!-- SCROLL INDICATOR -->
 <div class="scroll-indicator" id="scrollInd" title="Haut de page">
@@ -55,54 +75,116 @@
 </nav>
 
 <!-- ==================== HERO ==================== -->
-<section class="hero">
+<section class="hero" id="hero">
+
+  <!-- Couche 1 — Grille tech (parallax lente) -->
+  <div class="hero-layer hero-grid-layer" id="heroGridLayer"></div>
+
+  <!-- Couche 2 — Halos flottants mauve/teal -->
+  <div class="hero-layer hero-halos" id="heroHalos">
+    <div class="halo h1"></div>
+    <div class="halo h2"></div>
+    <div class="halo h3"></div>
+  </div>
+
+  <!-- Couches 3 & 4 — Contenu -->
   <div class="hero-wrap">
-    <div>
-      <div class="h-eyebrow">
+
+    <!-- Couche 3 — Texte hero -->
+    <div class="hero-text-col" id="heroTextCol">
+      <div class="h-eyebrow hero-enter" id="heroEyebrow">
         <div class="e-dot"></div>
         <span class="e-txt">Disponible · Stage Communication & Marketing</span>
       </div>
-      <h1 class="hero-name">
-        <span class="hn-solid">Arthur</span><br>
-        <span class="hn-stroke">Via</span><span class="hn-teal">ud</span>
+      <h1 class="hero-name hero-enter" id="heroName">
+        <span class="hn-line hn-solid">Arthur</span>
+        <br>
+        <span class="hn-line"><span class="hn-stroke">Via</span><span class="hn-teal">ud</span></span>
       </h1>
-      <p class="hero-tagline">
+      <p class="hero-tagline hero-enter" id="heroTagline">
         <strong>Créateur de contenus & Communicant</strong> — transformer vos projets
         en expériences visuelles percutantes.<br>Double diplomation France · Canada.
       </p>
-      <div class="hero-btns">
-        <a href="portfolio.html" class="btn-primary">Voir mes projets ↗</a>
-        <a href="contact.html" class="btn-ghost">Me contacter →</a>
+      <div class="hero-btns hero-enter" id="heroBtns">
+        <a href="portfolio.html" class="btn-primary magnetic">Voir mes projets ↗</a>
+        <a href="contact.html" class="btn-ghost magnetic">Me contacter →</a>
         <div class="dispo-pill"><div class="dp-dot"></div>Dispo dès Mai 2026</div>
       </div>
     </div>
-    <!-- PHOTO ZONE — remplace le commentaire par <img src="ta-photo.jpg" alt="Arthur Viaud"> -->
-    <div class="photo-zone">
-      <div class="photo-frame">
-        <div class="corner c-tl"></div><div class="corner c-tr"></div>
-        <div class="corner c-bl"></div><div class="corner c-br"></div>
-        <div class="ph-ph">
-          <div class="ph-icon">👤</div>
-          <span class="ph-lbl">Ta photo ici</span>
+
+    <!-- Couche 4 — Zone photo (bouge plus lentement) -->
+    <div class="photo-zone hero-enter" id="heroPhotoZone">
+      <div class="photo-frame" id="photoFrame">
+        <div class="corner c-tl"></div>
+        <div class="corner c-tr"></div>
+        <div class="corner c-bl"></div>
+        <div class="corner c-br"></div>
+
+        <!-- Silhouette SVG animée -->
+        <div class="ph-silhouette">
+          <svg viewBox="0 0 100 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path class="sil-path"
+              d="M50 10 C40 10 30 18 30 29 C30 40 40 48 50 48 C60 48 70 40 70 29 C70 18 60 10 50 10 Z
+                 M50 48 L50 62
+                 M22 70 L78 70
+                 M50 62 L50 115
+                 M22 70 L10 105
+                 M78 70 L90 105
+                 M34 115 L66 115
+                 M38 115 L28 168
+                 M62 115 L72 168"
+              stroke="rgba(0,242,234,0.18)" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
+
+        <!-- Particules flottantes (générées par home.js) -->
+        <div class="ph-particles" id="phParticles"></div>
+
+        <!-- Label discret -->
+        <span class="ph-lbl">Photo à venir</span>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat-item"><div class="stat-n">3<em>+</em></div><div class="stat-l">Années d'études</div></div>
-  <div class="stat-item"><div class="stat-n">2<em>x</em></div><div class="stat-l">Double diplôme FR · CA</div></div>
-  <div class="stat-item"><div class="stat-n">4<em>+</em></div><div class="stat-l">Expériences pros</div></div>
-  <div class="stat-item"><div class="stat-n">3<em>↗</em></div><div class="stat-l">Langues parlées</div></div>
+<!-- ==================== STATS BAR ==================== -->
+<div class="stats-bar hero-enter" id="statsBar">
+  <div class="stat-item">
+    <div class="stat-n" data-slot-target="3" data-slot-suffix="+">
+      <span class="slot-display">3</span><em>+</em>
+    </div>
+    <div class="stat-l">Années d'études</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n" data-slot-target="2" data-slot-suffix="x">
+      <span class="slot-display">2</span><em>x</em>
+    </div>
+    <div class="stat-l">Double diplôme FR · CA</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n" data-slot-target="4" data-slot-suffix="+">
+      <span class="slot-display">4</span><em>+</em>
+    </div>
+    <div class="stat-l">Expériences pros</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n" data-slot-target="3" data-slot-suffix="↗">
+      <span class="slot-display">3</span><em>↗</em>
+    </div>
+    <div class="stat-l">Langues parlées</div>
+  </div>
 </div>
-<div class="scroll-caret"><div class="sc-line"></div><span class="sc-lbl">Scroll pour explorer</span></div>
 
-<!-- ==================== OUTILS ==================== -->
+<div class="scroll-caret">
+  <div class="sc-line"></div>
+  <span class="sc-lbl">Scroll pour explorer</span>
+</div>
+
+<!-- ==================== 01 · OUTILS & COMPÉTENCES ==================== -->
 <section class="section s-alt">
   <div class="s-head reveal-left">
-    <span class="s-num">01 ///</span>
+    <span class="s-num">01 <span class="s-sep">///</span></span>
     <h2 class="s-title">Outils & Compétences</h2>
     <div class="s-rule"></div>
   </div>
@@ -116,60 +198,95 @@
   </div>
 </section>
 
-<!-- ==================== PROJETS TEASER ==================== -->
-<section class="section">
-  <div class="s-head reveal-left">
-    <span class="s-num">02 ///</span>
-    <h2 class="s-title">Projets en Vedette</h2>
-    <div class="s-rule"></div>
+<!-- ==================== MARQUEE ==================== -->
+<div class="marquee-section" role="marquee" aria-hidden="true">
+  <div class="marquee-inner">
+    <span class="marquee-track">COMMUNICATION <span class="m-dot">·</span> MARKETING DIGITAL <span class="m-dot">·</span> STORYTELLING <span class="m-dot">·</span> CRÉATION <span class="m-dot">·</span> STRATÉGIE <span class="m-dot">·</span> BRAND CONTENT <span class="m-dot">·</span> VIDÉO <span class="m-dot">·</span> RÉSEAUX SOCIAUX <span class="m-dot">·</span>&nbsp;&nbsp;&nbsp;</span>
+    <span class="marquee-track" aria-hidden="true">COMMUNICATION <span class="m-dot">·</span> MARKETING DIGITAL <span class="m-dot">·</span> STORYTELLING <span class="m-dot">·</span> CRÉATION <span class="m-dot">·</span> STRATÉGIE <span class="m-dot">·</span> BRAND CONTENT <span class="m-dot">·</span> VIDÉO <span class="m-dot">·</span> RÉSEAUX SOCIAUX <span class="m-dot">·</span>&nbsp;&nbsp;&nbsp;</span>
   </div>
-  <div class="proj-grid">
-    <a href="projet-sneakers.html" class="proj-card reveal">
-      <div class="proj-emoji">👟</div>
-      <div class="proj-arrow">↗</div>
-      <div class="proj-tag">Entrepreneuriat · 2022–2024</div>
-      <div class="proj-title">Sneakers Business</div>
-    </a>
-    <a href="projet-revofit.html" class="proj-card reveal">
-      <div class="proj-emoji">💪</div>
-      <div class="proj-arrow">↗</div>
-      <div class="proj-tag">Projet Entrepreneurial · 2024</div>
-      <div class="proj-title">RevoFit</div>
-    </a>
-    <a href="projet-palmfest.html" class="proj-card reveal">
-      <div class="proj-emoji">🌴</div>
-      <div class="proj-arrow">↗</div>
-      <div class="proj-tag">Stage Communication · 2024</div>
-      <div class="proj-title">Palm'Fest — Stratégie B2B</div>
-    </a>
-  </div>
-</section>
+</div>
 
-<!-- ==================== DISPONIBILITÉS ==================== -->
+<!-- ==================== 02 · PROJETS EN VEDETTE (HORIZONTAL SCROLL) ==================== -->
+<div id="projets" class="proj-h-section">
+  <div class="proj-track" id="projTrack">
+
+    <!-- Header reste visible pendant le scroll horizontal -->
+    <div class="proj-track-header reveal-left">
+      <span class="s-num">02 <span class="s-sep">///</span></span>
+      <h2 class="s-title">Projets en Vedette</h2>
+      <div class="s-rule"></div>
+    </div>
+
+    <!-- Conteneur des cartes scrollables -->
+    <div class="proj-cards-wrap" id="projCardsWrap">
+      <div class="proj-inner" id="projInner">
+
+        <a href="projet-sneakers.html" class="proj-card" data-cursor-label="VOIR →">
+          <div class="proj-bg-emoji">👟</div>
+          <div class="proj-arrow">↗</div>
+          <div class="proj-tag">Entrepreneuriat · 2022–2024</div>
+          <h3 class="proj-title">Sneakers<br>Business</h3>
+          <div class="proj-glare" aria-hidden="true"></div>
+        </a>
+
+        <a href="projet-revofit.html" class="proj-card" data-cursor-label="VOIR →">
+          <div class="proj-bg-emoji">💪</div>
+          <div class="proj-arrow">↗</div>
+          <div class="proj-tag">Projet Entrepreneurial · 2024</div>
+          <h3 class="proj-title">RevoFit</h3>
+          <div class="proj-glare" aria-hidden="true"></div>
+        </a>
+
+        <a href="projet-palmfest.html" class="proj-card" data-cursor-label="VOIR →">
+          <div class="proj-bg-emoji">🌴</div>
+          <div class="proj-arrow">↗</div>
+          <div class="proj-tag">Stage Communication · 2024</div>
+          <h3 class="proj-title">Palm'Fest<br>Stratégie B2B</h3>
+          <div class="proj-glare" aria-hidden="true"></div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Indicateur de progression scroll horizontal -->
+  <div class="proj-progress-track">
+    <div class="proj-progress-fill" id="projScrollFill"></div>
+  </div>
+</div>
+
+<!-- ==================== 03 · DISPONIBILITÉS ==================== -->
 <section class="section s-alt">
   <div class="s-head reveal-left">
-    <span class="s-num">03 ///</span>
+    <span class="s-num">03 <span class="s-sep">///</span></span>
     <h2 class="s-title">Disponibilités</h2>
     <div class="s-rule"></div>
   </div>
   <div class="dispo-grid">
-    <div class="glass-card dispo-card prime reveal-scale">
+    <div class="glass-card dispo-card prime reveal-left">
       <div class="d-badge">Priorité</div>
       <div class="d-date">Mai → Juillet 2026</div>
       <div class="d-dur">Stage 3 mois · 4 mai au 24 juillet</div>
       <div class="d-locs">
-        <span class="loc-tag">Royan</span><span class="loc-tag">La Rochelle</span>
-        <span class="loc-tag">Bordeaux</span><span class="loc-tag">Poitiers</span>
-        <span class="loc-tag">Grenoble</span><span class="loc-tag">Paris</span>
+        <span class="loc-tag">Royan</span>
+        <span class="loc-tag">La Rochelle</span>
+        <span class="loc-tag">Bordeaux</span>
+        <span class="loc-tag">Poitiers</span>
+        <span class="loc-tag">Grenoble</span>
+        <span class="loc-tag">Paris</span>
       </div>
     </div>
     <div class="glass-card dispo-card reveal-right">
       <div class="d-date">Août → Déc. 2026</div>
       <div class="d-dur">Stage longue durée · fin août à décembre</div>
       <div class="d-locs">
-        <span class="loc-tag">Royan</span><span class="loc-tag">La Rochelle</span>
-        <span class="loc-tag">Bordeaux</span><span class="loc-tag">Poitiers</span>
-        <span class="loc-tag">Grenoble</span><span class="loc-tag">Paris</span>
+        <span class="loc-tag">Royan</span>
+        <span class="loc-tag">La Rochelle</span>
+        <span class="loc-tag">Bordeaux</span>
+        <span class="loc-tag">Poitiers</span>
+        <span class="loc-tag">Grenoble</span>
+        <span class="loc-tag">Paris</span>
       </div>
     </div>
   </div>
@@ -189,5 +306,6 @@
 </footer>
 
 <script src="shared.js" defer></script>
+<script src="home.js" defer></script>
 </body>
 </html>

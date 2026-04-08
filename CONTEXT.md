@@ -13,47 +13,42 @@
 | **Repo GitHub** | https://github.com/SNOWIZ8/Portfolio |
 | **Hébergeur** | Vercel (déploiement auto sur push GitHub) |
 | **Stack** | HTML5 · CSS3 · JavaScript natif (vanilla) |
-| **Statut** | 6 pages générées · 1 page manquante (`portfolio.html`) |
+| **Statut** | 7 pages générées — Phase 5 Accueil en cours |
 
 ---
 
 ## 👤 PROFIL PROPRIÉTAIRE
 
-```
 Nom            : Arthur Viaud
 Statut         : Étudiant 3ème année BUT Techniques de Commercialisation
 Établissements : IUT de Poitiers (France) + UQAC Chicoutimi (Canada)
 Double diplôme : BUT TC (Marketing Digital) + Bac Administration
 Objectif       : Stage Communication & Marketing Digital
 Email pro      : arthurviaudpro@gmail.com
-LinkedIn       : [À RENSEIGNER — ex: linkedin.com/in/arthur-viaud]
-Instagram      : [À RENSEIGNER]
+LinkedIn       : https://www.linkedin.com/in/arthur-viaud-81939b2a6/
+Instagram      : Non renseigné (compte personnel)
 Tagline        : "D'une inspiration naît une vision"
 Punchline      : "Mettre l'énergie et la créativité au service de la visibilité de vos projets."
 Positionnement : "Créateur de contenus & Communicant | Transformer vos projets en expériences visuelles percutantes"
-```
 
 ### Disponibilités stage
-```
+
 Option 1 (prioritaire) : 4 mai → 24 juillet 2026 (3 mois)
 Option 2 (longue durée): Fin août → décembre 2026
-Villes visées          : Royan · La Rochelle · Bordeaux · Poitiers · Grenoble · Paris
-```
+Villes visées          : Royan · La Rochelle · Bordeaux · Poitiers · Grenoble
 
 ### Compétences & outils
-```
+
 Outils        : Photoshop · Premiere Pro · CapCut · Framer · Excel
 Compétences   : Communication digitale · Storytelling · Gestion de projet · Rédaction
 Langues       : Français (natif) · Anglais (B2) · Espagnol (B1)
-```
 
 ### Résultats académiques S5 (UQAC)
-```
+
 Ressources Humaines  : 82.47/100
 Marketing Numérique  : 81.17/100
 Recherche Marketing  : 80.19/100
 Gestion Financière   : 77.30/100
-```
 
 ---
 
@@ -66,26 +61,21 @@ Gestion Financière   : 77.30/100
 --mauve    : #8A2BE2   /* Couleur accent secondaire */
 --cream    : #F0ECE2   /* Texte principal */
 --muted    : rgba(240,236,226,0.52)  /* Texte secondaire */
-```
 
-### Glassmorphism (système de cartes)
-```css
+Glassmorphism (système de cartes)
 --glass-bg   : rgba(255,255,255,0.03)
 --glass-bd   : 1px solid rgba(255,255,255,0.10)
 --glass-blur : blur(12px)
 --radius     : 12px
-```
 
-### Typographie
-```
+Typographie
+
 Display / Titres XXL : Bebas Neue (Google Fonts)
 Corps / UI           : DM Sans (Google Fonts) — weights 300, 400, 500
 Import Google Fonts  :
   https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap
-```
 
-### Effets visuels obligatoires (présents sur TOUTES les pages)
-```
+Effets visuels obligatoires (présents sur TOUTES les pages)
 1. MESH GRADIENT ANIMÉ
    - 3 à 4 blobs positionnés en fixed
    - Couleurs : --teal et --mauve
@@ -116,384 +106,329 @@ Import Google Fonts  :
    - Transition: 0.7s ease
    - Déclencheur: IntersectionObserver threshold 0.08–0.12
    - Stagger: setTimeout(i * 80ms) sur les grilles
-```
 
-### Logo
-```
+Logo
 Texte    : "arthur."
 Style    : DM Sans · font-weight 800 · font-size 22px · letter-spacing -1px
 Effet    : Gradient shimmer animé (teal → #a78bff → teal) · background-size 220%
 Sous-titre : "D'une inspiration naît une vision" · 7px · letter-spacing 3px · uppercase · opacity 0.25
-```
 
-### Navbar (identique sur toutes les pages)
-```
-Position   : fixed · top 0 · z-index 500
-Background : rgba(10,15,30,0.45) · backdrop-filter blur(12px)
-Border-bottom : var(--glass-bd)
-Padding    : 20px 56px (→ 13px 56px au scroll via classe .scrolled)
+Navbar & Footer (factorisés)
+Les styles et comportements sont définis dans shared.css et shared.js.
+Règle : Ne jamais dupliquer de longs blocs de style dans les fichiers HTML individuels.
 
-Liens : Portfolio · Parcours · Contact
-  - Font: 11px · letter-spacing 2.5px · uppercase
-  - Hover: couleur cream + underline teal animé
-  - Actif: classe .active → underline gradient teal→mauve
-
-CTA   : "Télécharger CV ↓"
-  - Lien vers : cv-arthur-viaud.pdf (download)
-  - Style glassmorphism · couleur teal · hover fond teal opacity 0.12
-
-Mobile : hamburger (display:none > flex < 960px)
-  - Menu plein écran overlay avec liens Bebas Neue 52px
-```
-
----
-
-## 📁 STRUCTURE DES FICHIERS
-
-```
+STRUCTURE DES FICHIERS (MISE À JOUR)
 Portfolio/
 ├── index.html              ✅ Généré
-├── portfolio.html          ❌ À CRÉER (voir specs plus bas)
+├── portfolio.html          ✅ Généré
 ├── parcours.html           ✅ Généré
-├── contact.html            ✅ Généré
+├── contact.html            ✅ Généré (À modifier : retirer le profil)
+├── a-propos.html           ❌ À CRÉER (Nouvelle page profil/passions)
 ├── projet-sneakers.html    ✅ Généré
 ├── projet-revofit.html     ✅ Généré
 ├── projet-palmfest.html    ✅ Généré
-├── cv-arthur-viaud.pdf     ⚠️  À ajouter par Arthur
-├── assets/
-│   ├── images/
-│   │   ├── photo-arthur.jpg       ⚠️  À ajouter (photo de profil hero)
-│   │   ├── sneakers/              ⚠️  Photos sneakers pour galerie
-│   │   ├── revofit/               ⚠️  Mockups RevoFit
-│   │   └── palmfest/              ⚠️  Visuels Palm'Fest
-│   └── videos/
-│       ├── tiktok-sneakers-1.mp4  ⚠️  Vidéos TikTok Sneakers
-│       └── palmfest-promo.mp4     ⚠️  Vidéo Palm'Fest CapCut
-└── CONTEXT.md              ✅ Ce fichier
-```
+├── shared.css              ✅ Généré (DA centralisée)
+├── shared.js               ✅ Généré (Logique UI centralisée)
+├── cv-arthur-viaud.pdf     ⚠️ À ajouter par Arthur (À LA RACINE)
+└── assets/
+    ├── documents/
+    │   └── PM2.pdf                ⚠️ Carrousel Palm'Fest complet
+    ├── images/
+    │   ├── photo-arthur.jpg       ⚠️ Photo de profil (À venir)
+    │   ├── sneakers/              ⚠️ SNK1.jpg, SNK2.jpg, SNK3.jpg, SNK4.jpg
+    │   ├── palmfest/              ⚠️ PM1.png, PM2-cover.png
+    │   └── revofit/               ⚠️ RVF1.png, RVF2.jpg
+    └── videos/
+        ├── revofit/               ⚠️ RVFVideo1.mp4
+        ├── sneakers/              ⚠️ SNKVD1.mp4 (paysage), SNKVD2 à SNKVD5 (mob)
+        └── palmfest/              ⚠️ PMVideo1.mp4 (paysage)
 
-### ⚠️ Améliorations architecture à faire sur Claude Code
-```
-PRIORITÉ HAUTE :
-- Factoriser navbar + footer dans des Web Components ou includes JS
-  (actuellement dupliqués dans chaque fichier HTML → maintenance difficile)
-- Créer un fichier shared.css pour les variables et styles communs
-- Créer un fichier shared.js pour cursor, scroll indicator, scroll reveal, mobile menu
-  (actuellement dupliqués dans chaque fichier HTML)
+PAGES GÉNÉRÉES — DÉTAIL DES CONTENUS
+1. index.html — Accueil ✅
+SECTIONS : Hero, Stats bar, Outils & compétences, Projets en vedette, Disponibilités.
+⚠️ ACTION REQUISE CLAUDE : Déplacer les styles CSS spécifiques restants (Hero, Stats, Tools) dans un nouveau fichier `home.css` pour alléger le HTML.
 
-PRIORITÉ MOYENNE :
-- Optimiser les images (WebP, lazy loading)
-- Ajouter meta tags SEO (og:image, description, canonical)
-- Ajouter un sitemap.xml pour le référencement
-- Ajouter robots.txt
-- Vérifier les performances Lighthouse (Core Web Vitals)
+2. portfolio.html — Galerie Projets ✅
+OBJECTIF : Page listant tous les projets avec filtres par catégorie.
+Système de filtres JS opérationnel.
 
-PRIORITÉ BASSE :
-- Connecter le formulaire de contact à un vrai backend (Formspree recommandé)
-- Ajouter Google Analytics ou Plausible
-- Ajouter une page 404.html custom
-```
+3. parcours.html — Parcours Académique ✅
+SECTIONS : Timeline verticale France/Canada, Accordéon UEs, Progress bars S5.
+⚠️ ACTION REQUISE ARTHUR : Remplir les vrais textes dans les blocs d'accordéon (Lorem Ipsum actuellement).
 
----
+4. contact.html — Profil & Contact ✅
+SECTIONS : Profil texte, disponibilités, Formulaire glassmorphism.
+⚠️ ACTION REQUISE CLAUDE : Lier le formulaire à Formspree une fois l'ID fourni.
 
-## 📄 PAGES GÉNÉRÉES — DÉTAIL
-
-### 1. index.html — Accueil ✅
-```
-SECTIONS :
-  - Hero : nom (Bebas Neue XXL) + tagline + CTA + photo placeholder
-  - Stats bar : 3+ années · 2x double diplôme · 4+ expériences · 3 langues
-  - Outils & compétences (grille glassmorphism 6 cards)
-  - Projets en vedette (teaser 3 projets → links vers pages projet)
-  - Disponibilités (2 cards : mai→juillet PRIORITÉ + août→déc)
-  - Footer global
-
-LIENS INTERNES : portfolio.html · parcours.html · contact.html
-```
-
-### 2. portfolio.html — Galerie Projets ❌ À CRÉER
-```
-OBJECTIF : Page listant tous les projets avec filtres par catégorie
-
-SECTIONS SOUHAITÉES :
-  Header de page :
-    - Surtitre : "PROJETS & RÉALISATIONS"
-    - Titre principal : "PORTFOLIO"
-    - Accroche : "Chaque projet raconte une histoire."
-
-  Système de filtres (JS) :
-    - Boutons : Tous · Entrepreneuriat · Communication · Formation
-    - Filtrage smooth avec animation fade
-
-  Grille de projets (layout asymétrique) :
-    - Sneakers Business  → projet-sneakers.html  · tag Entrepreneuriat · 2022–2024
-    - RevoFit            → projet-revofit.html   · tag Entrepreneuriat · 2024
-    - Palm'Fest          → projet-palmfest.html  · tag Communication   · 2024
-    - Réalisations BUT TC → (page à créer plus tard) · tag Formation
-
-  Chaque card projet contient :
-    - Emoji/visuel placeholder (remplaçable par vraie image)
-    - Tag catégorie coloré
-    - Année
-    - Titre Bebas Neue
-    - Description courte (1 ligne)
-    - Flèche hover → lien vers page projet
-
-STYLE : Même DA. Cards glassmorphism. Grille 2 colonnes + 1 large.
-```
-
-### 3. parcours.html — Parcours Académique ✅
-```
-SECTIONS :
-  - Timeline verticale asymétrique (France gauche / Canada droite)
-  - France : Accordéon 5 UEs (contenu Lorem Ipsum à remplir par Arthur)
-  - Canada : Progress bars notes S5 (animées au scroll)
-  - Bloc téléchargement CV centré
-  - Navigation → portfolio + contact
-
-COMPOSANTS JS :
-  - toggleAcc(idx) : accordéon exclusif (1 seul ouvert à la fois)
-  - Progress bars : IntersectionObserver → width animé à 1.2s
-```
-
-### 4. contact.html — Profil & Contact ✅
-```
-SECTIONS :
-  - Hero : "L'HUMAIN DERRIÈRE LE CRÉATEUR" / "PROFIL & CONTACT"
-  - Grille 2 colonnes :
-    Gauche : profil texte + disponibilité (2 options) + coordonnées directes
-    Droite  : formulaire glassmorphism (Nom · Email · Entreprise · Sujet · Message)
-  - Citation de clôture centrée
-  - Footer global
-
-FORMULAIRE :
-  - Validation JS côté client (champs requis + format email)
-  - État succès animé (fade in) après soumission simulée
-  - TODO : Connecter à Formspree → fetch('https://formspree.io/f/TON_ID')
-  - Email de destination : arthurviaudpro@gmail.com
-
-LIENS :
-  - Email : mailto:arthurviaudpro@gmail.com
-  - LinkedIn : [À RENSEIGNER]
-```
-
-### 5. projet-sneakers.html ✅
-```
+5. projet-sneakers.html ✅
 SURTITRE : ENTREPRENEURIAT & STRATÉGIE • 2022–2024
 TITRE    : SNEAKERS BUSINESS
 ACCROCHE : "De la passion culturelle à la stratégie d'acquisition digitale."
+MÉDIAS   :
+  - Vidéos : à lier vers `assets/videos/sneakers/`
+  - Galerie : à lier vers `assets/images/sneakers/`
 
-BULLES (4) :
-  1. L'essor d'une culture
-  2. Digitaliser l'acquisition
-  3. Analyse de marché et optimisation
-  4. Un laboratoire professionnel
-
-MÉDIAS :
-  - 2 slots TikTok 9:16 (placeholders → remplacer par <video src="...">)
-  - Galerie asymétrique 5 cases (1 grande + 4 petites)
-    → remplacer .gal-placeholder par <img src="assets/images/sneakers/...">
-
-NAVIGATION : ← Retour Portfolio | Projet suivant : RevoFit →
-ACCENT COULEUR : teal (identique DA globale)
-```
-
-### 6. projet-revofit.html ✅
-```
+6. projet-revofit.html ✅
 SURTITRE : PROJET ENTREPRENEURIAL • 2024
 TITRE    : REVOFIT
 ACCROCHE : "L'alliance de la performance sportive et de l'innovation numérique."
+MÉDIAS   :
+  - Mockups : à lier vers `assets/videos/revofit/` (Remplacement des images statiques par des vidéos).
 
-BULLES (3) :
-  1. Réinventer l'expérience fitness
-  2. Une identité de marque percutante (avec liste compétences)
-  3. Coordination et synergie d'équipe (full-width)
-
-MÉDIAS :
-  - Grille 3 mockups "faux écran app" (glassmorphism)
-    → remplacer .mock-inner par <img src="assets/images/revofit/...">
-
-NAVIGATION : ← Retour Portfolio | Projet suivant : Palm'Fest →
-ACCENT COULEUR : mauve (#8A2BE2) pour les titres de bulles et stripe déco
-```
-
-### 7. projet-palmfest.html ✅
-```
+7. projet-palmfest.html ✅
 SURTITRE : STAGE COMMUNICATION & STRATÉGIE B2B • 2024
 TITRE    : PALM'FEST
 ACCROCHE : "Convertir l'énergie d'un festival de 10 000 personnes en stratégie d'acquisition mécénat."
-
 KPIs HERO : 10K festivaliers · B2B canal principal · 3M stage · Best Engagement
+MÉDIAS   :
+  - Carrousel : à lier vers `assets/images/palmfest/`
+  - Vidéo promo : à lier vers `assets/videos/palmfest/`
+  - Galerie (mer/forêt) : à lier vers `assets/images/palmfest/`
 
-BULLES (3) :
-  1. Un ancrage territorial fort
-  2. Stratégie et création de contenus
-  3. Analyse et engagement (full-width)
+🚀 ROADMAP CLAUDE CODE — PHASES 1 À 4 TERMINÉES
 
-MÉDIAS (3 zones distinctes) :
-  Zone A : Carrousel PDF "Que cache vraiment un festival ?" + badge Best Engagement Rate
-           → remplacer .pdf-mock par <img src="assets/images/palmfest/carrousel.jpg">
-  Zone B : Mockup téléphone + vidéo promo CapCut
-           → remplacer .phone-mock par <video src="assets/videos/palmfest-promo.mp4">
-  Zone C : Galerie 2 photos horizontales (mer + forêt La Palmyre)
-           → remplacer .gal-ph par <img src="assets/images/palmfest/...">
-
-NAVIGATION : ← Retour Portfolio | Découvrir mon Parcours →
-ACCENT COULEUR : teal · watermark "10 000" en fond du hero
-```
+Phase 1 — Architecture (✅ TERMINÉE)
+Phase 2 — Intégration Médias & Nettoyage (✅ TERMINÉE)
+Phase 3 — Séparation À Propos, Textes Parcours & Refonte RevoFit (✅ TERMINÉE)
+Phase 4 — Performance, SEO & Finitions (✅ TERMINÉE)
 
 ---
 
-## 🔧 COMPOSANTS JS PARTAGÉS (actuellement dupliqués)
+## 🎬 Phase 5 — Creative Coding & Expérience Premium · PAGE ACCUEIL (index.html + home.css)
 
-### À factoriser en shared.js
-```javascript
-// 1. CURSOR CUSTOM
-// Variables: cur, ring, mx, my, rx, ry
-// Logique: mousemove + lerp loop (factor 0.11)
-// Hover: width/height 18px sur éléments interactifs, 10px sinon
-
-// 2. NAV SHRINK
-// window scroll → toggle classe .scrolled sur #nav (threshold: scrollY > 60)
-
-// 3. SCROLL INDICATOR MORPHING
-// % scroll → conic-gradient fill + border-radius sin/cos morphing
-// Click → scrollTo top
-
-// 4. MOBILE MENU
-// toggleMob() / closeMob() → toggle classe .open sur #mobileMenu
-
-// 5. SCROLL REVEAL
-// IntersectionObserver → classe .visible sur .reveal
-// Stagger: setTimeout(i * 80ms) sur NodeList forEach
-
-// 6. LOGO SHIMMER
-// CSS animation logoShine (background-position 0% → 100% → 0%)
-// Duration: 5s ease infinite
-```
-
-### À factoriser en shared.css
-```css
-/* Variables CSS root */
-/* Reset */
-/* Cursor */
-/* Mesh blobs + @keyframes meshFloat */
-/* Grain overlay */
-/* Navbar */
-/* Mobile menu */
-/* Scroll indicator */
-/* .reveal / .reveal.visible */
-/* Glass card */
-/* Boutons : .btn-primary, .btn-ghost, .btn-back, .btn-next */
-/* Footer global */
-/* @keyframes riseUp */
-/* Media queries communes */
-```
+> ⚠️ DIRECTIVE POUR CLAUDE CODE : Les phases 1 à 4 sont terminées et validées. La Phase 5 se fait **PAGE PAR PAGE** en commençant par l'accueil. Tu es Lead Creative Developer. Ton objectif est d'amener ce portfolio au niveau d'un site primé, tout en garantissant une UX irréprochable. Tu réécrits intégralement `index.html` et `home.css`. Tu peux toucher à `shared.js` si besoin pour les effets globaux (curseur, etc.), mais **ne casses pas les autres pages**.
 
 ---
 
-## 🚀 ROADMAP CLAUDE CODE — PRIORITÉS
+### 5.1 — LOADING SCREEN (avant le Hero)
 
-### Phase 1 — Architecture (à faire en premier)
-```
-[ ] Créer shared.css avec toutes les variables et styles communs
-[ ] Créer shared.js avec tous les composants JS partagés
-[ ] Refactoriser chaque page HTML pour importer shared.css + shared.js
-[ ] Créer portfolio.html (page galerie avec filtres)
-[ ] Créer 404.html custom (même DA)
-```
-
-### Phase 2 — Contenu réel
-```
-[ ] Intégrer la photo d'Arthur dans le hero (index.html)
-    → Décommenter <img src="assets/images/photo-arthur.jpg"> dans .photo-frame
-    → Supprimer .ph-placeholder
-[ ] Intégrer les vraies photos sneakers dans projet-sneakers.html
-    → Remplacer .gal-placeholder par <img> dans .gal-slot
-[ ] Intégrer les vrais mockups RevoFit dans projet-revofit.html
-    → Remplacer .mock-inner par <img> dans .mock-card
-[ ] Intégrer les vrais visuels Palm'Fest dans projet-palmfest.html
-    → Remplacer Zone A/B/C placeholders
-[ ] Intégrer les vraies vidéos TikTok (projet-sneakers.html)
-    → Remplacer .tiktok-slot par <video controls>
-[ ] Renseigner les vraies URLs réseaux sociaux (LinkedIn, Instagram)
-[ ] Renseigner l'URL réelle du PDF CV
-[ ] Remplir le contenu des accordéons UEs (parcours.html)
-```
-
-### Phase 3 — Performance & SEO
-```
-[ ] Ajouter meta tags dans chaque <head> :
-    <meta name="description" content="...">
-    <meta property="og:title" content="Arthur Viaud — Portfolio">
-    <meta property="og:description" content="...">
-    <meta property="og:image" content="https://arthurviaud.fr/assets/images/og-image.jpg">
-    <meta property="og:url" content="https://arthurviaud.fr">
-    <link rel="canonical" href="https://arthurviaud.fr/...">
-[ ] Créer og-image.jpg (1200x630px) pour partage réseaux
-[ ] Convertir images en WebP + ajouter loading="lazy"
-[ ] Créer sitemap.xml
-[ ] Créer robots.txt
-[ ] Ajouter <link rel="icon"> favicon (version teal du logo)
-[ ] Tester Lighthouse (objectif : score > 90 partout)
-```
-
-### Phase 4 — Fonctionnalités avancées
-```
-[ ] Connecter formulaire contact à Formspree :
-    URL : https://formspree.io/f/[TON_ID_FORMSPREE]
-    Email réception : arthurviaudpro@gmail.com
-[ ] Ajouter analytics (Plausible recommandé — privacy-friendly)
-[ ] Ajouter transitions de navigation entre pages (View Transitions API)
-[ ] Envisager migration vers Astro ou Vite pour bundling optimisé
-```
+**Comportement :**
+- Écran noir (#0A0F1E) en `position:fixed;inset:0;z-index:9999`
+- Le logo `arthur.` apparaît au centre : chaque lettre fade-in en stagger rapide (30ms entre chaque lettre), police Bebas Neue, taille ~80px, couleur teal avec glow mauve
+- Une fine barre de progression horizontale teal se remplit sous le logo (0% → 100% en 1.2s)
+- À 100% : le loader effectue un **clip-path reveal vertical** (s'ouvre comme un rideau du centre vers les bords) en 0.6s, révélant la page en dessous
+- La page en dessous est déjà chargée mais `opacity:0` — elle fait un fade-in `opacity 0→1` simultané au clip-path du loader
+- **Sur mobile** : même comportement, simplifié (pas de barre de progression, juste le logo + fade)
+- **Durée totale max : 2s**
 
 ---
 
-## 🎯 CONVENTIONS DE CODE
+### 5.2 — HERO SECTION : PARALLAX MULTI-COUCHES
 
-```
-Nommage classes CSS  : kebab-case (ex: .glass-card, .proj-title)
-Nommage IDs JS       : camelCase (ex: #scrollInd, #mobileMenu)
-Sélecteurs courants  : #nav, #cur, #ring, #scrollInd, #siFill, #siLabel, #mobileMenu
-Unités               : rem pour espacement vertical · px pour gaps internes
-Z-index layers       :
-  0   → mesh blobs
-  1   → grain
-  10  → sections contenu
-  200 → navbar (nav fixe)
-  400 → scroll indicator
-  490 → mobile menu
-  499 → mobile menu close button
-  500 → navbar z-index max
-  9998 → cursor ring
-  9999 → cursor dot
-```
+**Principe :** Le hero est composé de **4 à 5 couches indépendantes** qui se déplacent à des vitesses différentes au scroll et à la position de la souris (mouse parallax sur desktop). L'effet doit être profond, cinématique, pas gadget.
 
----
+**Couches (du fond vers l'avant) :**
+1. **Couche 0 — Mesh gradient** (déjà existant, `position:fixed`) : vitesse scroll = 0 (il est fixed)
+2. **Couche 1 — Grille tech** (nouvelle, `position:absolute`) : fines lignes orthogonales, `opacity:0.03`, couleur cream. Se déplace au scroll à `translateY(scrollY * 0.15)` et au mouse à `±8px`. Renforce l'ambiance créative sans surcharger.
+3. **Couche 2 — Halos flottants** (nouvelles formes mauve/teal) : 2–3 ellipses `blur(80px)` positionnées autour de la photo, `opacity:0.18`. Bougent au mouse à `±20px` chacune dans des directions opposées. Bougent au scroll à `translateY(scrollY * 0.3)`.
+4. **Couche 3 — Texte hero (eyebrow + nom + tagline)** : bougent au scroll à `translateY(scrollY * 0.25)` — l'effet de profondeur principal. Au mouse : très léger `±5px` (subtil).
+5. **Couche 4 — Zone photo** : bouge au scroll à `translateY(scrollY * 0.12)` (plus lente que le texte → effet de recul). Au mouse : `±12px` (oppose direction du texte).
 
-## 💬 PROMPT DE DÉMARRAGE POUR CLAUDE CODE
+**Mouse parallax (desktop uniquement) :**
+- Écouter `mousemove` sur le `document`
+- Calculer `x = (event.clientX / window.innerWidth - 0.5)` et `y` pareil
+- Appliquer `lerp` (0.08) sur chaque couche via `requestAnimationFrame` pour la fluidité
+- Désactiver sur mobile/tablette via `window.matchMedia('(hover: none)')`
 
-Copie-colle ce texte pour démarrer une session Claude Code :
-
-```
-Je travaille sur mon portfolio arthurviaud.fr.
-Repo : https://github.com/SNOWIZ8/Portfolio
-Hébergement : Vercel (déploiement auto sur push GitHub)
-
-Lis le fichier CONTEXT.md à la racine du projet — il contient toute
-la DA, la structure des fichiers, les composants, et la roadmap.
-
-On commence par la Phase 1 de la roadmap :
-1. Créer shared.css et shared.js pour factoriser le code commun
-2. Refactoriser les 6 pages existantes pour les utiliser
-3. Créer portfolio.html (page galerie avec filtres)
-
-La DA est immuable : fond #0A0F1E, teal #00F2EA, mauve #8A2BE2,
-glassmorphism, Bebas Neue + DM Sans, mesh gradient animé sur toutes les pages.
-```
+**Hero layout :** Conserver le layout actuel (texte gauche, photo droite) en 2 colonnes.
 
 ---
 
-*CONTEXT.md généré depuis Claude.ai — session de création du portfolio Arthur Viaud*
-*Stack : HTML5 · CSS3 · JavaScript vanilla · Vercel · GitHub*
+### 5.3 — ANIMATION D'ENTRÉE DU HERO (après loading screen)
+
+Séquence ordonnée (tout démarre après la fermeture du loader) :
+1. `t+0ms` — Eyebrow ("Disponible · Stage…") : fade-in + translateY(20px→0) en 500ms
+2. `t+150ms` — "Arthur" : slide-in depuis la gauche avec léger skewX(-3deg→0), 600ms, easing cubic-bezier(.16,1,.3,1)
+3. `t+300ms` — "Viaud" (stroke + teal) : même slide mais depuis la droite
+4. `t+500ms` — Tagline : fade-in + translateY(15px→0), 500ms
+5. `t+700ms` — Boutons CTA : fade-in + scale(0.94→1), 400ms
+6. `t+900ms` — Zone photo : fade-in + scale(0.96→1), 600ms, avec un léger halo mauve qui pulse une fois
+7. `t+1100ms` — Stats bar : les 4 colonnes arrivent en stagger (chaque colonne +80ms), depuis translateY(20px)
+
+---
+
+### 5.4 — CURSEUR CUSTOM : SPOTLIGHT EFFECT
+
+**Implémentation :**
+- `.cursor` (point) : 10px, background teal, `mix-blend-mode: difference`, z-index 9998
+- `.cursor-ring` (anneau) : 40px, border `1px solid rgba(0,242,234,0.35)`, lag `lerp 0.10`
+- **Spotlight** : un `radial-gradient` teal→transparent de ~380px de diamètre centré sur le curseur, `position:fixed`, `pointer-events:none`, `opacity:0.07`, révèle subtilement le mesh en dessous
+- Au hover sur un élément `.magnetic` : le spotlight passe à `opacity:0.12` et `400px`
+- Au hover sur un lien texte : `.cursor` prend `width:3px;height:24px;border-radius:2px` (curseur I-beam fin)
+- Au hover sur `.proj-card` : `.cursor-ring` passe à `60px` et affiche le texte "VIEW" en son centre (font 9px, letter-spacing 2px, teal)
+- **Mobile** : curseur custom entièrement désactivé
+
+---
+
+### 5.5 — BOUTONS CTA : EFFET MAGNÉTIQUE
+
+**Cibles** : `.btn-primary`, `.btn-ghost`, et toute balise `a` avec classe `.magnetic`
+
+**Comportement desktop :**
+- Zone d'attraction : 80px autour du bouton (bounding box étendue)
+- Quand le curseur entre dans la zone : le bouton se déplace vers le curseur avec `translate(dx * 0.35, dy * 0.35)` en `lerp 0.12`
+- Quand le curseur quitte la zone : le bouton revient en position via `lerp` (retour fluide, pas de snap)
+- Le `.cursor-ring` s'élargit à 50px quand dans la zone magnétique
+- **Shine interne** : au hover, un gradient `conic` ou `radial` teal→mauve passe sur le fond du bouton (opacity 0→0.15→0 en 400ms), effet de "respiration lumineuse"
+- **Mobile** : magnétisme désactivé, conserver le style visuel des boutons sans le JS
+
+**CSS boutons (à améliorer) :**
+- `.btn-primary` : fond `linear-gradient(135deg, var(--teal), #00c4be)`, texte `#0A0F1E`, `font-weight:600`, `border-radius:6px`, padding `14px 32px`, `box-shadow: 0 0 0 0 rgba(0,242,234,0.4)` → au hover `box-shadow: 0 0 24px 4px rgba(0,242,234,0.25)`
+- `.btn-ghost` : fond transparent, `border:1px solid rgba(138,43,226,0.5)`, texte cream → au hover `border-color: rgba(138,43,226,0.9)` + `box-shadow: 0 0 20px 2px rgba(138,43,226,0.2)`
+
+---
+
+### 5.6 — STATS BAR : SLOT MACHINE
+
+**Animation au scroll (IntersectionObserver, threshold 0.3) :**
+- Chaque chiffre (3, 2, 4, 3) démarre à 0 et "défile" rapidement comme un slot machine : les chiffres intermédiaires s'enchaînent en `translateY` vertical à grande vitesse, puis ralentissent et se stabilisent sur le bon chiffre
+- Durée : 1.2s par chiffre, avec stagger de 120ms entre chaque colonne
+- Le suffixe (`+`, `x`, `+`, `↗`) arrive en fade après la stabilisation du chiffre
+- Implémentation : chaque `.stat-n` contient un wrapper avec `overflow:hidden`, les chiffres sont empilés en `position:absolute` et animés via `transform:translateY`
+- **L'animation ne se joue qu'une seule fois** (observer.unobserve après déclenchement)
+
+---
+
+### 5.7 — SECTION MARQUEE
+
+**Placement :** Entre la section "Outils & Compétences" (01) et "Projets en Vedette" (02)
+
+**Contenu :** `COMMUNICATION · MARKETING DIGITAL · STORYTELLING · CRÉATION · STRATÉGIE · BRAND CONTENT · VIDÉO · RÉSEAUX SOCIAUX ·` (répété 2× pour le loop)
+
+**Style :**
+- Fond : `rgba(138,43,226,0.06)` avec `border-top` et `border-bottom` `1px solid rgba(138,43,226,0.15)`
+- Texte : Bebas Neue, `font-size:15px`, `letter-spacing:4px`, `color:rgba(240,236,226,0.25)`
+- Les séparateurs `·` sont en teal `color:var(--teal)`
+- Vitesse : 35s linear infinite
+- Au hover sur le marquee : `animation-play-state: paused`
+- **Direction** : de droite à gauche (standard)
+- La marquee a **deux copies** du texte côte à côte pour le loop parfait sans saut
+- Hauteur : `56px`, overflow hidden
+
+---
+
+### 5.8 — SECTION PROJETS : HORIZONTAL SCROLL
+
+**Principe :** Quand l'utilisateur scrolle verticalement sur la section `#projets`, le scroll est "détourné" pour faire défiler les cartes horizontalement. Une fois toutes les cartes visibles (fin du scroll horizontal), le scroll vertical reprend normalement.
+
+**Implémentation technique :**
+- La section `#projets` a une hauteur CSS égale à `(nombre de cartes × 100vw)` ou similaire pour "réserver" l'espace scroll vertical
+- Un wrapper interne `.proj-track` est `position:sticky;top:0;height:100vh;overflow:hidden`
+- Les cartes `.proj-card` sont disposées en ligne horizontale dans `.proj-inner` (flex, no-wrap)
+- Le `translateX` de `.proj-inner` est calculé en JS à chaque scroll : `translateX = -scrollProgress * (totalWidth - viewportWidth)`
+- `scrollProgress` = `(scrollY - sectionOffsetTop) / (sectionHeight - viewportHeight)`
+- `requestAnimationFrame` + `lerp(0.12)` pour la fluidité
+- **Mobile** : scroll horizontal natif (overflow-x: auto, snap), désactiver le scroll hijack via `matchMedia('(max-width:768px)')`
+
+**Cartes projets (redesign) :**
+- Taille desktop : `min-width: min(480px, 80vw)`, `height: 70vh`, espacement `32px`
+- Layout carte : fond `linear-gradient(145deg, rgba(138,43,226,0.08), rgba(0,242,234,0.04))`, border `1px solid rgba(138,43,226,0.2)`
+- Tag catégorie en haut à gauche (style inchangé)
+- Emoji en arrière-plan, `font-size:120px`, `opacity:0.06`, centré
+- Titre projet en bas à gauche, Bebas Neue, `font-size:56px`
+- Flèche ↗ en haut à droite (style inchangé)
+- **Hover 3D Tilt** : `perspective:1000px`, rotation X/Y calculée depuis la position de la souris dans la carte (`rotateX(±8deg)`, `rotateY(±12deg)`), `transform-style:preserve-3d`
+- **Reflet interne au hover** : un `radial-gradient` blanc opacity 0.04→0.08 qui suit la souris à l'intérieur de la carte (speculaire)
+- **Indicateur de scroll horizontal** : sous les cartes, une fine track avec un fill teal qui avance en même temps que le scroll horizontal (`width: scrollProgress * 100%`)
+
+---
+
+### 5.9 — ZONE PHOTO HERO : PLACEHOLDER STYLISH
+
+**État actuel :** Pas de photo disponible — le placeholder doit être visuellement fort.
+
+**Rendu souhaité :**
+- Conserver le cadre actuel (border-radius `8px 50px 8px 50px`, corners teal)
+- **Silhouette animée** : dans le cadre, une silhouette humaine générique tracée en SVG (traits fins, style wireframe), couleur teal à `opacity:0.15`, avec une animation de `stroke-dashoffset` qui "dessine" la silhouette en boucle (8s, ease-in-out)
+- **Halos de particules** : 8 à 12 petits points (`3–5px`) teal et mauve répartis aléatoirement dans le cadre, animations de `float` désynchronisées (up/down, 4–8s chacune)
+- **Texte placeholder discret** : en bas du cadre, `font-size:9px`, `letter-spacing:2.5px`, `opacity:0.18`, uppercase : `PHOTO À VENIR`
+- **Quand une photo est ajoutée** (`assets/images/photo-arthur.jpg`) : remplacer le contenu du `.photo-frame` par `<img src="assets/images/photo-arthur.jpg">` — le cadre et les corners restent, le fond deviendra la photo. Pas besoin de retoucher le CSS.
+
+---
+
+### 5.10 — SECTION DISPONIBILITÉS : AMÉLIORATIONS
+
+- Les `.loc-tag` ont un **hover subtil** : `border-color: rgba(0,242,234,0.5)` + `color: rgba(0,242,234,0.9)` en `transition:0.2s`
+- La card `.prime` a un **halo teal animé** : `box-shadow: 0 0 0 0 rgba(0,242,234,0.15)` qui pulse doucement en `0 0 32px 8px rgba(0,242,234,0.08)` (keyframe 4s ease infinite)
+- Les deux cards entrent en **stagger reveal** au scroll (card gauche depuis `translateX(-30px)`, card droite depuis `translateX(30px)`)
+
+---
+
+### 5.11 — TEXTURE FOND : GRILLE TECH
+
+**Implémentation :**
+- Un `div.grid-overlay` en `position:fixed;inset:0;z-index:2;pointer-events:none`
+- Background : `repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(240,236,226,0.025) 80px), repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(240,236,226,0.025) 80px)`
+- Taille de cellule : `80px × 80px`
+- **Gradient de masque** : `mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, rgba(0,0,0,0.8) 0%, transparent 100%)` — la grille est plus visible au centre/haut, invisible en bas
+- La grille se déplace légèrement au scroll : `translateY(scrollY * 0.05)` pour participer au parallax
+
+---
+
+### 5.12 — DA ÉVOLUTION : MAUVE ÉLECTRIQUE
+
+**Modifications par rapport à la DA actuelle :**
+- `--mauve` reste `#8A2BE2` mais ses utilisations sont amplifiées
+- Les blobs mauve du mesh gradient passent à `opacity:0.18` (vs 0.12 actuel) — plus présents
+- Les borders des cards sur hover passent à `rgba(138,43,226,0.35)` en complément du teal
+- Le `.btn-ghost` a un glow mauve au hover (voir §5.5)
+- Les séparateurs `/` et `·` dans les sections header (`01 ///`) passent à la couleur mauve `rgba(138,43,226,0.6)`
+- La scrollbar custom (si définie) : track navy, thumb gradient teal→mauve
+- Les `.loc-tag` de la carte prime peuvent alterner teal et mauve dans le stagger d'apparition
+
+---
+
+### 5.13 — PERFORMANCE & CODE PROPRE
+
+**Règles absolues :**
+- Tout le JS des animations home est isolé dans un bloc conditionnel : `if (document.body.classList.contains('page-home')) { ... }` ou dans un fichier `home.js` dédié inclus uniquement sur `index.html`
+- `requestAnimationFrame` pour TOUS les effets temps-réel (curseur, parallax, scroll horizontal, slot machine)
+- `will-change: transform` sur les couches parallax et les cartes
+- `IntersectionObserver` pour déclencher les animations au scroll (jamais de `scroll` event brut sauf pour le parallax et le scroll horizontal)
+- Les effets lourds (magnétisme, parallax souris, spotlight curseur) sont enveloppés dans `if (!isMobile)` avec `isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches`
+- **Ordre des fichiers** dans `<head>` : `shared.css` → `home.css`. En bas de `<body>` : `shared.js` → `home.js`
+
+---
+
+### 5.14 — RESPONSIVE MOBILE (dégradation élégante)
+
+| Effet | Desktop | Mobile |
+|---|---|---|
+| Loading screen | Logo + barre + clip-path reveal | Logo + fade simple |
+| Parallax multi-couches | ✅ Complet (scroll + mouse) | Scroll uniquement, amplitudes ÷2 |
+| Mouse parallax | ✅ | ❌ Désactivé |
+| Curseur custom | ✅ | ❌ Désactivé |
+| Spotlight curseur | ✅ | ❌ Désactivé |
+| Magnétisme boutons | ✅ | ❌ Désactivé |
+| Scroll horizontal projets | ✅ | Scroll snap natif horizontal |
+| 3D Tilt cartes | ✅ | ❌ Désactivé, hover simple |
+| Slot machine stats | ✅ | ✅ (léger) |
+| Marquee | ✅ | ✅ (vitesse réduite) |
+| Grille tech | ✅ | ❌ Masquée (performance) |
+
+---
+
+## 💬 PROMPT DE DÉMARRAGE POUR CLAUDE CODE — PHASE 5 ACCUEIL
+
+```
+Salut Claude. Les phases 1 à 4 sont terminées et validées.
+
+Lis le fichier CONTEXT.md mis à jour, section "Phase 5 — Creative Coding" (§5.1 à §5.14).
+
+Ta mission aujourd'hui : réécrire intégralement `index.html` et `home.css` (+ créer `home.js` si nécessaire) pour implémenter toutes les animations et effets détaillés dans la Phase 5.
+
+FICHIERS À PRODUIRE :
+- `index.html` (refonte complète)
+- `home.css` (refonte complète)
+- `home.js` (nouveau fichier — JS spécifique à la homepage)
+- `shared.js` (modification légère si nécessaire pour le curseur spotlight)
+
+CONTRAINTES ABSOLUES :
+1. Ne pas casser les autres pages (shared.css et shared.js doivent rester fonctionnels)
+2. Respecter la DA existante (palette, typo, glassmorphism)
+3. Performance 60 FPS — requestAnimationFrame partout
+4. Dégradation mobile parfaite (tableau §5.14)
+5. Le contenu textuel de la page ne change pas — seul le code/animations changent
+
+Lance-toi, sois créatif, sois précis. Impresse-moi.
+```
