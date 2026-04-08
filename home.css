@@ -35,7 +35,7 @@
   font-family:'Bebas Neue',sans-serif;
   font-size:clamp(84px,12vw,152px);
   line-height:.87;letter-spacing:2px;
-  opacity:0;animation:riseUp .85s ease forwards .38s;
+  opacity:0; /* JS (initHeroSplit) révèle lettre par lettre ; CSS animation annulée par JS */
 }
 .hn-solid{color:var(--cream)}
 .hn-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
