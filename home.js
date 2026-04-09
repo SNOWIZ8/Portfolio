@@ -425,38 +425,70 @@ function triggerHeroEntrance() {
 })();
 
 
-// ─── 8. HORIZONTAL SCROLL — PROJETS (§5.8) ─────────────────────────────────────
+// ─── 8. HORIZONTAL SCROLL — PROJETS (§5.8 + Fix 1) ────────────────────────────
 ;(function initHorizontalScroll() {
   if (HOME_IS_SMALL) return; // mobile → scroll snap CSS natif
 
   const section    = document.getElementById('projets');
   const inner      = document.getElementById('projInner');
   const scrollFill = document.getElementById('projScrollFill');
+  const badge      = document.getElementById('scrollContinueBadge');
+  const counter    = document.getElementById('projCounter');
   if (!section || !inner) return;
 
-  let currentX = 0;
+  let currentX   = 0;
+  let badgeShown = false;
 
+  // ── Fix 1 : hauteur dynamique calculée sur l'overflow réel ──────────────────
+  function setDynamicHeight() {
+    const scrollable = Math.max(0, inner.scrollWidth - window.innerWidth);
+    // Réserve exactement l'overflow + une viewport height (zéro dead zone)
+    section.style.height = (scrollable + window.innerHeight) + 'px';
+  }
+  // Attendre que le layout soit stabilisé (fonts + images)
+  requestAnimationFrame(() => requestAnimationFrame(setDynamicHeight));
+  window.addEventListener('resize', setDynamicHeight, { passive: true });
+
+  // ── rAF loop ─────────────────────────────────────────────────────────────────
   ;(function loop() {
-    const totalInnerW = inner.scrollWidth;
-    const vw          = window.innerWidth;
-    const scrollable  = Math.max(0, totalInnerW - vw);
+    const totalInnerW    = inner.scrollWidth;
+    const vw             = window.innerWidth;
+    const scrollable     = Math.max(0, totalInnerW - vw);
 
-    const sectionTop    = section.getBoundingClientRect().top + window.scrollY;
-    const sectionH      = section.offsetHeight;        // e.g. 320vh
-    const scrollDistance = sectionH - window.innerHeight; // distance utile
+    const sectionTop     = section.getBoundingClientRect().top + window.scrollY;
+    const sectionH       = section.offsetHeight;
+    const scrollDistance = sectionH - window.innerHeight;
 
-    const scrolled  = Math.max(0, window.scrollY - sectionTop);
-    const progress  = scrollDistance > 0
+    const scrolled   = Math.max(0, window.scrollY - sectionTop);
+    const progress   = scrollDistance > 0
       ? Math.min(1, scrolled / scrollDistance)
       : 0;
 
-    const targetX  = -progress * scrollable;
-    currentX      += (targetX - currentX) * 0.12; // lerp fluidité
+    const targetX = -progress * scrollable;
+    currentX     += (targetX - currentX) * 0.12;
 
     inner.style.transform = `translateX(${currentX}px)`;
 
-    if (scrollFill) {
-      scrollFill.style.width = (progress * 100) + '%';
+    // Barre de progression
+    if (scrollFill) scrollFill.style.width = (progress * 100) + '%';
+
+    // Compteur "X / 3"
+    if (counter) {
+      const cardCount = inner.querySelectorAll('.proj-card').length;
+      const visible   = Math.min(cardCount, Math.floor(progress * cardCount + 0.15) + 1);
+      counter.textContent = `${visible} / ${cardCount}`;
+      counter.style.color = progress >= 0.95 ? 'var(--teal)' : '';
+    }
+
+    // Badge "↓ Continuer"
+    if (badge) {
+      if (progress >= 0.85 && !badgeShown) {
+        badgeShown = true;
+        badge.classList.add('visible');
+      } else if (progress < 0.82 && badgeShown) {
+        badgeShown = false;
+        badge.classList.remove('visible');
+      }
     }
 
     requestAnimationFrame(loop);

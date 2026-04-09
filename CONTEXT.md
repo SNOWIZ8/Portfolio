@@ -13,7 +13,7 @@
 | **Repo GitHub** | https://github.com/SNOWIZ8/Portfolio |
 | **Hébergeur** | Vercel (déploiement auto sur push GitHub) |
 | **Stack** | HTML5 · CSS3 · JavaScript natif (vanilla) |
-| **Statut** | 7 pages générées — Phase 5 Accueil en cours |
+| **Statut** | 7 pages générées — Phase 5 Accueil ✅ validée · Phase 5-B Parcours ✅ validée |
 
 ---
 
@@ -431,4 +431,211 @@ CONTRAINTES ABSOLUES :
 5. Le contenu textuel de la page ne change pas — seul le code/animations changent
 
 Lance-toi, sois créatif, sois précis. Impresse-moi.
+```
+
+---
+
+## 🔧 Phase 5-A — CORRECTIFS PAGE ACCUEIL (index.html) — ✅ À appliquer avant de passer à Parcours
+
+### Fix 1 — Scroll horizontal Projets (3 cartes, zone morte)
+
+**Problème :** Avec seulement 3 cartes, le scroll hijack réserve trop d'espace vertical, créant une zone morte après la fin du défilement horizontal. L'utilisateur ne perçoit pas la section Disponibilités qui suit.
+
+**Corrections attendues :**
+- La hauteur réservée pour le scroll hijack est calculée **dynamiquement** : `sectionHeight = cardsOverflowWidth + viewportHeight` (jamais plus, jamais arbitraire)
+- Quand `scrollProgress ≥ 0.85`, un badge animé `"↓ Continuer"` apparaît en fade-in en bas au centre de l'écran (police DM Sans, 10px, letter-spacing 2px, teal, avec une petite flèche animée qui rebondit) — il signale visuellement la reprise du scroll vertical
+- Sous la barre de progression horizontale : compteur discret `"3 / 3"` qui passe en teal quand toutes les cartes sont visibles
+- La transition fin scroll horizontal → reprise scroll vertical est **instantanée** (0 dead zone)
+
+### Fix 2 — Lisibilité des tags lieux de stage
+
+**Problème :** Les `.loc-tag` de la carte secondaire (Août → Déc.) sont trop peu contrastés, illisibles sur mobile.
+
+**Corrections CSS :**
+```css
+/* Carte secondaire */
+.loc-tag {
+  color: rgba(240,236,226,0.72);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* Carte prime */
+.dispo-card.prime .loc-tag {
+  color: rgba(0,242,234,0.88);
+  border-color: rgba(0,242,234,0.28);
+}
+
+/* Mobile */
+@media(max-width:768px) {
+  .loc-tag { font-size:11px; padding:5px 14px; }
+}
+```
+
+---
+
+## 🎬 Phase 5-B — Creative Coding · PAGE PARCOURS (parcours.html)
+
+> ⚠️ DIRECTIVE POUR CLAUDE CODE : La page d'accueil (Phase 5) est validée. On passe maintenant à `parcours.html`. Tu réécrits intégralement le `<style>` interne de `parcours.html` et le `<script>` interne, en créant si besoin un fichier `parcours.js`. Tu ne touches pas à `shared.css`, `shared.js`, `home.css`, `home.js`. Le contenu HTML (textes, structure) ne change pas.
+
+---
+
+### 5B.1 — HERO CINÉMATIQUE
+
+**Animation d'entrée — séquence ordonnée :**
+
+1. `t+0ms` — Eyebrow (ligne teal "PARCOURS ACADÉMIQUE") : fade-in + `translateX(-20px→0)`, 500ms
+2. `t+200ms` — Titre "PARCOURS" : **reveal par masque glissant** — chaque mot est wrappé dans un `overflow:hidden`, un `div` interne passe de `translateY(110%→0)` en 700ms, `cubic-bezier(.16,1,.3,1)`. Effet "rideau" cinématique.
+3. `t+550ms` — Accroche : fade-in + `translateY(16px→0)`, 500ms
+4. `t+750ms` — Flags 🇫🇷🇨🇦 : apparaissent en stagger (150ms entre chaque) avec un micro `scale(0.85→1)` + `translateY(10px→0)` (micro-bounce via `cubic-bezier(.34,1.56,.64,1)`)
+5. `t+600ms` — Watermark "FRANCE / CANADA" en fond : part de `translateY(60px)` + `opacity:0`, arrive à `translateY(0)` + `opacity:0.022` en 1.2s — effet de profondeur parallax d'entrée
+
+**Parallax léger au scroll (desktop) :**
+- Le watermark continue de se déplacer au scroll : `translateY(scrollY * 0.18)` — il "s'éloigne" vers le haut
+- Le texte hero : `translateY(scrollY * 0.08)` — léger, pas écrasant
+
+---
+
+### 5B.2 — TIMELINE : LES 3 EFFETS COMBINÉS
+
+C'est l'élément central et le plus spectaculaire de la page. Les 3 effets fonctionnent ensemble et sont **synchronisés avec le scroll**.
+
+#### A. Dessin de la ligne centrale (stroke-dashoffset)
+
+- La ligne verticale centrale (actuellement un `::before` CSS) est remplacée par un **SVG absolu** positionné sur toute la hauteur de la timeline
+- La ligne SVG (`<line>` ou `<path>`) a `stroke-dasharray` = longueur totale, `stroke-dashoffset` = longueur totale (invisible)
+- Au scroll : `dashOffset = totalLength * (1 - scrollProgress)` — la ligne se trace de haut en bas en temps réel
+- Couleur : `stroke: url(#timelineGradient)` — dégradé linear teal (haut) → mauve (bas), cohérent avec le `::before` actuel
+- `stroke-width: 1px`
+
+#### B. Beam de lumière
+
+- Un élément `div.tl-beam` en `position:absolute`, `width:2px`, `height:80px`, centré horizontalement sur la ligne
+- Background : `linear-gradient(to bottom, transparent, rgba(0,242,234,0.8), transparent)`
+- `filter: blur(3px)`
+- Sa position Y suit le scroll : `top = scrollProgress * (timelineHeight - 80px)`
+- Il passe de teal à mauve progressivement (au-delà de 50% de la timeline, il devient mauve)
+- Quand il atteint un `.tl-node`, ce nœud reçoit la classe `.active` → son `box-shadow` s'amplifie pendant 400ms
+
+#### C. Blocs latéraux (apparition directionnelle)
+
+- `.tl-block-left` (bloc France) : entre depuis `translateX(-50px)` + `opacity:0` → `translateX(0)` + `opacity:1`, déclenché par IntersectionObserver (threshold 0.15), durée 700ms, `cubic-bezier(.16,1,.3,1)`
+- `.tl-block-right` (bloc Canada) : même chose depuis `translateX(+50px)`
+- **Stagger interne** : les éléments enfants (`.step-tag`, `.step-title`, `.step-sub`, les `.acc-item`) apparaissent en cascade avec 60ms entre chaque, déclenchés 200ms après le bloc parent
+
+#### Nœuds timeline (`.tl-node`)
+
+- État initial : `scale(0)` + `opacity:0`
+- Quand le beam les atteint (ou IntersectionObserver si mobile) : `scale(0→1)` en 400ms `cubic-bezier(.34,1.56,.64,1)` (micro-bounce)
+- Après apparition : pulse animé permanent `box-shadow` 0→16px→0 en 3s, ease infinite
+
+---
+
+### 5B.3 — ACCORDÉONS UE : STAGGER DE LIGNES
+
+**À l'ouverture :**
+- Le texte du `.acc-content` est découpé par le JS en **lignes visuelles** (split par `<br>` et paragraphes sémantiques `S3 —` / `S4 —`)
+- Chaque segment arrive avec `opacity:0` + `translateY(12px→0)`, stagger de **80ms** entre chaque
+- Durée par segment : 400ms, `ease-out`
+- La bordure supérieure (`border-top` du `.acc-content`) se dessine en `scaleX(0→1)` depuis la gauche en 300ms avant que le texte arrive
+
+**Style visuel amélioré des accordéons :**
+- `.acc-item.open` : `border-color: rgba(0,242,234,0.28)` + `box-shadow: 0 0 18px rgba(0,242,234,0.05)` (glow subtil)
+- `.acc-trigger` au hover : la `.acc-label` passe à `color: var(--cream)` + un fin trait teal (`text-decoration: underline` teal) apparaît en `scaleX(0→1)`
+- `.acc-icon` : au lieu du `+` texte, utiliser une croix SVG animée (barre horizontale fixe + barre verticale qui tourne `rotate(0→90deg)`) — plus propre
+
+---
+
+### 5B.4 — PROGRESS BARS : COMPTEUR ANIMÉ + GLOW
+
+**Au scroll (IntersectionObserver, threshold 0.3) :**
+
+1. La `.grade-bar` se remplit : `width: 0 → target%` en 1.4s, `cubic-bezier(.4,0,.2,1)`
+2. Le `.grade-score` (ex: "82.47") : compteur JS qui incrémente de `0.00 → 82.47` en 1.4s (même durée que la barre), avec toujours 2 décimales affichées — ils se terminent ensemble
+3. Background de la barre : `linear-gradient(90deg, var(--teal), var(--mauve))` + `box-shadow: 0 0 8px rgba(0,242,234,0.4)` — le glow s'intensifie en fin d'animation (`box-shadow: 0 0 16px rgba(0,242,234,0.6)`) puis redescend
+4. Le `.grade-mention` ("Très bien") apparaît en fade 200ms après la fin du compteur
+5. **Stagger inter-barres** : 180ms entre chaque `.grade-row` pour un effet de cascade
+6. **L'animation ne se joue qu'une fois** (observer.unobserve)
+
+---
+
+### 5B.5 — CARD CANADA : SCANNER EFFECT
+
+**À l'apparition dans le viewport :**
+
+1. La `.canada-card` entre d'abord en `opacity:0 → 1` + `translateY(20px→0)`, 500ms
+2. Immédiatement après (t+100ms) : un élément `div.card-scanner` en `position:absolute;left:0;right:0;height:2px` part du **haut de la card** et descend jusqu'en bas en **800ms** (transition `top: 0 → 100%`)
+   - Style : `background: linear-gradient(90deg, transparent, rgba(0,242,234,0.7), transparent)`
+   - `filter: blur(1px)`
+   - Pendant le scan, la card a `border-color: rgba(0,242,234,0.4)` (s'allume légèrement)
+3. À la fin du scan (t+900ms) : le halo mauve pulsant s'active → `box-shadow: 0 0 0 0 rgba(138,43,226,0.2)` qui pulse en `0 0 28px 6px rgba(138,43,226,0.08)` en 4s, ease infinite
+4. Le `.s5-label` et les barres de progression démarrent leur animation 200ms après la fin du scan
+
+---
+
+### 5B.6 — SECTION CV : REVEAL SOIGNÉ
+
+- La `.cv-block` entre en `scale(0.95→1)` + `opacity:0→1)` en 600ms au scroll
+- L'icône 📄 a un micro-rotate : `rotate(-5deg→0deg)` au même timing
+- Le `.btn-cv` a le même effet **shine/shimmer** que les boutons primaires de l'accueil (lumière qui glisse au hover)
+- `border-color` du bloc au hover : `rgba(0,242,234,0.25)` avec `box-shadow: 0 0 24px rgba(0,242,234,0.08)`
+
+---
+
+### 5B.7 — CURSEUR : SPOTLIGHT CONSERVÉ
+
+Le curseur spotlight de l'accueil est conservé tel quel sur toutes les pages via `shared.js`. Aucune modification spécifique à `parcours.html`.
+
+**Comportement additionnel sur les `.acc-trigger` :**
+- Le `.cursor-ring` passe à `48px` + affiche le texte "OPEN" en son centre (9px, letter-spacing 2px, teal) — similaire au "VIEW" sur les cartes projet de l'accueil
+- Quand un accordéon est `.open`, le texte passe à "CLOSE"
+
+---
+
+### 5B.8 — PERFORMANCE & RESPONSIVE
+
+| Effet | Desktop | Mobile |
+|---|---|---|
+| Hero cinématique (masques) | ✅ Complet | ✅ Simplifié (fade-in stagger) |
+| Watermark parallax | ✅ | ❌ Désactivé |
+| Timeline SVG draw | ✅ | ✅ Simplifié (déclenché à 30% scroll) |
+| Beam de lumière | ✅ | ❌ Remplacé par simple nœud pulse |
+| Blocs latéraux directionnels | ✅ | Depuis bas uniquement (translateY) |
+| Scanner card Canada | ✅ | ✅ |
+| Compteur progress bars | ✅ | ✅ |
+| Stagger accordéons | ✅ | ✅ |
+| Curseur "OPEN/CLOSE" | ✅ | ❌ |
+
+**Règles JS :**
+- Tout le JS est dans `parcours.js` (nouveau fichier), inclus uniquement sur `parcours.html`
+- Conditionnel : `if (document.body.classList.contains('page-parcours')) { ... }` ou simplement isolé dans `parcours.js`
+- `requestAnimationFrame` pour le beam et le parallax watermark
+- `IntersectionObserver` pour les blocs latéraux, card Canada, progress bars, section CV
+- `isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches` pour les guards
+
+---
+
+## 💬 PROMPT DE DÉMARRAGE — PHASE 5-B PARCOURS
+
+```
+Salut Claude. La Phase 5 de l'accueil est validée.
+
+Lis le fichier CONTEXT.md, sections "Phase 5-A" (correctifs accueil — applique-les aussi) et "Phase 5-B" (§5B.1 à §5B.8).
+
+Ta mission : appliquer les correctifs de la Phase 5-A sur index.html/home.js, puis réécrire le <style> interne et le <script> interne de parcours.html (+ créer parcours.js si nécessaire) pour implémenter toutes les animations de la Phase 5-B.
+
+FICHIERS À PRODUIRE :
+- index.html (correctifs Fix 1 + Fix 2 uniquement)
+- home.js (ajustement scroll hijack + badge "Continuer")
+- parcours.html (refonte style + structure HTML minimale si nécessaire)
+- parcours.js (nouveau fichier — JS spécifique à la page parcours)
+
+CONTRAINTES ABSOLUES :
+1. Ne pas toucher à shared.css, shared.js, home.css
+2. Ne pas modifier le contenu textuel des pages
+3. requestAnimationFrame pour tous les effets temps-réel
+4. Dégradation mobile parfaite (tableau §5B.8)
+5. Les animations ne se jouent qu'une seule fois (observer.unobserve après déclenchement)
+
+Sois précis sur la timeline SVG — c'est l'élément le plus complexe et le plus impactant.
 ```

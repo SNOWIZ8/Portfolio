@@ -9,6 +9,51 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <link rel="stylesheet" href="home.css">
+<style>
+/* ── Fix 1 — Badge "↓ Continuer" ─────────────────────────────── */
+#scrollContinueBadge {
+  position: absolute; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  opacity: 0; pointer-events: none; z-index: 15;
+  transition: opacity 0.5s ease;
+}
+#scrollContinueBadge.visible { opacity: 1; pointer-events: auto; }
+.scb-arrow {
+  font-size: 14px; color: var(--teal); display: block;
+  animation: scbBounce 1.1s ease infinite;
+}
+.scb-txt {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--teal); font-family: 'DM Sans', sans-serif; font-weight: 500;
+}
+@keyframes scbBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+/* ── Fix 1 — Compteur cartes ──────────────────────────────────── */
+.proj-counter {
+  position: absolute; right: 14px; bottom: 6px;
+  font-size: 9px; letter-spacing: 2px;
+  color: rgba(240,236,226,0.3);
+  font-family: 'DM Sans', sans-serif;
+  transition: color 0.4s ease;
+  pointer-events: none;
+}
+/* ── Fix 2 — Lisibilité loc-tags ──────────────────────────────── */
+.loc-tag {
+  color: rgba(240,236,226,0.72);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.15);
+}
+.dispo-card.prime .loc-tag {
+  color: rgba(0,242,234,0.88);
+  border-color: rgba(0,242,234,0.28);
+}
+@media (max-width:768px) {
+  .loc-tag { font-size:11px; padding:5px 14px; }
+}
+</style>
 </head>
 <body class="page-home">
 
@@ -248,11 +293,18 @@
       </div>
     </div>
 
+    <!-- Badge "↓ Continuer" — visible quand scrollProgress ≥ 0.85 -->
+    <div id="scrollContinueBadge">
+      <span class="scb-arrow">↓</span>
+      <span class="scb-txt">Continuer</span>
+    </div>
+
   </div>
 
   <!-- Indicateur de progression scroll horizontal -->
   <div class="proj-progress-track">
     <div class="proj-progress-fill" id="projScrollFill"></div>
+    <div class="proj-counter" id="projCounter">1 / 3</div>
   </div>
 </div>
 

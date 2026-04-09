@@ -8,6 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
+/* =============================================
+   SPOTLIGHT (miroir homepage)
+============================================= */
+#spotlight{
+  position:fixed;inset:0;z-index:3;
+  pointer-events:none;will-change:background;
+}
 
 /* =============================================
    PAGE HERO
@@ -17,23 +24,50 @@
   min-height:65vh;display:flex;flex-direction:column;justify-content:flex-end;
   padding:130px 56px 64px;border-bottom:var(--glass-bd);overflow:hidden;
 }
-/* Watermark pays en fond */
+/* Watermark — état initial contrôlé par JS */
 .hero-bg-text{
   position:absolute;right:-30px;bottom:-40px;
   font-family:'Bebas Neue',sans-serif;
   font-size:clamp(130px,20vw,260px);
   color:rgba(255,255,255,.022);letter-spacing:6px;
   pointer-events:none;user-select:none;line-height:1;
+  opacity:0;will-change:transform; /* JS anime vers opacity:0.022 */
 }
-.page-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:18px;opacity:0;animation:riseUp .7s ease forwards .2s;display:flex;align-items:center;gap:12px}
+/* Eyebrow — état initial JS */
+.page-eyebrow{
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--teal);margin-bottom:18px;
+  opacity:0;will-change:transform;
+  display:flex;align-items:center;gap:12px;
+}
 .page-eyebrow::before{content:'';width:32px;height:1px;background:var(--teal)}
-.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,9vw,120px);line-height:.87;letter-spacing:3px;opacity:0;animation:riseUp .85s ease forwards .35s}
+/* Titre — container visible, lignes masquées par overflow */
+.page-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(56px,9vw,120px);line-height:.87;letter-spacing:3px;
+  opacity:0; /* JS passe à 1 immédiatement; masques cachent le contenu */
+}
 .page-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
 .page-title .t-teal{color:var(--teal)}
-.page-accroche{font-size:clamp(15px,1.6vw,20px);font-weight:300;font-style:italic;color:var(--muted);max-width:600px;line-height:1.65;margin-top:24px;opacity:0;animation:riseUp .85s ease forwards .52s}
-/* Flags deco */
-.hero-flags{position:absolute;top:130px;right:56px;display:flex;flex-direction:column;gap:10px;opacity:0;animation:riseUp .9s ease forwards .65s}
-.flag-item{display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.35);background:var(--glass-bg);border:var(--glass-bd);backdrop-filter:var(--glass-blur);padding:6px 14px;border-radius:100px}
+/* Masques pour révélation cinématique */
+.tl-mask-wrap{overflow:hidden;display:block}
+.tl-mask-inner{display:block;transform:translateY(110%);will-change:transform}
+/* Accroche */
+.page-accroche{
+  font-size:clamp(15px,1.6vw,20px);font-weight:300;font-style:italic;
+  color:var(--muted);max-width:600px;line-height:1.65;margin-top:24px;
+  opacity:0;will-change:transform;
+}
+/* Flags */
+.hero-flags{position:absolute;top:130px;right:56px;display:flex;flex-direction:column;gap:10px}
+.flag-item{
+  display:flex;align-items:center;gap:10px;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(240,236,226,.35);
+  background:var(--glass-bg);border:var(--glass-bd);backdrop-filter:var(--glass-blur);
+  padding:6px 14px;border-radius:100px;
+  opacity:0;will-change:transform;
+}
 .flag-emoji{font-size:14px}
 
 /* =============================================
@@ -54,22 +88,30 @@
   grid-template-columns:1fr 60px 1fr;
   gap:0;
 }
-/* Ligne centrale */
-.timeline::before{
-  content:'';
-  position:absolute;
-  left:50%;transform:translateX(-50%);
-  top:0;bottom:0;width:1px;
-  background:linear-gradient(to bottom,transparent,rgba(0,242,234,.25) 10%,rgba(138,43,226,.25) 90%,transparent);
-}
+/* Ligne centrale — SVG inline remplace le ::before */
 
-/* BLOC FRANCE (gauche) */
-.tl-block-left{
-  padding:0 48px 80px 0;
+/* SVG timeline */
+.tl-svg{
+  position:absolute;left:0;top:0;
+  width:100%;pointer-events:none;z-index:0;overflow:visible;
 }
-.tl-block-right{
-  padding:80px 0 80px 48px;
+/* Beam de lumière */
+.tl-beam{
+  position:absolute;left:50%;transform:translateX(-50%);
+  width:2px;height:80px;
+  background:linear-gradient(to bottom,transparent,rgba(0,242,234,.8),transparent);
+  filter:blur(3px);pointer-events:none;z-index:2;
+  opacity:0;will-change:top,background,opacity;
 }
+@media(max-width:960px){.tl-beam{display:none}}
+
+/* BLOCS LATÉRAUX */
+.tl-block-left {padding:0 48px 80px 0}
+.tl-block-right{padding:80px 0 80px 48px}
+
+/* Révélation directionnelle — états initiaux */
+.tl-anim-left {opacity:0;transform:translateX(-50px);will-change:opacity,transform}
+.tl-anim-right{opacity:0;transform:translateX(50px); will-change:opacity,transform}
 
 /* Nœud timeline central */
 .tl-node-col{
@@ -79,12 +121,21 @@
 .tl-node{
   width:18px;height:18px;border-radius:50%;
   background:linear-gradient(135deg,var(--teal),var(--mauve));
-  box-shadow:0 0 0 4px rgba(0,242,234,.12),0 0 20px rgba(0,242,234,.2);
   flex-shrink:0;
+  transform:scale(0);opacity:0;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s ease;
 }
-.tl-node-right{
-  margin-top:80px;
+.tl-node.active{transform:scale(1);opacity:1;animation:nodePulseTeal 3s ease infinite .4s}
+@keyframes nodePulseTeal{
+  0%,100%{box-shadow:0 0 0 4px rgba(0,242,234,.12),0 0 6px rgba(0,242,234,.1)}
+  50%    {box-shadow:0 0 0 4px rgba(0,242,234,.12),0 0 20px 4px rgba(0,242,234,.22)}
 }
+#tlNodeCa.active{animation:nodePulseMauve 3s ease infinite .4s}
+@keyframes nodePulseMauve{
+  0%,100%{box-shadow:0 0 0 4px rgba(138,43,226,.12),0 0 6px rgba(138,43,226,.1)}
+  50%    {box-shadow:0 0 0 4px rgba(138,43,226,.12),0 0 20px 4px rgba(138,43,226,.22)}
+}
+.tl-node-right{margin-top:80px}
 
 /* Étiquette année */
 .tl-year{
@@ -100,22 +151,36 @@
 .step-sub{font-size:14px;font-weight:300;color:var(--muted);margin-bottom:28px;line-height:1.5}
 
 /* =============================================
-   ACCORDÉON UEs
+   ACCORDÉON UEs — VERSION ANIMÉE
 ============================================= */
 .accordion{display:flex;flex-direction:column;gap:8px;margin-top:4px}
 .acc-item{
   background:var(--glass-bg);border:var(--glass-bd);
   backdrop-filter:var(--glass-blur);border-radius:8px;
-  overflow:hidden;transition:border-color .3s;
+  overflow:hidden;transition:border-color .3s,box-shadow .3s;
 }
-.acc-item.open{border-color:rgba(0,242,234,.28)}
+.acc-item.open{
+  border-color:rgba(0,242,234,.28);
+  box-shadow:0 0 18px rgba(0,242,234,.05);
+}
 .acc-trigger{
   width:100%;display:flex;align-items:center;justify-content:space-between;
   padding:16px 20px;background:none;border:none;cursor:pointer;
   text-align:left;gap:12px;
   transition:background .25s;
+  position:relative;
 }
 .acc-trigger:hover{background:rgba(255,255,255,.03)}
+/* Trait teal glissant au hover */
+.acc-trigger::after{
+  content:'';position:absolute;bottom:0;left:20px;
+  width:calc(100% - 40px);height:1px;
+  background:var(--teal);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .25s ease;opacity:.4;
+}
+.acc-trigger:hover::after{transform:scaleX(1)}
+.acc-trigger:hover .acc-label{color:var(--cream)}
 .acc-label{font-size:12px;font-weight:500;color:var(--cream);letter-spacing:.5px}
 .acc-tag{
   font-size:9px;letter-spacing:2px;text-transform:uppercase;
@@ -123,21 +188,39 @@
   border:1px solid rgba(0,242,234,.15);
   padding:3px 10px;border-radius:100px;white-space:nowrap;
 }
+/* Icône SVG croix animée */
 .acc-icon{
   width:20px;height:20px;border-radius:50%;
   border:var(--glass-bd);
   display:flex;align-items:center;justify-content:center;
-  font-size:12px;color:var(--teal);flex-shrink:0;
-  transition:transform .35s,background .25s;
+  flex-shrink:0;transition:background .25s;
+  color:var(--teal);
 }
-.acc-item.open .acc-icon{transform:rotate(45deg);background:rgba(0,242,234,.1)}
+.acc-item.open .acc-icon{background:rgba(0,242,234,.1)}
+.acc-icon-h,.acc-icon-v{
+  stroke:currentColor;stroke-linecap:round;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  transform-box:fill-box;transform-origin:center;
+}
+.acc-item.open .acc-icon-v{transform:rotate(90deg)}
 .acc-body{
   max-height:0;overflow:hidden;
   transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .4s;
   padding:0 20px;
 }
-.acc-item.open .acc-body{max-height:480px;padding:0 20px 18px}
-.acc-content{font-size:14px;font-weight:300;line-height:1.8;color:rgba(240,236,226,.65);border-top:var(--glass-bd);padding-top:14px}
+.acc-item.open .acc-body{max-height:520px;padding:0 20px 18px}
+.acc-content{
+  font-size:14px;font-weight:300;line-height:1.8;
+  color:rgba(240,236,226,.65);padding-top:14px;
+}
+/* Bordure animée scaleX (JS la crée dynamiquement) */
+.acc-border{
+  height:1px;background:rgba(255,255,255,.1);
+  transform:scaleX(0);transform-origin:left;
+  margin-bottom:14px;
+}
+/* Segments de contenu — initialement masqués */
+.acc-seg{opacity:0;transform:translateY(12px)}
 
 /* =============================================
    PROGRESS BARS CANADA
@@ -158,12 +241,13 @@
 .grade-bar{
   height:100%;border-radius:100px;
   background:linear-gradient(90deg,var(--teal),var(--mauve));
-  width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);
+  width:0;
+  transition:width 1.4s cubic-bezier(.4,0,.2,1),box-shadow .3s ease;
 }
-/* mention */
 .grade-mention{
   font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;
   color:rgba(0,242,234,.55);margin-top:5px;
+  opacity:0;transition:opacity .4s ease;
 }
 
 /* CANADA CARD */
@@ -172,9 +256,23 @@
   backdrop-filter:var(--glass-blur);border-radius:var(--radius);
   padding:32px 28px;margin-bottom:28px;
   border-color:rgba(138,43,226,.25);
+  position:relative;overflow:hidden;
+  transition:border-color .3s ease;
 }
 .canada-card .step-tag{color:var(--mauve)}
 .canada-card .step-tag::before{background:var(--mauve)}
+/* Scanner */
+.card-scanner{
+  position:absolute;left:0;right:0;height:2px;top:0;
+  background:linear-gradient(90deg,transparent,rgba(0,242,234,.7),transparent);
+  filter:blur(1px);pointer-events:none;z-index:3;
+  transition:top .8s ease;
+}
+.canada-card.scanning-done{animation:cardHalo 4s ease infinite}
+@keyframes cardHalo{
+  0%,100%{box-shadow:0 0 0 0 rgba(138,43,226,.2)}
+  50%    {box-shadow:0 0 28px 6px rgba(138,43,226,.08)}
+}
 
 /* Résultats S5 label */
 .s5-label{
@@ -199,6 +297,12 @@
   text-align:center;gap:24px;
   position:relative;overflow:hidden;
   border-color:rgba(0,242,234,.15);
+  opacity:0;transform:scale(.95);will-change:opacity,transform;
+  transition:border-color .3s,box-shadow .3s;
+}
+.cv-block:hover{
+  border-color:rgba(0,242,234,.25);
+  box-shadow:0 0 24px rgba(0,242,234,.08);
 }
 .cv-block::before{
   content:'';position:absolute;inset:0;
@@ -210,10 +314,21 @@
   background:rgba(0,242,234,.07);border:var(--glass-bd);
   display:flex;align-items:center;justify-content:center;font-size:26px;
   border-color:rgba(0,242,234,.2);position:relative;z-index:1;
+  will-change:transform;
 }
 .cv-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;position:relative;z-index:1}
 .cv-sub{font-size:15px;font-weight:300;color:var(--muted);max-width:480px;line-height:1.6;position:relative;z-index:1}
 .cv-formats{font-size:11px;letter-spacing:1.5px;color:rgba(240,236,226,.3);text-transform:uppercase;position:relative;z-index:1}
+/* Shimmer btn-cv */
+.btn-cv{position:relative;overflow:hidden}
+.btn-cv::after{
+  content:'';position:absolute;top:0;left:-100%;
+  width:55%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  transform:skewX(-15deg);
+}
+.btn-cv:hover::after{animation:cvShine .5s ease forwards}
+@keyframes cvShine{from{left:-100%}to{left:150%}}
 
 /* =============================================
    RESPONSIVE
@@ -223,21 +338,23 @@
   .hero-flags,.hero-bg-text{display:none}
   .parcours-wrap{padding:52px 24px}
   .timeline{grid-template-columns:1fr}
-  .timeline::before{left:20px;transform:none}
   .tl-block-left{padding:0 0 48px 44px}
   .tl-block-right{padding:0 0 48px 44px}
   .tl-node-col{position:absolute;left:11px;flex-direction:row;align-items:flex-start;padding-top:6px}
   .tl-node-right{margin-top:0}
   .tl-year{writing-mode:horizontal-tb;margin-top:0;margin-left:8px;font-size:10px}
   .tl-france-wrap,.tl-canada-wrap{position:relative}
+  /* Reveal depuis le bas sur mobile */
+  .tl-anim-left,.tl-anim-right{transform:translateY(40px)}
   .cv-section{padding-left:24px;padding-right:24px;padding-bottom:64px}
   .cv-block{padding:40px 24px}
 }
 </style>
 </head>
-<body>
+<body class="page-parcours">
 
 <div id="page-overlay"></div>
+<div id="spotlight"></div>
 <div class="cursor" id="cur"></div>
 <div class="cursor-ring" id="ring"></div>
 <div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div></div>
@@ -275,26 +392,41 @@
 
 <!-- ==================== PAGE HERO ==================== -->
 <section class="page-hero">
-  <div class="hero-bg-text">ACADÉMIQUE</div>
+  <div class="hero-bg-text" id="heroWatermark">ACADÉMIQUE</div>
   <div class="hero-flags">
     <div class="flag-item"><span class="flag-emoji">🇫🇷</span>IUT de Poitiers · 2023–2025</div>
     <div class="flag-item"><span class="flag-emoji">🇨🇦</span>UQAC · Chicoutimi · 2025–2026</div>
   </div>
-  <div class="page-eyebrow">DOUBLE DIPLOMATION • FRANCE — CANADA</div>
-  <h1 class="page-title">
-    <span>PARCOURS</span><br>
-    <span class="t-stroke">ACA</span><span class="t-teal">DÉMIQUE</span>
+  <div class="page-eyebrow" id="parcEyebrow">DOUBLE DIPLOMATION • FRANCE — CANADA</div>
+  <h1 class="page-title" id="parcTitle">
+    <div class="tl-mask-wrap"><div class="tl-mask-inner"><span>PARCOURS</span></div></div>
+    <div class="tl-mask-wrap"><div class="tl-mask-inner"><span class="t-stroke">ACA</span><span class="t-teal">DÉMIQUE</span></div></div>
   </h1>
-  <p class="page-accroche">"Une vision internationale pour une communication à 360°."</p>
+  <p class="page-accroche" id="parcAccroche">"Une vision internationale pour une communication à 360°."</p>
 </section>
 
 <!-- ==================== TIMELINE ==================== -->
 <div class="parcours-wrap">
-  <div class="timeline">
+  <div class="timeline" id="tlTimeline">
+
+    <!-- SVG ligne centrale + dégradé teal→mauve -->
+    <svg class="tl-svg" id="tlSvg" aria-hidden="true" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="tlGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="rgba(0,242,234,0.35)"/>
+          <stop offset="100%" stop-color="rgba(138,43,226,0.35)"/>
+        </linearGradient>
+      </defs>
+      <line id="tlLine" x1="50%" y1="0" x2="50%" y2="100%"
+        stroke="url(#tlGrad)" stroke-width="1"
+        stroke-dasharray="2000" stroke-dashoffset="2000"/>
+    </svg>
+    <!-- Beam de lumière qui suit le scroll -->
+    <div class="tl-beam" id="tlBeam"></div>
 
     <!-- ========== FRANCE (gauche) ========== -->
     <div class="tl-france-wrap">
-      <div class="tl-block-left reveal">
+      <div class="tl-block-left tl-anim-left">
 
         <div class="step-tag">🇫🇷 Le Socle Stratégique · 2023–2025</div>
         <div class="step-title">BUT Techniques de<br>Commercialisation</div>
@@ -309,7 +441,7 @@
                 <span class="acc-tag">UE1</span>
                 <span class="acc-label">Marketing</span>
               </div>
-              <div class="acc-icon">+</div>
+              <div class="acc-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><line class="acc-icon-h" x1="0" y1="6" x2="12" y2="6" stroke-width="1.5"/><line class="acc-icon-v" x1="6" y1="0" x2="6" y2="12" stroke-width="1.5"/></svg></div>
             </button>
             <div class="acc-body">
               <div class="acc-content">
@@ -326,7 +458,7 @@
                 <span class="acc-tag">UE2</span>
                 <span class="acc-label">Vente</span>
               </div>
-              <div class="acc-icon">+</div>
+              <div class="acc-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><line class="acc-icon-h" x1="0" y1="6" x2="12" y2="6" stroke-width="1.5"/><line class="acc-icon-v" x1="6" y1="0" x2="6" y2="12" stroke-width="1.5"/></svg></div>
             </button>
             <div class="acc-body">
               <div class="acc-content">
@@ -343,7 +475,7 @@
                 <span class="acc-tag">UE3</span>
                 <span class="acc-label">Communication</span>
               </div>
-              <div class="acc-icon">+</div>
+              <div class="acc-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><line class="acc-icon-h" x1="0" y1="6" x2="12" y2="6" stroke-width="1.5"/><line class="acc-icon-v" x1="6" y1="0" x2="6" y2="12" stroke-width="1.5"/></svg></div>
             </button>
             <div class="acc-body">
               <div class="acc-content">
@@ -360,7 +492,7 @@
                 <span class="acc-tag">UE4</span>
                 <span class="acc-label">Marketing Digital</span>
               </div>
-              <div class="acc-icon">+</div>
+              <div class="acc-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><line class="acc-icon-h" x1="0" y1="6" x2="12" y2="6" stroke-width="1.5"/><line class="acc-icon-v" x1="6" y1="0" x2="6" y2="12" stroke-width="1.5"/></svg></div>
             </button>
             <div class="acc-body">
               <div class="acc-content">
@@ -377,7 +509,7 @@
                 <span class="acc-tag">UE5</span>
                 <span class="acc-label">E-business & Entrepreneuriat</span>
               </div>
-              <div class="acc-icon">+</div>
+              <div class="acc-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><line class="acc-icon-h" x1="0" y1="6" x2="12" y2="6" stroke-width="1.5"/><line class="acc-icon-v" x1="6" y1="0" x2="6" y2="12" stroke-width="1.5"/></svg></div>
             </button>
             <div class="acc-body">
               <div class="acc-content">
@@ -395,15 +527,16 @@
 
     <!-- ========== NŒUDS CENTRAUX ========== -->
     <div class="tl-node-col">
-      <div class="tl-node"></div>
+      <div class="tl-node" id="tlNodeFr"></div>
       <div class="tl-year">2023 – 2025</div>
     </div>
 
     <!-- ========== CANADA (droite) ========== -->
     <div class="tl-canada-wrap">
-      <div class="tl-block-right reveal">
+      <div class="tl-block-right tl-anim-right">
 
-        <div class="canada-card glass-card">
+        <div class="canada-card glass-card" id="canadaCard">
+          <div class="card-scanner" id="cardScanner"></div>
           <div class="step-tag">🇨🇦 L'Ouverture Internationale · 2025–2026</div>
           <div class="step-title">Baccalauréat en<br>Administration</div>
           <div class="step-sub">UQAC — Université du Québec à Chicoutimi · Une immersion académique nord-américaine pour développer mon adaptabilité interculturelle et approfondir ma vision business globale.</div>
@@ -463,7 +596,7 @@
     <!-- Nœud Canada (colonne centrale bas) -->
     <div></div>
     <div style="display:flex;flex-direction:column;align-items:center;padding-top:86px">
-      <div class="tl-node" style="background:linear-gradient(135deg,var(--mauve),#6a1fd1);box-shadow:0 0 0 4px rgba(138,43,226,.12),0 0 20px rgba(138,43,226,.2)"></div>
+      <div class="tl-node" id="tlNodeCa" style="background:linear-gradient(135deg,var(--mauve),#6a1fd1)"></div>
       <div class="tl-year" style="color:var(--mauve)">2025 – 2026</div>
     </div>
     <div></div>
@@ -473,8 +606,8 @@
 
 <!-- ==================== TÉLÉCHARGEMENT CV ==================== -->
 <section class="cv-section">
-  <div class="cv-block reveal">
-    <div class="cv-icon">📄</div>
+  <div class="cv-block" id="cvBlock">
+    <div class="cv-icon" id="cvIcon">📄</div>
     <h2 class="cv-title">Télécharger mon CV</h2>
     <p class="cv-sub">Retrouvez le détail complet de mon parcours, mes expériences professionnelles et mes compétences dans mon CV au format PDF.</p>
     <a href="cv-arthur-viaud.pdf" class="btn-cv" download>
@@ -503,35 +636,6 @@
 </footer>
 
 <script src="shared.js" defer></script>
-<script>
-/* --- Accordéon --- */
-function toggleAcc(idx){
-  const items=document.querySelectorAll('.acc-item');
-  items.forEach((item,i)=>{
-    if(i===idx){
-      item.classList.toggle('open');
-    } else {
-      item.classList.remove('open');
-    }
-  });
-}
-
-/* --- Progress bars (déclenchées au scroll) --- */
-const barsAnimated={};
-const barObs=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const bar=entry.target;
-      const target=parseFloat(bar.dataset.target);
-      if(!barsAnimated[target]){
-        barsAnimated[target]=true;
-        setTimeout(()=>{bar.style.width=target+'%';},200);
-      }
-    }
-  });
-},{threshold:.2});
-document.querySelectorAll('.grade-bar').forEach(b=>barObs.observe(b));
-
-</script>
+<script src="parcours.js" defer></script>
 </body>
 </html>
