@@ -4,368 +4,277 @@
 <script defer src="/_vercel/speed-insights/script.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Palm'Fest — Arthur Viaud</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<title>Palm'Fest 2025 — Arthur Viaud</title>
+<meta name="description" content="Étude de cas Palm'Fest 2025 — stratégie LinkedIn B2B, mécénat, création de contenus, storytelling et analyse des performances par Arthur Viaud.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* Variable accent locale */
-:root{--accent:#00F2EA}
-/* GLASS CARD hover (override local) */
-.glass-card{transition:background .3s,border-color .3s,transform .3s}
-.glass-card:hover{background:rgba(255,255,255,.05);border-color:rgba(0,242,234,.22);transform:translateY(-4px)}
+/* ==============================================
+   PALM'FEST — CASE STUDY V1 · 2025
+   Stratégie B2B · LinkedIn · Mécénat · Contenu
+============================================== */
+:root{
+  --pf-yellow:#F2EFA4;
+  --pf-red:#D14F3B;
+  --pf-orange:#FA8B2E;
+  --pf-turq:#1AAFAE;
+  --pf-purple:#372970;
+}
+body{background:var(--bg)}
+body::selection{background:rgba(250,139,46,.28);color:var(--cream)}
 
-/* =============================================
-   PROJECT HERO — PALMFEST
-============================================= */
-.proj-hero{
-  position:relative;z-index:10;
-  min-height:90vh;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:130px 56px 72px;border-bottom:var(--glass-bd);overflow:hidden;
+/* ===== HERO ===== */
+.pf-hero{
+  position:relative;z-index:10;min-height:100svh;overflow:hidden;
+  padding:126px 56px 68px;display:flex;align-items:center;border-bottom:var(--glass-bd);
 }
-/* Compteur festivaliers en arrière-plan */
-.hero-watermark{
-  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
-  font-family:'Bebas Neue',sans-serif;font-size:clamp(120px,18vw,240px);
-  color:rgba(255,255,255,.025);letter-spacing:5px;pointer-events:none;
-  white-space:nowrap;line-height:1;user-select:none;
+.pf-hero::before{
+  content:'';position:absolute;width:620px;height:620px;border-radius:50%;right:-140px;top:-110px;
+  background:var(--pf-orange);filter:blur(130px);opacity:.10;pointer-events:none;
 }
-.proj-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:20px;opacity:0;animation:riseUp .7s ease forwards .2s;display:flex;align-items:center;gap:12px}
-.proj-eyebrow::before{content:'';width:32px;height:1px;background:var(--teal)}
-.proj-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(70px,13vw,158px);line-height:.87;letter-spacing:3px;color:var(--cream);opacity:0;animation:riseUp .85s ease forwards .35s}
-.proj-title .t-apos{color:var(--teal)}
-.proj-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
-.proj-accroche{font-size:clamp(15px,1.7vw,21px);font-weight:300;font-style:italic;color:var(--muted);max-width:720px;line-height:1.65;margin-top:28px;opacity:0;animation:riseUp .85s ease forwards .52s}
-/* Stats rapides héro */
-.hero-kpi{
-  display:flex;align-items:center;gap:32px;margin-top:36px;
-  opacity:0;animation:riseUp .85s ease forwards .68s;flex-wrap:wrap;
+.pf-hero::after{
+  content:'';position:absolute;width:520px;height:520px;border-radius:50%;left:35%;bottom:-300px;
+  background:var(--pf-turq);filter:blur(140px);opacity:.08;pointer-events:none;
 }
-.kpi-item{display:flex;flex-direction:column;gap:3px}
-.kpi-n{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;background:linear-gradient(90deg,var(--teal),var(--mauve));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.kpi-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-.kpi-sep{width:1px;height:40px;background:rgba(255,255,255,.1)}
-.hero-deco{position:absolute;top:130px;right:56px;display:flex;flex-direction:column;align-items:flex-end;gap:8px;opacity:0;animation:riseUp .9s ease forwards .65s}
-.deco-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.3);border:var(--glass-bd);padding:5px 14px;border-radius:100px;background:var(--glass-bg);backdrop-filter:var(--glass-blur)}
+.pf-hero-grid{
+  position:absolute;inset:0;pointer-events:none;opacity:.25;
+  background:linear-gradient(rgba(240,236,226,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(240,236,226,.025) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:linear-gradient(to right,#000 0%,rgba(0,0,0,.75) 55%,transparent 95%);
+  mask-image:linear-gradient(to right,#000 0%,rgba(0,0,0,.75) 55%,transparent 95%);
+}
+.pf-watermark{
+  position:absolute;right:-20px;bottom:-44px;font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(150px,24vw,330px);letter-spacing:5px;line-height:.8;color:rgba(255,255,255,.018);
+  user-select:none;pointer-events:none;white-space:nowrap;
+}
+.pf-hero-wrap{
+  position:relative;z-index:3;width:100%;max-width:1320px;margin:0 auto;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,430px);gap:76px;align-items:center;
+}
+.pf-kicker{display:flex;align-items:center;gap:11px;font-size:10px;letter-spacing:2.8px;text-transform:uppercase;color:var(--pf-orange);margin-bottom:26px}
+.pf-kicker::before{content:'';width:34px;height:1px;background:var(--pf-orange)}
+.pf-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(86px,12vw,164px);line-height:.78;letter-spacing:2px;margin:0}
+.pf-title span{display:block}.pf-title .stroke{-webkit-text-stroke:2px rgba(240,236,226,.22);color:transparent}.pf-title .accent{color:var(--pf-orange)}
+.pf-role{margin-top:30px;font-family:'Bebas Neue',sans-serif;font-size:clamp(21px,2.3vw,31px);letter-spacing:1.6px;line-height:1.15;color:var(--cream)}
+.pf-role em{font-style:normal;color:var(--pf-turq)}
+.pf-lead{margin-top:18px;max-width:680px;font-size:clamp(15px,1.35vw,18px);line-height:1.75;font-weight:300;color:rgba(240,236,226,.62)}
+.pf-lead strong{color:var(--cream);font-weight:500}
+.pf-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.pf-tags span{padding:7px 12px;border-radius:100px;border:1px solid rgba(250,139,46,.18);background:rgba(250,139,46,.045);font-size:8px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(240,236,226,.62)}
+.pf-hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:34px}
 
-/* =============================================
-   CONTENT
-============================================= */
-.proj-content{position:relative;z-index:10;padding:80px 56px}
-.s-head{display:flex;align-items:center;gap:18px;margin-bottom:40px}
-.s-num{font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(240,236,226,.18);letter-spacing:2px}
-.s-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px}
-.s-rule{flex:1;height:1px;background:rgba(255,255,255,.07)}
-.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.bubble{padding:32px 28px}
-.bubble-title{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.bubble-title::before{content:'';width:22px;height:1px;background:var(--teal);flex-shrink:0}
-.bubble-text{font-size:15px;font-weight:300;line-height:1.8;color:rgba(240,236,226,.75)}
+/* Hero media stack */
+.pf-visual{position:relative;min-height:520px}
+.pf-card-main,.pf-card-side{position:absolute;overflow:hidden;border:var(--glass-bd);background:#0d1321;box-shadow:0 28px 80px rgba(0,0,0,.36)}
+.pf-card-main{width:78%;right:0;top:0;bottom:38px;border-radius:10px 42px 10px 42px;transform:rotate(2deg)}
+.pf-card-main img{width:100%;height:100%;object-fit:cover;object-position:center 26%;display:block;filter:saturate(.95) brightness(.78)}
+.pf-card-main::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,30,.68),transparent 48%)}
+.pf-card-side{width:43%;left:0;bottom:0;aspect-ratio:.70;border-radius:8px 28px 8px 28px;transform:rotate(-5deg);z-index:3}
+.pf-card-side img{width:100%;height:100%;object-fit:cover;display:block}
+.pf-media-label{position:absolute;right:17px;bottom:17px;z-index:4;background:rgba(10,15,30,.68);backdrop-filter:blur(9px);border:var(--glass-bd);border-radius:100px;padding:7px 12px;font-size:7px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(240,236,226,.65)}
+.pf-float{position:absolute;z-index:5;padding:8px 13px;border-radius:100px;background:rgba(10,15,30,.70);backdrop-filter:blur(10px);border:1px solid rgba(250,139,46,.22);font-size:8px;letter-spacing:1.8px;text-transform:uppercase;color:var(--pf-yellow)}
+.pf-float.top{top:38px;left:4%}.pf-float.bottom{right:10px;bottom:0;color:var(--pf-turq);border-color:rgba(26,175,174,.25)}
 
-/* =============================================
-   ZONE A — CARROUSEL BEST ENGAGEMENT
-============================================= */
-.media-section{position:relative;z-index:10;padding:0 56px 80px}
+/* ===== PROOF STRIP ===== */
+.pf-proofs{position:relative;z-index:10;display:grid;grid-template-columns:repeat(4,1fr);border-bottom:var(--glass-bd);background:rgba(255,255,255,.012)}
+.pf-proof{padding:28px 24px;border-right:var(--glass-bd);min-height:122px;display:flex;flex-direction:column;justify-content:center}
+.pf-proof:last-child{border-right:none}
+.pf-proof strong{font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;color:var(--cream);letter-spacing:1px}.pf-proof strong em{font-style:normal;color:var(--pf-orange)}
+.pf-proof span{margin-top:7px;font-size:8px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(240,236,226,.42);line-height:1.5}
 
-.zone-a{
-  border-radius:var(--radius);
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);
-  overflow:hidden;
-  display:grid;grid-template-columns:1.4fr 1fr;
-  min-height:360px;
-  transition:border-color .3s;
-}
-.zone-a:hover{border-color:rgba(0,242,234,.28)}
-.zone-a-visual{
-  position:relative;
-  background:linear-gradient(140deg,rgba(0,242,234,.08),rgba(138,43,226,.12));
-  display:flex;align-items:center;justify-content:center;
-  min-height:320px;border-right:var(--glass-bd);
-}
-/* PDF Carrousel mockup */
-.pdf-mock{
-  width:200px;height:260px;
-  background:rgba(255,255,255,.06);
-  border:var(--glass-bd);border-radius:8px;
-  display:flex;flex-direction:column;overflow:hidden;
-  box-shadow:0 24px 60px rgba(0,0,0,.4);
-  position:relative;
-}
-.pdf-header{height:52px;background:linear-gradient(90deg,rgba(0,242,234,.15),rgba(138,43,226,.15));display:flex;align-items:center;padding:0 16px;gap:8px}
-.pdf-h-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);opacity:.7}
-.pdf-title{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.5)}
-.pdf-body{flex:1;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
-.pdf-line{height:5px;border-radius:100px;background:rgba(255,255,255,.06)}
-.pdf-line.w70{width:70%}
-.pdf-line.w90{width:90%}
-.pdf-line.w55{width:55%}
-.pdf-line.accent{background:linear-gradient(90deg,rgba(0,242,234,.35),rgba(138,43,226,.25));width:80%}
-.pdf-footer{height:36px;background:rgba(0,242,234,.06);display:flex;align-items:center;justify-content:center}
-.pdf-footer span{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(0,242,234,.6)}
-/* Badge performance */
-.perf-badge{
-  position:absolute;top:18px;right:18px;
-  background:linear-gradient(135deg,var(--teal),#00c4be);
-  color:#0A0F1E;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;
-  font-weight:700;padding:5px 12px;border-radius:100px;
-  display:flex;align-items:center;gap:5px;
-}
-.zone-a-info{padding:36px 32px;display:flex;flex-direction:column;justify-content:center;gap:14px}
-.zone-a-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal)}
-.zone-a-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;line-height:1.1}
-.zone-a-desc{font-size:14px;font-weight:300;line-height:1.7;color:rgba(240,236,226,.65)}
+/* ===== SHARED SECTION SYSTEM ===== */
+.pf-section{position:relative;z-index:10;padding:88px 56px;max-width:1440px;margin:0 auto}
+.pf-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:end;margin-bottom:40px}
+.pf-index{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:rgba(240,236,226,.18);padding-bottom:8px}
+.pf-eyebrow{display:block;margin-bottom:8px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--pf-orange)}
+.pf-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,5vw,70px);line-height:.92;letter-spacing:1.6px;margin:0}.pf-head h2 span{color:var(--pf-turq)}
+.pf-rule{width:min(17vw,180px);height:1px;background:rgba(255,255,255,.08);margin-bottom:11px}
 
-/* =============================================
-   ZONE B — VIDÉO CINÉMA 16:9
-============================================= */
-.zones-bc{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;margin-top:18px}
+/* ===== 01 STRATEGY ===== */
+.strategy-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+.strategy-main,.strategy-side{border:var(--glass-bd);background:var(--glass-bg);backdrop-filter:var(--glass-blur);border-radius:14px;overflow:hidden}
+.strategy-main{padding:38px 36px;position:relative}.strategy-main::before{content:'';position:absolute;width:240px;height:240px;border-radius:50%;right:-80px;top:-100px;background:var(--pf-orange);filter:blur(90px);opacity:.08}
+.strategy-main h3{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:1.8px;line-height:1;margin:0 0 18px}.strategy-main h3 span{color:var(--pf-orange)}
+.strategy-main>p{max-width:680px;font-size:14px;line-height:1.8;font-weight:300;color:rgba(240,236,226,.65)}
+.strategy-axes{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:28px}
+.axis{padding:18px 16px;border:1px solid rgba(255,255,255,.08);border-radius:9px;background:rgba(255,255,255,.018)}
+.axis small{display:block;font-size:7px;letter-spacing:1.7px;text-transform:uppercase;color:var(--pf-orange);margin-bottom:8px}.axis strong{font-size:12px;line-height:1.35;font-weight:500}.axis p{font-size:10px;line-height:1.55;color:rgba(240,236,226,.42);margin-top:7px;font-weight:300}
+.strategy-side{padding:30px;display:flex;flex-direction:column;gap:8px}
+.strategy-side-label{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--pf-turq);margin-bottom:7px}
+.process-step{display:grid;grid-template-columns:34px 1fr;gap:13px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.07)}.process-step:last-child{border-bottom:none}
+.process-step>span{font-family:'Bebas Neue';font-size:20px;color:rgba(250,139,46,.55)}.process-step strong{display:block;font-size:12px;margin-bottom:4px}.process-step p{font-size:10.5px;line-height:1.55;color:rgba(240,236,226,.42);font-weight:300}
 
-.zone-b{
-  border-radius:var(--radius);
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);
-  overflow:hidden;
-  transition:border-color .3s;
-  display:flex;flex-direction:column;
-}
-.zone-b:hover{border-color:rgba(0,242,234,.28)}
-.cinema-screen{
-  width:100%;
-  background:#000;
-  overflow:hidden;
-  position:relative;
-}
-.cinema-screen video{
-  width:100%;display:block;
-  aspect-ratio:16/9;object-fit:cover;
-}
-.cinema-bar{
-  position:absolute;bottom:0;left:0;right:0;
-  height:3px;
-  background:linear-gradient(90deg,var(--teal),var(--mauve));
-  opacity:.6;
-}
-.zone-b-info{padding:24px;display:flex;flex-direction:column;gap:10px}
-.zone-b-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal)}
-.zone-b-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;line-height:1.1}
-.zone-b-desc{font-size:13px;font-weight:300;line-height:1.65;color:rgba(240,236,226,.6)}
+/* ===== 02 CREATIONS ===== */
+.creation-feature{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:18px;border:var(--glass-bd);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.018)}
+.carousel-media{position:relative;min-height:520px;background:linear-gradient(145deg,rgba(209,79,59,.09),rgba(26,175,174,.06));display:flex;align-items:center;justify-content:center;border-right:var(--glass-bd);overflow:hidden}
+.carousel-media::before{content:'LINKEDIN';position:absolute;left:-8px;bottom:-24px;font-family:'Bebas Neue';font-size:110px;letter-spacing:3px;color:rgba(255,255,255,.022)}
+.carousel-media a{height:80%;max-height:430px;aspect-ratio:.8;position:relative;z-index:2;transition:transform .3s}.carousel-media a:hover{transform:translateY(-6px) rotate(-1deg)}
+.carousel-media img{width:100%;height:100%;object-fit:cover;border-radius:9px;display:block;box-shadow:0 28px 65px rgba(0,0,0,.42)}
+.carousel-badge{position:absolute;top:22px;left:22px;z-index:3;padding:7px 12px;border-radius:100px;background:var(--pf-orange);color:#15110d;font-size:7px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase}
+.creation-copy{padding:42px 36px;display:flex;flex-direction:column;justify-content:center}
+.creation-copy .micro{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--pf-orange);margin-bottom:13px}.creation-copy h3{font-family:'Bebas Neue';font-size:42px;letter-spacing:1.5px;line-height:.95;margin:0}.creation-copy>p{font-size:13px;line-height:1.75;color:rgba(240,236,226,.55);font-weight:300;margin:18px 0 22px}
+.creation-points{display:flex;flex-direction:column;gap:9px;margin-bottom:25px}.creation-points span{font-size:10px;color:rgba(240,236,226,.62);display:flex;gap:10px}.creation-points span::before{content:'↗';color:var(--pf-turq)}
+.creation-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:18px}
+.media-card{border:var(--glass-bd);background:var(--glass-bg);border-radius:14px;overflow:hidden;position:relative}.media-card video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000}.media-card img{width:100%;aspect-ratio:1.55;object-fit:cover;display:block}.media-card-copy{padding:22px 23px}.media-card-copy small{display:block;font-size:7px;letter-spacing:1.8px;text-transform:uppercase;color:var(--pf-turq);margin-bottom:7px}.media-card-copy strong{font-family:'Bebas Neue';font-size:24px;letter-spacing:1.3px}.media-card-copy p{font-size:10.5px;line-height:1.6;color:rgba(240,236,226,.43);font-weight:300;margin-top:7px}
 
-/* =============================================
-   ZONE C — AFFICHE OFFICIELLE
-============================================= */
-.zone-c{
-  border-radius:var(--radius);
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);
-  overflow:hidden;
-  transition:border-color .3s;display:flex;flex-direction:column;
-}
-.zone-c:hover{border-color:rgba(0,242,234,.28)}
-.affiche-wrap{
-  flex:1;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(140deg,rgba(0,242,234,.04),rgba(138,43,226,.07));
-  min-height:220px;
-}
-.affiche-wrap img{
-  width:100%;height:100%;
-  object-fit:contain;display:block;
-  max-height:280px;
-}
-.zone-c-info{padding:20px 24px;border-top:var(--glass-bd)}
-.zone-c-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
-.zone-c-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px}
+/* ===== 03 LEARNINGS ===== */
+.learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.learn-card{padding:30px 26px;border-radius:12px;border:var(--glass-bd);background:var(--glass-bg);position:relative;overflow:hidden}.learn-card::after{content:'';position:absolute;width:120px;height:120px;border-radius:50%;right:-50px;bottom:-55px;background:var(--pf-turq);filter:blur(55px);opacity:.06}
+.learn-no{font-family:'Bebas Neue';font-size:14px;color:rgba(250,139,46,.5);letter-spacing:1.8px}.learn-card h3{font-family:'Bebas Neue';font-size:29px;letter-spacing:1.3px;margin:17px 0 11px;line-height:1}.learn-card p{font-size:11.5px;line-height:1.72;font-weight:300;color:rgba(240,236,226,.49)}
+.learn-source{display:block;margin-top:17px;font-size:7px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(240,236,226,.24)}
 
-@media(max-width:960px){
-  .proj-hero{padding:100px 24px 56px;min-height:auto}
-  .hero-deco,.hero-watermark{display:none}
-  .hero-kpi{gap:20px}
-  .proj-content,.media-section{padding-left:24px;padding-right:24px;padding-top:56px;padding-bottom:56px}
-  .content-grid{grid-template-columns:1fr}
-  .zone-a{grid-template-columns:1fr}
-  .zone-a-visual{border-right:none;border-bottom:var(--glass-bd)}
-  .zones-bc{grid-template-columns:1fr}
+/* ===== 04 TAKEAWAY ===== */
+.takeaway{display:grid;grid-template-columns:.92fr 1.08fr;gap:18px}
+.take-media{position:relative;min-height:420px;border-radius:14px;overflow:hidden;border:var(--glass-bd);background:#0d1321}.take-media img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.88) brightness(.68)}.take-media::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,30,.72),transparent 54%)}
+.take-media-text{position:absolute;left:26px;right:26px;bottom:25px;z-index:2}.take-media-text small{font-size:7px;letter-spacing:1.8px;text-transform:uppercase;color:var(--pf-yellow)}.take-media-text strong{display:block;font-family:'Bebas Neue';font-size:32px;letter-spacing:1.3px;margin-top:6px}
+.take-copy{border:var(--glass-bd);background:var(--glass-bg);border-radius:14px;padding:38px 34px;display:flex;flex-direction:column;justify-content:center}.take-copy h3{font-family:'Bebas Neue';font-size:38px;letter-spacing:1.5px;line-height:.98;margin:0 0 18px}.take-copy h3 span{color:var(--pf-orange)}.take-copy>p{font-size:13px;line-height:1.8;color:rgba(240,236,226,.58);font-weight:300}.take-skills{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}.take-skills span{padding:7px 10px;border-radius:100px;border:1px solid rgba(255,255,255,.09);font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,236,226,.48)}
+
+/* ===== NEXT PROJECT ===== */
+.next-case{position:relative;z-index:10;margin:0 56px 80px;padding:44px 42px;border:var(--glass-bd);border-radius:14px;background:linear-gradient(135deg,rgba(26,175,174,.055),rgba(138,43,226,.05));display:flex;align-items:center;justify-content:space-between;gap:30px;overflow:hidden}.next-case::after{content:'2026';position:absolute;right:20px;bottom:-38px;font-family:'Bebas Neue';font-size:125px;color:rgba(255,255,255,.025);pointer-events:none}.next-case small{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--teal)}.next-case h3{font-family:'Bebas Neue';font-size:38px;letter-spacing:1.5px;margin-top:7px}.next-case p{font-size:11px;color:rgba(240,236,226,.44);margin-top:6px;max-width:620px;line-height:1.6}
+
+@media(max-width:980px){
+  .pf-hero{padding:108px 24px 58px;min-height:auto}.pf-hero-wrap{grid-template-columns:1fr;gap:46px}.pf-visual{min-height:430px;max-width:500px}.pf-proofs{grid-template-columns:1fr 1fr}.pf-proof:nth-child(2){border-right:none}.pf-proof:nth-child(-n+2){border-bottom:var(--glass-bd)}
+  .pf-section{padding:66px 24px}.pf-head{grid-template-columns:auto 1fr}.pf-rule{display:none}.strategy-grid,.creation-feature,.takeaway{grid-template-columns:1fr}.carousel-media{border-right:none;border-bottom:var(--glass-bd)}.creation-grid{grid-template-columns:1fr}.learn-grid{grid-template-columns:1fr}.next-case{margin:0 24px 60px;flex-direction:column;align-items:flex-start}
+}
+@media(max-width:620px){
+  .pf-title{font-size:78px}.pf-visual{min-height:365px}.pf-card-main{width:80%;bottom:28px}.pf-card-side{width:40%}.pf-proofs{grid-template-columns:1fr}.pf-proof{border-right:none!important;border-bottom:var(--glass-bd)!important}.pf-proof:last-child{border-bottom:none!important}.pf-head{grid-template-columns:1fr;gap:8px}.pf-index{padding:0}.strategy-axes{grid-template-columns:1fr}.carousel-media{min-height:430px}.creation-copy{padding:30px 24px}.next-case{padding:32px 25px}
 }
 </style>
 </head>
 <body>
-
 <div id="page-overlay"></div>
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="ring"></div>
+<div class="cursor" id="cur"></div><div class="cursor-ring" id="ring"></div>
 <div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div></div>
 <div class="grain"></div>
-
-<div class="scroll-indicator" id="scrollInd">
-  <div class="si-track"></div>
-  <div class="si-fill" id="siFill"></div>
-  <div class="si-label" id="siLabel">↓</div>
-</div>
+<div class="scroll-indicator" id="scrollInd" title="Haut de page"><div class="si-track"></div><div class="si-fill" id="siFill"></div><div class="si-label" id="siLabel">↑</div></div>
 
 <div class="mobile-menu" id="mobileMenu">
   <button class="mob-close" onclick="closeMob()">✕</button>
-  <a href="index.html" onclick="closeMob()">Accueil</a>
-  <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
-  <a href="parcours.html" onclick="closeMob()">Parcours</a>
-  <a href="a-propos.html" onclick="closeMob()">À Propos</a>
-  <a href="contact.html" onclick="closeMob()">Contact</a>
+  <a href="index.html" onclick="closeMob()">Accueil</a><a href="portfolio.html" onclick="closeMob()">Portfolio</a><a href="parcours.html" onclick="closeMob()">Parcours</a><a href="a-propos.html" onclick="closeMob()">À Propos</a><a href="contact.html" onclick="closeMob()">Contact</a>
 </div>
-
 <nav id="nav">
-  <a href="index.html" class="logo-block">
-    <span class="logo-name">arthur.</span>
-    <span class="logo-sub">D'une inspiration naît une vision</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="portfolio.html" class="active">Portfolio</a></li>
-    <li><a href="parcours.html">Parcours</a></li>
-    <li><a href="a-propos.html">À Propos</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
-  </ul>
+  <a href="index.html" class="logo-block"><span class="logo-name">arthur.</span><span class="logo-sub">D'une inspiration naît une vision</span></a>
+  <ul class="nav-links"><li><a href="portfolio.html" class="active">Portfolio</a></li><li><a href="parcours.html">Parcours</a></li><li><a href="a-propos.html">À Propos</a></li><li><a href="contact.html">Contact</a></li><li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li></ul>
   <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ==================== HERO PALM'FEST ==================== -->
-<section class="proj-hero">
-  <div class="hero-watermark">10 000</div>
-  <div class="hero-deco">
-    <span class="deco-tag">Stage Communication</span>
-    <span class="deco-tag">B2B · Mécénat</span>
-    <span class="deco-tag">La Palmyre · 2024</span>
-  </div>
-  <div class="proj-eyebrow">STAGE COMMUNICATION & STRATÉGIE B2B • 2024</div>
-  <h1 class="proj-title">
-    <span>PALM</span><span class="t-apos">'</span><br>
-    <span class="t-stroke">FE</span><span>ST</span>
-  </h1>
-  <p class="proj-accroche">"Convertir l'énergie d'un festival de 10 000 personnes en stratégie d'acquisition mécénat."</p>
-  <div class="hero-kpi">
-    <div class="kpi-item">
-      <span class="kpi-n">10K</span>
-      <span class="kpi-l">Festivaliers</span>
+<!-- HERO -->
+<section class="pf-hero">
+  <div class="pf-hero-grid"></div><div class="pf-watermark">PALM'FEST</div>
+  <div class="pf-hero-wrap">
+    <div class="reveal">
+      <div class="pf-kicker">Stage communication · avril — mai 2025</div>
+      <h1 class="pf-title"><span>PALM<span class="accent">'</span></span><span><span class="stroke">FE</span>ST</span></h1>
+      <div class="pf-role">Stratégie <em>LinkedIn B2B</em> · mécénat · storytelling</div>
+      <p class="pf-lead">Huit semaines pour construire une présence LinkedIn plus structurée et utiliser la communication comme levier auprès des <strong>partenaires et mécènes locaux</strong> d'un festival ancré sur le territoire royannais.</p>
+      <div class="pf-tags"><span>LinkedIn</span><span>Mécénat</span><span>Photoshop</span><span>CapCut</span><span>Analyse KPI</span></div>
+      <div class="pf-hero-actions"><a href="#strategie" class="btn-primary">Découvrir la stratégie ↓</a><a href="assets/documents/PM2.pdf" target="_blank" rel="noopener" class="btn-ghost">Voir le carrousel ↗</a></div>
     </div>
-    <div class="kpi-sep"></div>
-    <div class="kpi-item">
-      <span class="kpi-n">B2B</span>
-      <span class="kpi-l">Canal principal</span>
-    </div>
-    <div class="kpi-sep"></div>
-    <div class="kpi-item">
-      <span class="kpi-n">3M</span>
-      <span class="kpi-l">Stage complet</span>
-    </div>
-    <div class="kpi-sep"></div>
-    <div class="kpi-item">
-      <span class="kpi-n">↑↑</span>
-      <span class="kpi-l">Best Engagement</span>
+    <div class="pf-visual reveal">
+      <div class="pf-card-main"><img src="assets/images/palmfest/PM2-cover.png" alt="Couverture du carrousel LinkedIn Palm'Fest : Que cache vraiment un festival ?"><span class="pf-media-label">Carrousel LinkedIn · 2025</span></div>
+      <div class="pf-card-side"><img src="assets/images/palmfest/PM1.png" alt="Affiche de la soirée afterwork Palm'Fest du 17 avril 2025"></div>
+      <span class="pf-float top">Communication B2B</span><span class="pf-float bottom">La Palmyre · 2025</span>
     </div>
   </div>
 </section>
 
-<!-- ==================== BULLES ==================== -->
-<section class="proj-content">
-  <div class="s-head">
-    <span class="s-num">01 ///</span>
-    <h2 class="s-title">La Mission</h2>
-    <div class="s-rule"></div>
-  </div>
-  <div class="content-grid">
+<!-- PROOFS -->
+<section class="pf-proofs" aria-label="Repères du stage Palm'Fest">
+  <div class="pf-proof reveal"><strong>8 <em>sem.</em></strong><span>Stage chargé de communication</span></div>
+  <div class="pf-proof reveal"><strong>10K</strong><span>Échelle du festival · édition 2024</span></div>
+  <div class="pf-proof reveal"><strong>B2B</strong><span>LinkedIn comme canal principal</span></div>
+  <div class="pf-proof reveal"><strong>TOP <em>↗</em></strong><span>Carrousel PDF · meilleur engagement de la période</span></div>
+</section>
 
-    <div class="glass-card bubble reveal">
-      <div class="bubble-title">Un ancrage territorial fort</div>
-      <p class="bubble-text">Le Palm'Fest est un festival associatif rassemblant près de 10 000 festivaliers au Point Sublime de La Palmyre. Mon défi en tant que chargé de communication : concevoir et activer une stratégie digitale B2B pour convertir de nouveaux acteurs économiques locaux en mécènes, essentiels à l'équilibre budgétaire de l'événement.</p>
-    </div>
-
-    <div class="glass-card bubble reveal">
-      <div class="bubble-title">Stratégie et création de contenus</div>
-      <p class="bubble-text">Après un diagnostic stratégique et la définition d'objectifs SMART, j'ai ciblé LinkedIn comme canal principal d'acquisition. J'ai piloté un calendrier éditorial complet, de la conception des messages à la création des visuels (Photoshop) et au montage des vidéos (CapCut), tout en assurant une stricte cohérence avec la charte graphique du festival.</p>
-    </div>
-
-    <div class="glass-card bubble reveal" style="grid-column:1/-1">
-      <div class="bubble-title">Analyse et engagement</div>
-      <p class="bubble-text">L'analyse des KPIs a permis d'optimiser la stratégie en continu. L'introduction de formats innovants, comme le carrousel PDF éducatif sur les coulisses du festival, a généré d'excellents taux de clics et d'engagement. Ce stage m'a permis d'ancrer une présence professionnelle solide pour le festival et de renforcer ma capacité à travailler en totale autonomie.</p>
-    </div>
-
+<!-- 01 STRATEGIE -->
+<section class="pf-section" id="strategie">
+  <div class="pf-head reveal"><span class="pf-index">01 ///</span><div><span class="pf-eyebrow">De l'enjeu au plan d'action</span><h2>Construire une présence <span>B2B utile.</span></h2></div><div class="pf-rule"></div></div>
+  <div class="strategy-grid">
+    <article class="strategy-main reveal">
+      <h3>Le point de départ : <span>parler aux bons acteurs.</span></h3>
+      <p>Ma mission directrice était de renforcer la communication vers les acteurs économiques susceptibles de soutenir le festival. Après un diagnostic stratégique, j'ai structuré une ligne éditoriale LinkedIn orientée vers les PME locales et les partenaires, avec un média-planning et des objectifs SMART pour guider les contenus.</p>
+      <div class="strategy-axes">
+        <div class="axis"><small>Axe 01</small><strong>Partenaires & bénévoles</strong><p>Valoriser les personnes qui rendent le projet possible.</p></div>
+        <div class="axis"><small>Axe 02</small><strong>Territoire & festival</strong><p>Montrer l'ancrage local et l'univers du Palm'Fest.</p></div>
+        <div class="axis"><small>Axe 03</small><strong>Impact du mécénat</strong><p>Rendre concret le rôle des entreprises partenaires.</p></div>
+      </div>
+    </article>
+    <aside class="strategy-side reveal">
+      <div class="strategy-side-label">Méthode de travail</div>
+      <div class="process-step"><span>01</span><div><strong>Diagnostiquer</strong><p>Analyse du contexte, de la cible et de la présence digitale existante.</p></div></div>
+      <div class="process-step"><span>02</span><div><strong>Planifier</strong><p>Objectifs SMART, calendrier éditorial et rythme de publication.</p></div></div>
+      <div class="process-step"><span>03</span><div><strong>Créer</strong><p>Copywriting, visuels Photoshop, vidéo CapCut et déclinaisons social media.</p></div></div>
+      <div class="process-step"><span>04</span><div><strong>Mesurer</strong><p>Lecture LinkedIn Analytics, Excel, clics, impressions et engagement.</p></div></div>
+    </aside>
   </div>
 </section>
 
-<!-- ==================== ZONES MÉDIAS ==================== -->
-<section class="media-section">
-  <div class="s-head">
-    <span class="s-num">02 ///</span>
-    <h2 class="s-title">Créations & Médias</h2>
-    <div class="s-rule"></div>
-  </div>
-
-  <!-- ZONE A — CARROUSEL PDF (cover + lien) -->
-  <div class="zone-a reveal">
-    <div class="zone-a-visual">
-      <div class="perf-badge">★ Best Engagement Rate</div>
-      <a href="assets/documents/PM2.pdf" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
-        <img src="assets/images/palmfest/PM2-cover.png"
-          alt="Carrousel PDF — Que cache vraiment un festival ?"
-          style="max-width:80%;max-height:280px;border-radius:8px;object-fit:contain;box-shadow:0 24px 60px rgba(0,0,0,.5);display:block;">
-      </a>
+<!-- 02 CREATIONS -->
+<section class="pf-section">
+  <div class="pf-head reveal"><span class="pf-index">02 ///</span><div><span class="pf-eyebrow">Création de contenu</span><h2>Des formats pensés pour <span>faire réagir.</span></h2></div><div class="pf-rule"></div></div>
+  <div class="creation-feature reveal">
+    <div class="carousel-media">
+      <span class="carousel-badge">Meilleur taux d'engagement</span>
+      <a href="assets/documents/PM2.pdf" target="_blank" rel="noopener" aria-label="Ouvrir le carrousel Palm'Fest complet"><img src="assets/images/palmfest/PM2-cover.png" alt="Que cache vraiment un festival ? — carrousel Palm'Fest"></a>
     </div>
-    <div class="zone-a-info">
-      <div class="zone-a-tag">Format Gagnant · LinkedIn</div>
-      <div class="zone-a-title">Que cache vraiment un festival ?</div>
-      <p class="zone-a-desc">Carrousel PDF éducatif sur les coulisses du festival — format innovant qui a généré d'excellents taux de clics et d'engagement. Conçu de A à Z : copywriting, design Photoshop, et déploiement LinkedIn.</p>
-      <a href="assets/documents/PM2.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;margin-top:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);text-decoration:none;transition:opacity .25s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
-        Voir le carrousel ↗
-      </a>
+    <div class="creation-copy">
+      <span class="micro">LinkedIn · Carrousel PDF</span>
+      <h3>Que cache vraiment un festival ?</h3>
+      <p>Un contenu éditorial construit autour des coulisses du festival, avec un format plus pédagogique et narratif que les publications classiques. Sur la période analysée, le carrousel a obtenu un taux de clics et un taux d'engagement supérieurs aux autres formats.</p>
+      <div class="creation-points"><span>Angle éditorial et copywriting</span><span>Design dans la charte Palm'Fest</span><span>Déploiement LinkedIn et analyse des retours</span></div>
+      <a href="assets/documents/PM2.pdf" target="_blank" rel="noopener" class="btn-primary">Voir les slides ↗</a>
     </div>
   </div>
-
-  <!-- ZONES B + C -->
-  <div class="zones-bc">
-
-    <!-- ZONE B — VIDÉO CINÉMA 16:9 -->
-    <div class="zone-b reveal">
-      <div class="cinema-screen">
-        <video src="assets/videos/palmfest/PMVideo1.mp4" autoplay muted loop playsinline></video>
-        <div class="cinema-bar"></div>
-      </div>
-      <div class="zone-b-info">
-        <div class="zone-b-tag">Création Vidéo · CapCut</div>
-        <div class="zone-b-title">Vidéo Promotionnelle</div>
-        <p class="zone-b-desc">Montage vidéo promotionnel réalisé sur CapCut — format Reels/Stories pour LinkedIn et Instagram, dans le respect de la charte graphique du festival.</p>
-      </div>
-    </div>
-
-    <!-- ZONE C — AFFICHE OFFICIELLE -->
-    <div class="zone-c reveal">
-      <div class="affiche-wrap">
-        <img src="assets/images/palmfest/PM1.png" alt="Affiche officielle Palm'Fest 2024">
-      </div>
-      <div class="zone-c-info">
-        <div class="zone-c-tag">Communication Visuelle</div>
-        <div class="zone-c-title">Affiche Officielle 2024</div>
-      </div>
-    </div>
-
+  <div class="creation-grid">
+    <article class="media-card reveal">
+      <video src="assets/videos/palmfest/PMVideo1.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Montage vidéo Palm'Fest"></video>
+      <div class="media-card-copy"><small>Vidéo · CapCut</small><strong>Storytelling en mouvement</strong><p>Montage conçu pour donner du rythme au message et adapter le storytelling aux formats sociaux.</p></div>
+    </article>
+    <article class="media-card reveal">
+      <img src="assets/images/palmfest/PM1.png" alt="Affiche Palm'Fest de la soirée afterwork du 17 avril 2025">
+      <div class="media-card-copy"><small>Support partenaires</small><strong>Afterwork mécènes</strong><p>Un support événementiel directement lié à la relation partenaires et à l'animation de l'écosystème local.</p></div>
+    </article>
   </div>
 </section>
 
-<!-- FOOTER PROJET -->
-<div class="proj-footer">
-  <a href="portfolio.html" class="btn-back">← Retour au Portfolio</a>
-  <a href="parcours.html" class="btn-next">Découvrir mon Parcours →</a>
-</div>
-
-<footer>
-  <div class="f-logo">Arthur Viaud · 2026</div>
-  <div class="f-links">
-    <a href="portfolio.html">Portfolio</a>
-    <a href="parcours.html">Parcours</a>
-    <a href="a-propos.html">À Propos</a>
-    <a href="contact.html">Contact</a>
-    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
+<!-- 03 INSIGHTS -->
+<section class="pf-section">
+  <div class="pf-head reveal"><span class="pf-index">03 ///</span><div><span class="pf-eyebrow">Analyse de performance</span><h2>Ce que les chiffres <span>m'ont appris.</span></h2></div><div class="pf-rule"></div></div>
+  <div class="learn-grid">
+    <article class="learn-card reveal"><span class="learn-no">01</span><h3>Les partenaires amplifient la portée.</h3><p>Les publications liées à l'afterwork ont bénéficié des republications des mécènes. Mentionner et mobiliser les partenaires est devenu un levier clair de diffusion.</p><span class="learn-source">LinkedIn Analytics · analyse mai 2025</span></article>
+    <article class="learn-card reveal"><span class="learn-no">02</span><h3>Le storytelling vidéo attire autrement.</h3><p>Une publication vidéo plus travaillée et plus narrative a coïncidé avec une nette progression du nombre d'abonnés, confirmant l'intérêt d'un contenu moins institutionnel.</p><span class="learn-source">Observation de la période · 12 mai 2025</span></article>
+    <article class="learn-card reveal"><span class="learn-no">03</span><h3>Le format compte autant que le sujet.</h3><p>Le carrousel PDF a généré des taux de clics et d'engagement nettement supérieurs aux autres formats. Une preuve utile pour orienter la suite de la stratégie.</p><span class="learn-source">Comparaison des publications LinkedIn</span></article>
   </div>
-  <div class="f-copy">D'une inspiration naît une vision</div>
-</footer>
+</section>
 
+<!-- 04 TAKEAWAY -->
+<section class="pf-section">
+  <div class="pf-head reveal"><span class="pf-index">04 ///</span><div><span class="pf-eyebrow">Ce que j'en retiens</span><h2>Autonomie, création <span>& mesure.</span></h2></div><div class="pf-rule"></div></div>
+  <div class="takeaway">
+    <div class="take-media reveal"><img src="assets/images/palmfest/PM2-cover.png" alt="Création Palm'Fest utilisée pendant le stage"><div class="take-media-text"><small>Stage 2025</small><strong>Un premier terrain de communication événementielle.</strong></div></div>
+    <div class="take-copy reveal"><h3>Une expérience qui a posé <span>les fondations.</span></h3><p>Ce stage m'a appris à transformer une problématique de communication en stratégie éditoriale, à produire avec davantage d'autonomie tout en intégrant un circuit de validation, puis à revenir aux données pour comprendre ce qui fonctionne. Il a aussi renforcé mon intérêt pour l'événementiel — une dimension que j'ai ensuite poussée beaucoup plus loin au Royan Atlantique Open 2026.</p><div class="take-skills"><span>Stratégie LinkedIn</span><span>Copywriting</span><span>Photoshop</span><span>CapCut</span><span>Excel</span><span>Analytics</span><span>Mécénat</span><span>Autonomie</span></div></div>
+  </div>
+</section>
+
+<section class="next-case reveal">
+  <div><small>Étape suivante · 2026</small><h3>Royan Atlantique Open</h3><p>Du temps long d'une stratégie B2B à la communication en temps réel d'un tournoi ATP : la suite logique de mon parcours.</p></div>
+  <a href="projet-garden-open.html" class="btn-next">Voir l'expérience Garden →</a>
+</section>
+
+<div class="proj-footer"><a href="portfolio.html" class="btn-back">← Retour au Portfolio</a><a href="projet-garden-open.html" class="btn-next">Projet suivant : Garden →</a></div>
+<footer><div class="f-logo">Arthur Viaud · 2026</div><div class="f-links"><a href="portfolio.html">Portfolio</a><a href="parcours.html">Parcours</a><a href="a-propos.html">À Propos</a><a href="contact.html">Contact</a><a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank" rel="noopener">LinkedIn ↗</a></div><div class="f-copy">D'une inspiration naît une vision</div></footer>
 <script src="shared.js" defer></script>
+<script>
+(function(){
+  const videos=[...document.querySelectorAll('video')];
+  if(!videos.length) return;
+  const obs=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    const v=entry.target;
+    if(entry.isIntersecting){const p=v.play();if(p&&p.catch)p.catch(()=>{});}else v.pause();
+  }),{rootMargin:'160px 0px',threshold:.05});
+  videos.forEach(v=>obs.observe(v));
+})();
+</script>
 </body>
 </html>

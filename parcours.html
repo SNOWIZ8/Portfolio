@@ -4,350 +4,330 @@
 <script defer src="/_vercel/speed-insights/script.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parcours Académique — Arthur Viaud</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<title>Parcours — Arthur Viaud</title>
+<meta name="description" content="Parcours d'Arthur Viaud — marketing digital, communication, création de contenu et événementiel entre la France et le Canada.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* =============================================
-   SPOTLIGHT (miroir homepage)
-============================================= */
+/* =========================================================
+   PARCOURS V3
+   Nouvelle page — moteur créatif inspiré de l'ancienne
+   sans en reprendre la structure éditoriale.
+========================================================= */
+
 #spotlight{
-  position:fixed;inset:0;z-index:3;
-  pointer-events:none;will-change:background;
+  position:fixed;inset:0;z-index:3;pointer-events:none;
 }
 
-/* =============================================
-   PAGE HERO
-============================================= */
-.page-hero{
-  position:relative;z-index:10;
-  min-height:65vh;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:130px 56px 64px;border-bottom:var(--glass-bd);overflow:hidden;
+/* ---------- HERO ---------- */
+.p-hero{
+  position:relative;z-index:10;min-height:92vh;
+  display:flex;align-items:flex-end;overflow:hidden;
+  padding:140px 56px 72px;border-bottom:var(--glass-bd);
 }
-/* Watermark — état initial contrôlé par JS */
-.hero-bg-text{
-  position:absolute;right:-30px;bottom:-40px;
+.p-hero-grid{
+  position:absolute;inset:0;pointer-events:none;opacity:.42;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(240,236,226,.027) 80px),
+    repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(240,236,226,.027) 80px);
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),transparent 90%);
+}
+.p-watermark{
+  position:absolute;right:-32px;bottom:-52px;
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(130px,20vw,260px);
-  color:rgba(255,255,255,.022);letter-spacing:6px;
-  pointer-events:none;user-select:none;line-height:1;
-  opacity:0;will-change:transform; /* JS anime vers opacity:0.022 */
+  font-size:clamp(150px,23vw,320px);line-height:.8;
+  letter-spacing:5px;color:rgba(240,236,226,.025);
+  pointer-events:none;white-space:nowrap;will-change:transform;
 }
-/* Eyebrow — état initial JS */
-.page-eyebrow{
-  font-size:11px;letter-spacing:3px;text-transform:uppercase;
-  color:var(--teal);margin-bottom:18px;
-  opacity:0;will-change:transform;
-  display:flex;align-items:center;gap:12px;
+.p-orbit{
+  position:absolute;border-radius:50%;pointer-events:none;
+  border:1px solid rgba(255,255,255,.06);
 }
-.page-eyebrow::before{content:'';width:32px;height:1px;background:var(--teal)}
-/* Titre — container visible, lignes masquées par overflow */
-.page-title{
+.p-orbit.o1{width:420px;height:420px;right:9%;top:15%}
+.p-orbit.o2{width:250px;height:250px;right:15%;top:26%;border-color:rgba(0,242,234,.11)}
+.p-orbit-dot{
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  background:var(--teal);box-shadow:0 0 24px rgba(0,242,234,.65);
+  right:calc(9% + 206px);top:calc(15% - 4px);
+  animation:orbitPulse 2.4s ease-in-out infinite;
+}
+@keyframes orbitPulse{50%{box-shadow:0 0 38px rgba(0,242,234,.9);transform:scale(1.25)}}
+
+.p-hero-inner{width:100%;max-width:1380px;margin:0 auto;position:relative;z-index:4}
+.p-status-row{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;margin-bottom:24px;
+}
+.p-eyebrow{
+  display:flex;align-items:center;gap:11px;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);
+}
+.p-eyebrow::before{content:'';width:30px;height:1px;background:var(--teal)}
+.p-status{
+  display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;
+}
+.p-chip{
+  border:var(--glass-bd);background:var(--glass-bg);backdrop-filter:var(--glass-blur);
+  border-radius:100px;padding:7px 13px;
+  font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(240,236,226,.48);
+}
+.p-chip.accent{color:var(--teal);border-color:rgba(0,242,234,.22)}
+
+.p-title{
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(56px,9vw,120px);line-height:.87;letter-spacing:3px;
-  opacity:0; /* JS passe à 1 immédiatement; masques cachent le contenu */
+  font-size:clamp(76px,12vw,166px);
+  letter-spacing:3px;line-height:.84;max-width:1050px;
 }
-.page-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
-.page-title .t-teal{color:var(--teal)}
-/* Masques pour révélation cinématique */
-.tl-mask-wrap{overflow:hidden;display:block}
-.tl-mask-inner{display:block;transform:translateY(110%);will-change:transform}
-/* Accroche */
-.page-accroche{
-  font-size:clamp(15px,1.6vw,20px);font-weight:300;font-style:italic;
-  color:var(--muted);max-width:600px;line-height:1.65;margin-top:24px;
-  opacity:0;will-change:transform;
+.p-mask{display:block;overflow:hidden}
+.p-mask-in{display:block}
+.p-title .stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
+.p-title .teal{color:var(--teal)}
+.p-intro{
+  max-width:740px;margin-top:30px;
+  font-size:clamp(15px,1.5vw,19px);line-height:1.75;font-weight:300;color:var(--muted);
 }
-/* Flags */
-.hero-flags{position:absolute;top:130px;right:56px;display:flex;flex-direction:column;gap:10px}
-.flag-item{
-  display:flex;align-items:center;gap:10px;
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(240,236,226,.35);
-  background:var(--glass-bg);border:var(--glass-bd);backdrop-filter:var(--glass-blur);
-  padding:6px 14px;border-radius:100px;
-  opacity:0;will-change:transform;
+.p-intro strong{color:var(--cream);font-weight:500}
+.p-scrollcue{
+  margin-top:38px;display:inline-flex;align-items:center;gap:12px;
+  font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:rgba(240,236,226,.32)
 }
-.flag-emoji{font-size:14px}
+.p-scrollcue span{width:42px;height:1px;background:linear-gradient(90deg,var(--teal),transparent)}
 
-/* =============================================
-   LAYOUT PRINCIPAL
-============================================= */
-.parcours-wrap{
+/* js-ready : les éléments sont masqués uniquement si le JS a bien chargé */
+.js-ready .p-hero-enter{opacity:0;transform:translateY(20px)}
+.js-ready .p-mask-in{transform:translateY(112%)}
+
+/* ---------- SECTION HEADER ---------- */
+.p-section{
   position:relative;z-index:10;
-  padding:80px 56px;
-  max-width:1400px;margin:0 auto;
+  padding:92px 56px;
+}
+.p-section-inner{max-width:1380px;margin:0 auto}
+.p-head{display:flex;align-items:center;gap:18px;margin-bottom:16px}
+.p-num{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:rgba(240,236,226,.18)}
+.p-head-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,4.2vw,58px);letter-spacing:3px}
+.p-rule{height:1px;flex:1;background:rgba(255,255,255,.07)}
+.p-section-lead{
+  max-width:730px;font-size:14px;line-height:1.75;font-weight:300;color:var(--muted);
+  margin:0 0 52px 0;
 }
 
-/* =============================================
-   TIMELINE VERTICALE
-============================================= */
-.timeline{
-  position:relative;
-  display:grid;
-  grid-template-columns:1fr 60px 1fr;
-  gap:0;
+/* ---------- TRAJECTORY ENGINE ---------- */
+.trajectory{
+  position:relative;padding:10px 0 20px;
 }
-/* Ligne centrale — SVG inline remplace le ::before */
-
-/* SVG timeline */
-.tl-svg{
-  position:absolute;left:0;top:0;
-  width:100%;pointer-events:none;z-index:0;overflow:visible;
+.tr-svg{
+  position:absolute;left:50%;top:0;transform:translateX(-50%);
+  width:120px;height:100%;overflow:visible;pointer-events:none;z-index:0;
 }
-/* Beam de lumière */
-.tl-beam{
+.tr-line-bg{stroke:rgba(240,236,226,.08);stroke-width:1}
+.tr-line-progress{
+  stroke:url(#trGradient);stroke-width:2;stroke-linecap:round;
+  stroke-dasharray:1;stroke-dashoffset:1;
+  filter:drop-shadow(0 0 6px rgba(0,242,234,.28));
+}
+.tr-beam{
   position:absolute;left:50%;transform:translateX(-50%);
-  width:2px;height:80px;
-  background:linear-gradient(to bottom,transparent,rgba(0,242,234,.8),transparent);
-  filter:blur(3px);pointer-events:none;z-index:2;
-  opacity:0;will-change:top,background,opacity;
+  width:2px;height:110px;top:0;opacity:0;z-index:2;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,rgba(0,242,234,.95),rgba(138,43,226,.7),transparent);
+  filter:blur(2px);box-shadow:0 0 16px rgba(0,242,234,.18);
 }
-@media(max-width:960px){.tl-beam{display:none}}
-
-/* BLOCS LATÉRAUX */
-.tl-block-left {padding:0 48px 80px 0}
-.tl-block-right{padding:80px 0 80px 48px}
-
-/* Révélation directionnelle — états initiaux */
-.tl-anim-left {opacity:0;transform:translateX(-50px);will-change:opacity,transform}
-.tl-anim-right{opacity:0;transform:translateX(50px); will-change:opacity,transform}
-
-/* Nœud timeline central */
-.tl-node-col{
-  display:flex;flex-direction:column;align-items:center;
-  padding-top:6px;gap:0;z-index:2;
+.tr-item{
+  min-height:250px;position:relative;
+  display:grid;grid-template-columns:1fr 96px 1fr;
+  align-items:center;
 }
-.tl-node{
-  width:18px;height:18px;border-radius:50%;
+.tr-side{min-width:0}
+.tr-side.left{padding-right:46px}
+.tr-side.right{padding-left:46px}
+.tr-side.empty{pointer-events:none}
+.tr-center{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;z-index:3;height:100%;
+}
+.tr-node{
+  width:18px;height:18px;border-radius:50%;position:relative;
+  background:#0A0F1E;border:1px solid rgba(0,242,234,.55);
+  box-shadow:0 0 0 5px rgba(0,242,234,.05);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),background .35s,box-shadow .35s,border-color .35s;
+}
+.tr-node::after{
+  content:'';position:absolute;inset:5px;border-radius:50%;background:rgba(240,236,226,.22);
+}
+.tr-node.active{
+  transform:scale(1.12);
   background:linear-gradient(135deg,var(--teal),var(--mauve));
-  flex-shrink:0;
-  transform:scale(0);opacity:0;
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s ease;
+  border-color:transparent;
+  box-shadow:0 0 0 6px rgba(0,242,234,.08),0 0 28px rgba(0,242,234,.24);
 }
-.tl-node.active{transform:scale(1);opacity:1;animation:nodePulseTeal 3s ease infinite .4s}
-@keyframes nodePulseTeal{
-  0%,100%{box-shadow:0 0 0 4px rgba(0,242,234,.12),0 0 6px rgba(0,242,234,.1)}
-  50%    {box-shadow:0 0 0 4px rgba(0,242,234,.12),0 0 20px 4px rgba(0,242,234,.22)}
+.tr-node.active::after{background:#0A0F1E}
+.tr-year{
+  margin-top:11px;font-family:'Bebas Neue',sans-serif;
+  font-size:12px;letter-spacing:2px;color:rgba(240,236,226,.34);
 }
-#tlNodeCa.active{animation:nodePulseMauve 3s ease infinite .4s}
-@keyframes nodePulseMauve{
-  0%,100%{box-shadow:0 0 0 4px rgba(138,43,226,.12),0 0 6px rgba(138,43,226,.1)}
-  50%    {box-shadow:0 0 0 4px rgba(138,43,226,.12),0 0 20px 4px rgba(138,43,226,.22)}
-}
-.tl-node-right{margin-top:80px}
-
-/* Étiquette année */
-.tl-year{
-  font-family:'Bebas Neue',sans-serif;font-size:11px;
-  letter-spacing:2px;color:var(--teal);
-  writing-mode:vertical-rl;margin-top:10px;opacity:.5;
-}
-
-/* ENTÊTE D'ÉTAPE */
-.step-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.step-tag::before{content:'';width:18px;height:1px;background:var(--teal)}
-.step-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.5vw,44px);letter-spacing:2px;line-height:1;margin-bottom:8px}
-.step-sub{font-size:14px;font-weight:300;color:var(--muted);margin-bottom:28px;line-height:1.5}
-
-/* =============================================
-   ACCORDÉON UEs — VERSION ANIMÉE
-============================================= */
-.accordion{display:flex;flex-direction:column;gap:8px;margin-top:4px}
-.acc-item{
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);border-radius:8px;
-  overflow:hidden;transition:border-color .3s,box-shadow .3s;
-}
-.acc-item.open{
-  border-color:rgba(0,242,234,.28);
-  box-shadow:0 0 18px rgba(0,242,234,.05);
-}
-.acc-trigger{
-  width:100%;display:flex;align-items:center;justify-content:space-between;
-  padding:16px 20px;background:none;border:none;cursor:pointer;
-  text-align:left;gap:12px;
-  transition:background .25s;
-  position:relative;
-}
-.acc-trigger:hover{background:rgba(255,255,255,.03)}
-/* Trait teal glissant au hover */
-.acc-trigger::after{
-  content:'';position:absolute;bottom:0;left:20px;
-  width:calc(100% - 40px);height:1px;
-  background:var(--teal);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .25s ease;opacity:.4;
-}
-.acc-trigger:hover::after{transform:scaleX(1)}
-.acc-trigger:hover .acc-label{color:var(--cream)}
-.acc-label{font-size:12px;font-weight:500;color:var(--cream);letter-spacing:.5px}
-.acc-tag{
-  font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--teal);background:rgba(0,242,234,.08);
-  border:1px solid rgba(0,242,234,.15);
-  padding:3px 10px;border-radius:100px;white-space:nowrap;
-}
-/* Icône SVG croix animée */
-.acc-icon{
-  width:20px;height:20px;border-radius:50%;
-  border:var(--glass-bd);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:background .25s;
-  color:var(--teal);
-}
-.acc-item.open .acc-icon{background:rgba(0,242,234,.1)}
-.acc-icon-h,.acc-icon-v{
-  stroke:currentColor;stroke-linecap:round;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
-  transform-box:fill-box;transform-origin:center;
-}
-.acc-item.open .acc-icon-v{transform:rotate(90deg)}
-.acc-body{
-  max-height:0;overflow:hidden;
-  transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .4s;
-  padding:0 20px;
-}
-.acc-item.open .acc-body{max-height:520px;padding:0 20px 18px}
-.acc-content{
-  font-size:14px;font-weight:300;line-height:1.8;
-  color:rgba(240,236,226,.65);padding-top:14px;
-}
-/* Bordure animée scaleX (JS la crée dynamiquement) */
-.acc-border{
-  height:1px;background:rgba(255,255,255,.1);
-  transform:scaleX(0);transform-origin:left;
-  margin-bottom:14px;
-}
-/* Segments de contenu — initialement masqués */
-.acc-seg{opacity:0;transform:translateY(12px)}
-
-/* =============================================
-   PROGRESS BARS CANADA
-============================================= */
-.grades-block{margin-top:4px;display:flex;flex-direction:column;gap:22px}
-.grade-row{}
-.grade-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
-.grade-label{font-size:13px;font-weight:400;color:var(--cream)}
-.grade-score{
-  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;
-  background:linear-gradient(90deg,var(--teal),var(--mauve));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.grade-bar-wrap{
-  height:5px;border-radius:100px;
-  background:rgba(255,255,255,.07);overflow:hidden;
-}
-.grade-bar{
-  height:100%;border-radius:100px;
-  background:linear-gradient(90deg,var(--teal),var(--mauve));
-  width:0;
-  transition:width 1.4s cubic-bezier(.4,0,.2,1),box-shadow .3s ease;
-}
-.grade-mention{
-  font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;
-  color:rgba(0,242,234,.55);margin-top:5px;
-  opacity:0;transition:opacity .4s ease;
-}
-
-/* CANADA CARD */
-.canada-card{
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
-  padding:32px 28px;margin-bottom:28px;
-  border-color:rgba(138,43,226,.25);
+.tr-card{
   position:relative;overflow:hidden;
-  transition:border-color .3s ease;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.095);
+  backdrop-filter:blur(12px);
+  border-radius:14px;padding:28px 28px 26px;
+  transition:transform .32s,border-color .32s,background .32s,box-shadow .32s;
 }
-.canada-card .step-tag{color:var(--mauve)}
-.canada-card .step-tag::before{background:var(--mauve)}
-/* Scanner */
-.card-scanner{
-  position:absolute;left:0;right:0;height:2px;top:0;
-  background:linear-gradient(90deg,transparent,rgba(0,242,234,.7),transparent);
-  filter:blur(1px);pointer-events:none;z-index:3;
-  transition:top .8s ease;
+a.tr-card{text-decoration:none;color:inherit;display:block}
+.tr-card:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,.043);
+  border-color:rgba(0,242,234,.24);
+  box-shadow:0 24px 70px rgba(0,0,0,.22);
 }
-.canada-card.scanning-done{animation:cardHalo 4s ease infinite}
-@keyframes cardHalo{
-  0%,100%{box-shadow:0 0 0 0 rgba(138,43,226,.2)}
-  50%    {box-shadow:0 0 28px 6px rgba(138,43,226,.08)}
+.tr-card::before{
+  content:'';position:absolute;width:160px;height:160px;border-radius:50%;
+  right:-90px;top:-80px;background:var(--teal);filter:blur(70px);opacity:.04;pointer-events:none
 }
-
-/* Résultats S5 label */
-.s5-label{
-  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--mauve);margin-bottom:20px;
+.tr-card.purple::before{background:var(--mauve);opacity:.08}
+.tr-kicker{
   display:flex;align-items:center;gap:8px;
+  font-size:9px;letter-spacing:2.3px;text-transform:uppercase;color:var(--teal);margin-bottom:12px;
 }
-.s5-label::before{content:'';width:18px;height:1px;background:var(--mauve)}
+.tr-card.purple .tr-kicker{color:#b48aff}
+.tr-kicker::before{content:'';width:17px;height:1px;background:currentColor}
+.tr-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(28px,3vw,42px);line-height:.95;letter-spacing:2px;
+}
+.tr-place{font-size:12px;margin-top:7px;color:rgba(240,236,226,.38)}
+.tr-copy{
+  margin-top:15px;font-size:13px;line-height:1.7;font-weight:300;color:rgba(240,236,226,.62);
+}
+.tr-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:19px}
+.tr-tag{
+  border:1px solid rgba(255,255,255,.1);border-radius:100px;
+  padding:5px 10px;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,236,226,.38)
+}
+.tr-link{
+  margin-top:20px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--teal)
+}
+.js-ready .tr-card{opacity:0}
+.js-ready .tr-side.left .tr-card{transform:translateX(-46px)}
+.js-ready .tr-side.right .tr-card{transform:translateX(46px)}
 
-/* =============================================
-   SECTION TÉLÉCHARGEMENT CV
-============================================= */
-.cv-section{
-  position:relative;z-index:10;
-  padding:0 56px 100px;
+/* ---------- DIPLOMAS ---------- */
+.diploma-section{
+  border-top:var(--glass-bd);border-bottom:var(--glass-bd);
+  background:rgba(255,255,255,.009);
 }
-.cv-block{
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
-  padding:60px 48px;
-  display:flex;flex-direction:column;align-items:center;
-  text-align:center;gap:24px;
+.diploma-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.diploma-card{
+  position:relative;overflow:hidden;min-height:360px;
+  background:var(--glass-bg);border:var(--glass-bd);border-radius:14px;
+  padding:34px 32px;display:flex;flex-direction:column;justify-content:space-between;
+}
+.diploma-card.fr{border-color:rgba(0,242,234,.16)}
+.diploma-card.ca{border-color:rgba(138,43,226,.22)}
+.scanline{
+  position:absolute;left:0;right:0;top:-4px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--teal),transparent);
+  opacity:0;filter:blur(.5px);pointer-events:none;
+}
+.diploma-card.ca .scanline{background:linear-gradient(90deg,transparent,#a66cff,transparent)}
+.diploma-top{position:relative;z-index:2}
+.diploma-country{
+  font-size:10px;letter-spacing:2.6px;text-transform:uppercase;color:var(--teal)
+}
+.diploma-card.ca .diploma-country{color:#b48aff}
+.diploma-title{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,56px);
+  line-height:.96;letter-spacing:2.5px;margin-top:16px;max-width:560px;
+}
+.diploma-place{font-size:13px;color:rgba(240,236,226,.42);margin-top:12px}
+.diploma-status{
+  margin-top:28px;display:inline-flex;width:max-content;max-width:100%;
+  border:1px solid rgba(255,255,255,.1);border-radius:100px;
+  padding:8px 13px;font-size:9px;letter-spacing:1.7px;text-transform:uppercase;color:rgba(240,236,226,.48)
+}
+.diploma-card.fr .diploma-status{color:rgba(0,242,234,.82);border-color:rgba(0,242,234,.2)}
+.diploma-card.ca .diploma-status{color:#c9a8ff;border-color:rgba(138,43,226,.25)}
+.diploma-bottom{
+  position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:46px
+}
+.diploma-point{
+  padding-top:12px;border-top:1px solid rgba(255,255,255,.08);
+  font-size:11px;line-height:1.55;color:rgba(240,236,226,.48)
+}
+.diploma-point strong{display:block;color:var(--cream);font-size:12px;font-weight:500;margin-bottom:3px}
+.diploma-deco{
+  position:absolute;right:-15px;bottom:-30px;font-family:'Bebas Neue',sans-serif;
+  font-size:150px;line-height:1;color:rgba(240,236,226,.018);pointer-events:none;
+}
+
+/* ---------- TRANSFER ---------- */
+.transfer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.transfer-card{
+  background:var(--glass-bg);border:var(--glass-bd);border-radius:12px;padding:28px 25px;
+  position:relative;overflow:hidden;transition:transform .3s,border-color .3s;
+}
+.transfer-card:hover{transform:translateY(-5px);border-color:rgba(0,242,234,.22)}
+.transfer-n{
+  font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;
+  color:rgba(240,236,226,.07);position:absolute;right:18px;top:15px;
+}
+.transfer-label{font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:var(--teal)}
+.transfer-title{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:2px;margin-top:13px}
+.transfer-copy{font-size:13px;line-height:1.7;color:rgba(240,236,226,.55);margin-top:11px}
+
+/* ---------- CTA ---------- */
+.p-cta-section{position:relative;z-index:10;padding:0 56px 100px}
+.p-cta{
+  max-width:1380px;margin:0 auto;border:1px solid rgba(0,242,234,.16);
+  border-radius:16px;background:var(--glass-bg);backdrop-filter:var(--glass-blur);
+  padding:54px 48px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;
   position:relative;overflow:hidden;
-  border-color:rgba(0,242,234,.15);
-  opacity:0;transform:scale(.95);will-change:opacity,transform;
-  transition:border-color .3s,box-shadow .3s;
 }
-.cv-block:hover{
-  border-color:rgba(0,242,234,.25);
-  box-shadow:0 0 24px rgba(0,242,234,.08);
+.p-cta::before{
+  content:'';position:absolute;width:420px;height:250px;left:-130px;top:-160px;border-radius:50%;
+  background:var(--teal);filter:blur(110px);opacity:.08;
 }
-.cv-block::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 0%,rgba(0,242,234,.05) 0%,transparent 70%);
-  pointer-events:none;
-}
-.cv-icon{
-  width:64px;height:64px;border-radius:50%;
-  background:rgba(0,242,234,.07);border:var(--glass-bd);
-  display:flex;align-items:center;justify-content:center;font-size:26px;
-  border-color:rgba(0,242,234,.2);position:relative;z-index:1;
-  will-change:transform;
-}
-.cv-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;position:relative;z-index:1}
-.cv-sub{font-size:15px;font-weight:300;color:var(--muted);max-width:480px;line-height:1.6;position:relative;z-index:1}
-.cv-formats{font-size:11px;letter-spacing:1.5px;color:rgba(240,236,226,.3);text-transform:uppercase;position:relative;z-index:1}
-/* Shimmer btn-cv */
-.btn-cv{position:relative;overflow:hidden}
-.btn-cv::after{
-  content:'';position:absolute;top:0;left:-100%;
-  width:55%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
-  transform:skewX(-15deg);
-}
-.btn-cv:hover::after{animation:cvShine .5s ease forwards}
-@keyframes cvShine{from{left:-100%}to{left:150%}}
+.p-cta-kicker{font-size:9px;letter-spacing:2.4px;text-transform:uppercase;color:var(--teal)}
+.p-cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,4.2vw,58px);letter-spacing:2.5px;margin-top:9px}
+.p-cta-copy{font-size:13px;line-height:1.65;color:var(--muted);max-width:620px;margin-top:8px}
+.p-cta-actions{display:flex;gap:12px;align-items:center;position:relative;z-index:2;flex-wrap:wrap}
+.p-cta .btn-cv{padding:16px 28px}
 
-/* =============================================
-   RESPONSIVE
-============================================= */
+/* ---------- RESPONSIVE ---------- */
 @media(max-width:960px){
-  .page-hero{padding:100px 24px 52px;min-height:auto}
-  .hero-flags,.hero-bg-text{display:none}
-  .parcours-wrap{padding:52px 24px}
-  .timeline{grid-template-columns:1fr}
-  .tl-block-left{padding:0 0 48px 44px}
-  .tl-block-right{padding:0 0 48px 44px}
-  .tl-node-col{position:absolute;left:11px;flex-direction:row;align-items:flex-start;padding-top:6px}
-  .tl-node-right{margin-top:0}
-  .tl-year{writing-mode:horizontal-tb;margin-top:0;margin-left:8px;font-size:10px}
-  .tl-france-wrap,.tl-canada-wrap{position:relative}
-  /* Reveal depuis le bas sur mobile */
-  .tl-anim-left,.tl-anim-right{transform:translateY(40px)}
-  .cv-section{padding-left:24px;padding-right:24px;padding-bottom:64px}
-  .cv-block{padding:40px 24px}
+  .p-hero{min-height:auto;padding:120px 24px 58px}
+  .p-status-row{align-items:flex-start;flex-direction:column}
+  .p-status{justify-content:flex-start}
+  .p-orbit,.p-orbit-dot,.p-watermark{display:none}
+  .p-section{padding:64px 24px}
+  .p-section-lead{margin-bottom:34px}
+  .trajectory{padding-left:0}
+  .tr-svg{left:14px;transform:none;width:26px}
+  .tr-beam{left:14px;transform:none}
+  .tr-item{display:block;min-height:0;padding:0 0 34px 46px}
+  .tr-center{position:absolute;left:5px;top:32px;height:auto}
+  .tr-year{display:none}
+  .tr-side{padding:0!important}
+  .tr-side.empty{display:none}
+  .js-ready .tr-side.left .tr-card,.js-ready .tr-side.right .tr-card{transform:translateY(34px)}
+  .diploma-grid{grid-template-columns:1fr}
+  .diploma-bottom{grid-template-columns:1fr 1fr}
+  .transfer-grid{grid-template-columns:1fr}
+  .p-cta-section{padding:0 24px 64px}
+  .p-cta{grid-template-columns:1fr;padding:38px 26px}
+}
+@media(max-width:560px){
+  .diploma-bottom{grid-template-columns:1fr}
+  .p-title{font-size:clamp(64px,20vw,92px)}
+}
+
+/* motion safety */
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+  .p-orbit-dot{animation:none}
+  .js-ready .p-hero-enter,.js-ready .p-mask-in,.js-ready .tr-card{
+    opacity:1!important;transform:none!important
+  }
 }
 </style>
 </head>
@@ -390,238 +370,232 @@
   <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ==================== PAGE HERO ==================== -->
-<section class="page-hero">
-  <div class="hero-bg-text" id="heroWatermark">ACADÉMIQUE</div>
-  <div class="hero-flags">
-    <div class="flag-item"><span class="flag-emoji">🇫🇷</span>IUT de Poitiers · 2023–2025</div>
-    <div class="flag-item"><span class="flag-emoji">🇨🇦</span>UQAC · Chicoutimi · 2025–2026</div>
-  </div>
-  <div class="page-eyebrow" id="parcEyebrow">DOUBLE DIPLOMATION • FRANCE — CANADA</div>
-  <h1 class="page-title" id="parcTitle">
-    <div class="tl-mask-wrap"><div class="tl-mask-inner"><span>PARCOURS</span></div></div>
-    <div class="tl-mask-wrap"><div class="tl-mask-inner"><span class="t-stroke">ACA</span><span class="t-teal">DÉMIQUE</span></div></div>
-  </h1>
-  <p class="page-accroche" id="parcAccroche">"Une vision internationale pour une communication à 360°."</p>
-</section>
+<!-- HERO -->
+<section class="p-hero" id="pHero">
+  <div class="p-hero-grid" id="pHeroGrid"></div>
+  <div class="p-watermark" id="pWatermark">2023—2026</div>
+  <div class="p-orbit o1"></div><div class="p-orbit o2"></div><div class="p-orbit-dot"></div>
 
-<!-- ==================== TIMELINE ==================== -->
-<div class="parcours-wrap">
-  <div class="timeline" id="tlTimeline">
-
-    <!-- SVG ligne centrale + dégradé teal→mauve -->
-    <svg class="tl-svg" id="tlSvg" aria-hidden="true" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="tlGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="rgba(0,242,234,0.35)"/>
-          <stop offset="100%" stop-color="rgba(138,43,226,0.35)"/>
-        </linearGradient>
-      </defs>
-      <line id="tlLine" x1="50%" y1="0" x2="50%" y2="100%"
-        stroke="url(#tlGrad)" stroke-width="1"
-        stroke-dasharray="2000" stroke-dashoffset="2000"/>
-    </svg>
-    <!-- Beam de lumière qui suit le scroll -->
-    <div class="tl-beam" id="tlBeam"></div>
-
-    <!-- ========== FRANCE (gauche) ========== -->
-    <div class="tl-france-wrap">
-      <div class="tl-block-left tl-anim-left">
-
-        <div class="step-tag">🇫🇷 Le Socle Stratégique · 2023–2025</div>
-        <div class="step-title">BUT Techniques de<br>Commercialisation</div>
-        <div class="step-sub">IUT de Poitiers · Spécialisation en Marketing Digital, E-business et Entrepreneuriat.</div>
-
-        <!-- ACCORDÉON UEs -->
-        <div class="accordion" id="accordion">
-
-          <div class="acc-item" data-idx="0">
-            <button class="acc-trigger" onclick="toggleAcc(0)">
-              <div style="display:flex;align-items:center;gap:10px">
-                <span class="acc-tag">UE1</span>
-                <span class="acc-label">Marketing</span>
-              </div>
-              <div class="acc-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><line class="acc-icon-h" x1="0" y1="6" x2="12" y2="6" stroke-width="1.5"/><line class="acc-icon-v" x1="6" y1="0" x2="6" y2="12" stroke-width="1.5"/></svg></div>
-            </button>
-            <div class="acc-body">
-              <div class="acc-content">
-                <strong style="color:var(--cream);display:block;margin-bottom:6px">S3 —</strong> J'ai développé mes compétences à travers l'étude du marché de Ferrari et la conceptualisation de la marketplace RevoFit (veille, diagnostic). Sur RevoFit, j'ai structuré une étude de marché sur la création vestimentaire et travaillé l'élaboration de la stratégie marketing (positionnement, mix marketing étendu).
-                <br><br>
-                <strong style="color:var(--cream);display:block;margin-bottom:6px">S4 —</strong> Le projet e-commerce Oléa Terra m'a permis d'aller plus loin : étude sectorielle de l'huile d'olive, analyse concurrentielle, positionnement différenciant. J'ai défini un mix marketing complet (packaging, prix, distribution) et formalisé l'ensemble des dossiers stratégiques.
-              </div>
-            </div>
-          </div>
-
-          <div class="acc-item" data-idx="1">
-            <button class="acc-trigger" onclick="toggleAcc(1)">
-              <div style="display:flex;align-items:center;gap:10px">
-                <span class="acc-tag">UE2</span>
-                <span class="acc-label">Vente</span>
-              </div>
-              <div class="acc-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><line class="acc-icon-h" x1="0" y1="6" x2="12" y2="6" stroke-width="1.5"/><line class="acc-icon-v" x1="6" y1="0" x2="6" y2="12" stroke-width="1.5"/></svg></div>
-            </button>
-            <div class="acc-body">
-              <div class="acc-content">
-                <strong style="color:var(--cream);display:block;margin-bottom:6px">S3 —</strong> J'ai développé mes compétences en vente via des cas pratiques (méthode CAP-SONCAS sur des produits WEBER et RHINOV). J'ai appris à ajuster l'offre aux attentes variées (SELECTOUR) et travaillé la négociation tarifaire (concours IpSumTek, calcul du ROI). J'ai aussi conçu des Outils d'Aide à la Vente (OAV) percutants.
-                <br><br>
-                <strong style="color:var(--cream);display:block;margin-bottom:6px">S4 —</strong> L'évaluation sur le cas des chaussures recyclables a été très formatrice (création d'une offre complète). J'ai systématisé des reportings de vente, participé à des jeux d'entreprise pour défendre notre stratégie devant des jurys, et affiné mon adaptation à différents profils clients (exigeants, sceptiques).
-              </div>
-            </div>
-          </div>
-
-          <div class="acc-item" data-idx="2">
-            <button class="acc-trigger" onclick="toggleAcc(2)">
-              <div style="display:flex;align-items:center;gap:10px">
-                <span class="acc-tag">UE3</span>
-                <span class="acc-label">Communication</span>
-              </div>
-              <div class="acc-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><line class="acc-icon-h" x1="0" y1="6" x2="12" y2="6" stroke-width="1.5"/><line class="acc-icon-v" x1="6" y1="0" x2="6" y2="12" stroke-width="1.5"/></svg></div>
-            </button>
-            <div class="acc-body">
-              <div class="acc-content">
-                <strong style="color:var(--cream);display:block;margin-bottom:6px">S3 —</strong> Lors de la Semaine de l'Entrepreneuriat (projet RevoFit), j'ai participé à l'élaboration du plan de communication (axes de messages, influenceurs, visuels sur Canva/CapCut) en amorçant une réflexion sur les stratégies 360°.
-                <br><br>
-                <strong style="color:var(--cream);display:block;margin-bottom:6px">S4 —</strong> Les jeux d'entreprise m'ont permis de concevoir des plans de communication complets (charte graphique, plan média, budget). En stage au Palm'Fest, j'ai mis en œuvre la stratégie digitale B2B (LinkedIn, carrousels, vidéos), en analysant les KPIs d'engagement pour optimiser nos actions en temps réel.
-              </div>
-            </div>
-          </div>
-
-          <div class="acc-item" data-idx="3">
-            <button class="acc-trigger" onclick="toggleAcc(3)">
-              <div style="display:flex;align-items:center;gap:10px">
-                <span class="acc-tag">UE4</span>
-                <span class="acc-label">Marketing Digital</span>
-              </div>
-              <div class="acc-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><line class="acc-icon-h" x1="0" y1="6" x2="12" y2="6" stroke-width="1.5"/><line class="acc-icon-v" x1="6" y1="0" x2="6" y2="12" stroke-width="1.5"/></svg></div>
-            </button>
-            <div class="acc-body">
-              <div class="acc-content">
-                <strong style="color:var(--cream);display:block;margin-bottom:6px">S3 —</strong> Pour l'AFM Téléthon, j'ai animé un dispositif digital : création de contenus sociaux, planning éditorial, adaptation du ton par plateforme, et initiation à l'analyse des indicateurs de performance.
-                <br><br>
-                <strong style="color:var(--cream);display:block;margin-bottom:6px">S4 —</strong> Sur Oléa Terra, j'ai contribué à la conception du site web (UX, arborescence, SEO, fiches produits). J'ai aussi géré l'identité visuelle et les réseaux d'une asso étudiante de covoiturage. Mon stage au Palm'Fest m'a permis d'appliquer ces acquis avec un suivi analytique approfondi.
-              </div>
-            </div>
-          </div>
-
-          <div class="acc-item" data-idx="4">
-            <button class="acc-trigger" onclick="toggleAcc(4)">
-              <div style="display:flex;align-items:center;gap:10px">
-                <span class="acc-tag">UE5</span>
-                <span class="acc-label">E-business & Entrepreneuriat</span>
-              </div>
-              <div class="acc-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><line class="acc-icon-h" x1="0" y1="6" x2="12" y2="6" stroke-width="1.5"/><line class="acc-icon-v" x1="6" y1="0" x2="6" y2="12" stroke-width="1.5"/></svg></div>
-            </button>
-            <div class="acc-body">
-              <div class="acc-content">
-                <strong style="color:var(--cream);display:block;margin-bottom:6px">S3 —</strong> Pour le projet académique RevoFit, j'ai formalisé un Business Model Canvas, identifié les segments clés et réalisé des projections financières (seuil de rentabilité, compte de résultat). J'ai mobilisé des outils stratégiques (SWOT, PESTEL).
-                <br><br>
-                <strong style="color:var(--cream);display:block;margin-bottom:6px">S4 —</strong> J'ai poursuivi via le projet Oléa Terra (conception e-commerce, UX, SEO) et en gérant la communication d'une association étudiante. L'ensemble de ces projets m'a donné une vision entrepreneuriale globale, de l'idée au déploiement digital.
-              </div>
-            </div>
-          </div>
-
-        </div><!-- /accordion -->
-
+  <div class="p-hero-inner">
+    <div class="p-status-row p-hero-enter">
+      <div class="p-eyebrow">TRAJECTOIRE · FRANCE × CANADA</div>
+      <div class="p-status">
+        <span class="p-chip">IUT de Poitiers</span>
+        <span class="p-chip">UQAC Chicoutimi</span>
+        <span class="p-chip accent">CDI · Sept. 2026</span>
       </div>
     </div>
 
-    <!-- ========== NŒUDS CENTRAUX ========== -->
-    <div class="tl-node-col">
-      <div class="tl-node" id="tlNodeFr"></div>
-      <div class="tl-year">2023 – 2025</div>
-    </div>
+    <h1 class="p-title">
+      <span class="p-mask"><span class="p-mask-in">DE LA</span></span>
+      <span class="p-mask"><span class="p-mask-in"><span class="stroke">STRATÉGIE</span> AU</span></span>
+      <span class="p-mask"><span class="p-mask-in teal">TERRAIN.</span></span>
+    </h1>
 
-    <!-- ========== CANADA (droite) ========== -->
-    <div class="tl-canada-wrap">
-      <div class="tl-block-right tl-anim-right">
+    <p class="p-intro p-hero-enter">
+      Un parcours construit autour du <strong>marketing digital</strong>, enrichi par une expérience internationale,
+      puis confronté à des environnements où la communication doit aussi fonctionner <strong>dans l’action</strong>.
+    </p>
 
-        <div class="canada-card glass-card" id="canadaCard">
-          <div class="card-scanner" id="cardScanner"></div>
-          <div class="step-tag">🇨🇦 L'Ouverture Internationale · 2025–2026</div>
-          <div class="step-title">Baccalauréat en<br>Administration</div>
-          <div class="step-sub">UQAC — Université du Québec à Chicoutimi · Une immersion académique nord-américaine pour développer mon adaptabilité interculturelle et approfondir ma vision business globale.</div>
-        </div>
-
-        <!-- PROGRESS BARS -->
-        <div class="s5-label">Résultats du Semestre 5</div>
-        <div class="grades-block">
-
-          <div class="grade-row">
-            <div class="grade-header">
-              <span class="grade-label">Ressources Humaines</span>
-              <span class="grade-score" data-score="82.47">82.47</span>
-            </div>
-            <div class="grade-bar-wrap"><div class="grade-bar" data-target="82.47"></div></div>
-            <div class="grade-mention">Très bien</div>
-          </div>
-
-          <div class="grade-row">
-            <div class="grade-header">
-              <span class="grade-label">Marketing Numérique</span>
-              <span class="grade-score" data-score="81.17">81.17</span>
-            </div>
-            <div class="grade-bar-wrap"><div class="grade-bar" data-target="81.17"></div></div>
-            <div class="grade-mention">Très bien</div>
-          </div>
-
-          <div class="grade-row">
-            <div class="grade-header">
-              <span class="grade-label">Recherche Marketing</span>
-              <span class="grade-score" data-score="80.19">80.19</span>
-            </div>
-            <div class="grade-bar-wrap"><div class="grade-bar" data-target="80.19"></div></div>
-            <div class="grade-mention">Très bien</div>
-          </div>
-
-          <div class="grade-row">
-            <div class="grade-header">
-              <span class="grade-label">Gestion Financière</span>
-              <span class="grade-score" data-score="77.30">77.30</span>
-            </div>
-            <div class="grade-bar-wrap"><div class="grade-bar" data-target="77.30"></div></div>
-            <div class="grade-mention">Bien</div>
-          </div>
-
-        </div><!-- /grades -->
-
-        <!-- Nœud canada -->
-        <div style="display:flex;align-items:center;gap:12px;margin-top:40px">
-          <div style="width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--mauve),var(--teal));box-shadow:0 0 14px rgba(138,43,226,.4)"></div>
-          <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.35)">2026 — Retour en France</span>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Nœud Canada (colonne centrale bas) -->
-    <div></div>
-    <div style="display:flex;flex-direction:column;align-items:center;padding-top:86px">
-      <div class="tl-node" id="tlNodeCa" style="background:linear-gradient(135deg,var(--mauve),#6a1fd1)"></div>
-      <div class="tl-year" style="color:var(--mauve)">2025 – 2026</div>
-    </div>
-    <div></div>
-
-  </div><!-- /timeline -->
-</div><!-- /parcours-wrap -->
-
-<!-- ==================== TÉLÉCHARGEMENT CV ==================== -->
-<section class="cv-section">
-  <div class="cv-block" id="cvBlock">
-    <div class="cv-icon" id="cvIcon">📄</div>
-    <h2 class="cv-title">Télécharger mon CV</h2>
-    <p class="cv-sub">Retrouvez le détail complet de mon parcours, mes expériences professionnelles et mes compétences dans mon CV au format PDF.</p>
-    <a href="cv-arthur-viaud.pdf" class="btn-cv" download>
-      <span>↓</span> Télécharger mon CV détaillé (PDF)
-    </a>
-    <span class="cv-formats">Format PDF · Mis à jour Avril 2026</span>
+    <div class="p-scrollcue p-hero-enter"><span></span>Suivre la trajectoire</div>
   </div>
 </section>
 
-<!-- FOOTER NAVIGATION -->
-<div class="page-footer-nav">
-  <a href="portfolio.html" class="btn-back">← Découvrir mes Projets</a>
-  <a href="contact.html" class="btn-next">Me Contacter →</a>
-</div>
+<!-- 01 TRAJECTOIRE -->
+<section class="p-section">
+  <div class="p-section-inner">
+    <div class="p-head">
+      <span class="p-num">01 ///</span>
+      <h2 class="p-head-title">Trajectoire</h2>
+      <div class="p-rule"></div>
+    </div>
+    <p class="p-section-lead">Pas une succession de lignes de CV : les étapes qui ont réellement déplacé mon profil, du socle commercial jusqu’à la communication événementielle en temps réel.</p>
+
+    <div class="trajectory" id="trajectory">
+      <svg class="tr-svg" id="trSvg" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="trGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#00F2EA"/>
+            <stop offset="55%" stop-color="#00F2EA"/>
+            <stop offset="100%" stop-color="#8A2BE2"/>
+          </linearGradient>
+        </defs>
+        <line class="tr-line-bg" x1="60" y1="0" x2="60" y2="100%"/>
+        <line class="tr-line-progress" id="trProgress" x1="60" y1="0" x2="60" y2="100%"/>
+      </svg>
+      <div class="tr-beam" id="trBeam"></div>
+
+      <div class="tr-item">
+        <div class="tr-side left">
+          <article class="tr-card">
+            <div class="tr-kicker">Formation · France</div>
+            <h3 class="tr-title">BUT Techniques de Commercialisation</h3>
+            <div class="tr-place">IUT de Poitiers · 2023–2026</div>
+            <p class="tr-copy">Un socle commercial, marketing et digital, progressivement spécialisé vers le marketing digital, l’e-business et l’entrepreneuriat.</p>
+            <div class="tr-tags"><span class="tr-tag">Marketing</span><span class="tr-tag">Digital</span><span class="tr-tag">Entrepreneuriat</span></div>
+          </article>
+        </div>
+        <div class="tr-center"><div class="tr-node" data-node></div><div class="tr-year">2023</div></div>
+        <div class="tr-side right empty"></div>
+      </div>
+
+      <div class="tr-item">
+        <div class="tr-side left empty"></div>
+        <div class="tr-center"><div class="tr-node" data-node></div><div class="tr-year">2024</div></div>
+        <div class="tr-side right">
+          <article class="tr-card purple">
+            <div class="tr-kicker">Premiers terrains</div>
+            <h3 class="tr-title">ERA + RevoFit</h3>
+            <div class="tr-place">Royan / IUT de Poitiers · 2024</div>
+            <p class="tr-copy">D’un côté, une première immersion professionnelle tournée vers la relation client. De l’autre, un projet entrepreneurial où stratégie, identité et modèle économique commencent à se rejoindre.</p>
+            <div class="tr-tags"><span class="tr-tag">Relation client</span><span class="tr-tag">Branding</span><span class="tr-tag">Business model</span></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="tr-item">
+        <div class="tr-side left">
+          <a href="projet-palmfest.html" class="tr-card">
+            <div class="tr-kicker">Communication B2B · Événementiel</div>
+            <h3 class="tr-title">Palm’Fest</h3>
+            <div class="tr-place">La Palmyre · 8 semaines · 2025</div>
+            <p class="tr-copy">Premier vrai basculement vers la communication : LinkedIn, mécénat, partenaires, création de contenus, storytelling et analyse des performances.</p>
+            <div class="tr-tags"><span class="tr-tag">LinkedIn</span><span class="tr-tag">Mécénat</span><span class="tr-tag">Création</span></div>
+            <div class="tr-link">Voir le projet ↗</div>
+          </a>
+        </div>
+        <div class="tr-center"><div class="tr-node" data-node></div><div class="tr-year">2025</div></div>
+        <div class="tr-side right empty"></div>
+      </div>
+
+      <div class="tr-item">
+        <div class="tr-side left empty"></div>
+        <div class="tr-center"><div class="tr-node" data-node></div><div class="tr-year">2025—26</div></div>
+        <div class="tr-side right">
+          <article class="tr-card purple">
+            <div class="tr-kicker">International · Canada</div>
+            <h3 class="tr-title">UQAC Chicoutimi</h3>
+            <div class="tr-place">Baccalauréat en administration · obtenu en 2026</div>
+            <p class="tr-copy">Une immersion nord-américaine qui élargit la lecture business : marketing numérique, recherche marketing, ressources humaines, finance et surtout autonomie dans un nouvel environnement.</p>
+            <div class="tr-tags"><span class="tr-tag">Administration</span><span class="tr-tag">Marketing numérique</span><span class="tr-tag">Adaptabilité</span></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="tr-item">
+        <div class="tr-side left">
+          <a href="projet-garden-open.html" class="tr-card">
+            <div class="tr-kicker">Communication digitale · Terrain</div>
+            <h3 class="tr-title">Royan Atlantique Open</h3>
+            <div class="tr-place">Garden Tennis de Royan · 12 semaines · 2026</div>
+            <p class="tr-copy">L’étape où tout converge : pilotage d’Instagram, Reels, stories, interviews, communication temps réel, logistique et résolution d’imprévus sur un ATP Challenger 50.</p>
+            <div class="tr-tags"><span class="tr-tag">2M+ vues</span><span class="tr-tag">+510 abonnés</span><span class="tr-tag">ATP Challenger 50</span></div>
+            <div class="tr-link">Voir l’étude de cas ↗</div>
+          </a>
+        </div>
+        <div class="tr-center"><div class="tr-node" data-node></div><div class="tr-year">2026</div></div>
+        <div class="tr-side right empty"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 02 DOUBLE DIPLOME -->
+<section class="p-section diploma-section">
+  <div class="p-section-inner">
+    <div class="p-head">
+      <span class="p-num">02 ///</span>
+      <h2 class="p-head-title">Double parcours</h2>
+      <div class="p-rule"></div>
+    </div>
+    <p class="p-section-lead">Deux formations complémentaires : une spécialisation opérationnelle en marketing digital en France, puis une vision plus large de l’administration et du business au Canada.</p>
+
+    <div class="diploma-grid">
+      <article class="diploma-card fr" data-scan>
+        <div class="scanline"></div>
+        <div class="diploma-top">
+          <div class="diploma-country">🇫🇷 France</div>
+          <h3 class="diploma-title">BUT Techniques de Commercialisation</h3>
+          <div class="diploma-place">IUT de Poitiers · parcours Marketing Digital, E-business & Entrepreneuriat</div>
+          <div class="diploma-status">Cursus terminé · jury septembre 2026</div>
+        </div>
+        <div class="diploma-bottom">
+          <div class="diploma-point"><strong>Stratégie</strong>Diagnostic, positionnement, marketing mix.</div>
+          <div class="diploma-point"><strong>Digital</strong>Contenus, réseaux sociaux, e-commerce, analyse.</div>
+          <div class="diploma-point"><strong>Projet</strong>Organisation, priorisation, travail collectif.</div>
+          <div class="diploma-point"><strong>Entrepreneuriat</strong>Offre, business model, acquisition.</div>
+        </div>
+        <div class="diploma-deco">FR</div>
+      </article>
+
+      <article class="diploma-card ca" data-scan>
+        <div class="scanline"></div>
+        <div class="diploma-top">
+          <div class="diploma-country">🇨🇦 Canada</div>
+          <h3 class="diploma-title">Baccalauréat en administration</h3>
+          <div class="diploma-place">Université du Québec à Chicoutimi · UQAC</div>
+          <div class="diploma-status">Diplôme obtenu · 2026</div>
+        </div>
+        <div class="diploma-bottom">
+          <div class="diploma-point"><strong>Marketing numérique</strong>Approche analytique et acquisition.</div>
+          <div class="diploma-point"><strong>Recherche marketing</strong>Données, études et décision.</div>
+          <div class="diploma-point"><strong>Gestion</strong>RH, finance et vision d’entreprise.</div>
+          <div class="diploma-point"><strong>International</strong>Autonomie et adaptation culturelle.</div>
+        </div>
+        <div class="diploma-deco">CA</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 03 TRANSFERT -->
+<section class="p-section">
+  <div class="p-section-inner">
+    <div class="p-head">
+      <span class="p-num">03 ///</span>
+      <h2 class="p-head-title">Ce que j’en retiens</h2>
+      <div class="p-rule"></div>
+    </div>
+    <p class="p-section-lead">Le diplôme compte. Mais ce que je veux surtout montrer ici, c’est ce que ces années ont changé dans ma manière de travailler.</p>
+
+    <div class="transfer-grid">
+      <article class="transfer-card">
+        <div class="transfer-n">01</div>
+        <div class="transfer-label">Penser</div>
+        <h3 class="transfer-title">Comprendre avant de produire.</h3>
+        <p class="transfer-copy">Une création devient plus utile lorsqu’elle part d’un objectif, d’une audience et d’une logique de communication claire.</p>
+      </article>
+      <article class="transfer-card">
+        <div class="transfer-n">02</div>
+        <div class="transfer-label">Produire</div>
+        <h3 class="transfer-title">Passer rapidement à l’exécution.</h3>
+        <p class="transfer-copy">Visuel, vidéo, social media ou support : transformer une intention stratégique en contenu concret et exploitable.</p>
+      </article>
+      <article class="transfer-card">
+        <div class="transfer-n">03</div>
+        <div class="transfer-label">S’adapter</div>
+        <h3 class="transfer-title">Rester efficace quand le plan change.</h3>
+        <p class="transfer-copy">Le Canada puis l’événementiel m’ont appris à absorber l’imprévu, prioriser et continuer à produire sous contrainte.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="p-cta-section">
+  <div class="p-cta" id="pCta">
+    <div>
+      <div class="p-cta-kicker">Prochaine étape</div>
+      <h2 class="p-cta-title">Disponible pour un CDI dès septembre 2026.</h2>
+      <p class="p-cta-copy">Communication marketing, création de contenu et événementiel · Permis B + véhicule.</p>
+    </div>
+    <div class="p-cta-actions">
+      <a href="cv-arthur-viaud.pdf" class="btn-cv" download>Télécharger le CV ↓</a>
+      <a href="contact.html" class="btn-ghost">Me contacter →</a>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="f-logo">Arthur Viaud · 2026</div>
@@ -630,12 +604,11 @@
     <a href="parcours.html">Parcours</a>
     <a href="a-propos.html">À Propos</a>
     <a href="contact.html">Contact</a>
-    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
   </div>
   <div class="f-copy">D'une inspiration naît une vision</div>
 </footer>
 
-<script src="shared.js" defer></script>
-<script src="parcours.js" defer></script>
+<script src="shared.js"></script>
+<script src="parcours.js"></script>
 </body>
 </html>

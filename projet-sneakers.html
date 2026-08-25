@@ -5,364 +5,161 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sneakers Business — Arthur Viaud</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<meta name="description" content="Sneakers Business — activité personnelle d'achat-revente, acquisition digitale et création de contenu par Arthur Viaud.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* GLASS CARD hover (override local) */
-.glass-card{transition:background .3s,border-color .3s,transform .3s}
-.glass-card:hover{background:rgba(255,255,255,.05);border-color:rgba(0,242,234,.22);transform:translateY(-4px)}
+.sb-hero{position:relative;z-index:10;min-height:92vh;padding:130px 56px 62px;display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:end;border-bottom:var(--glass-bd);overflow:hidden}
+.sb-hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,transparent,transparent 99px,rgba(255,255,255,.021) 100px);mask-image:linear-gradient(to bottom,#000,transparent 92%)}
+.sb-copy{position:relative;z-index:2}
+.sb-eyebrow{display:flex;align-items:center;gap:11px;font-size:10px;letter-spacing:2.8px;text-transform:uppercase;color:var(--teal);margin-bottom:22px}
+.sb-eyebrow::before{content:'';width:30px;height:1px;background:var(--teal)}
+.sb-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,10vw,142px);line-height:.84;letter-spacing:3px}
+.sb-title .stroke{-webkit-text-stroke:2px rgba(240,236,226,.22);color:transparent}
+.sb-title .teal{color:var(--teal)}
+.sb-lead{max-width:680px;margin-top:28px;font-size:clamp(15px,1.4vw,18px);line-height:1.72;font-weight:300;color:var(--muted)}
+.sb-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+.sb-pill{padding:7px 12px;border-radius:100px;border:var(--glass-bd);background:var(--glass-bg);font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,236,226,.42)}
+.sb-visual{position:relative;z-index:2;min-height:570px}
+.sb-card-a,.sb-card-b{position:absolute;overflow:hidden;border-radius:16px;border:var(--glass-bd);background:#0d1220;box-shadow:0 35px 90px rgba(0,0,0,.25)}
+.sb-card-a{inset:0 15% 6% 0;transform:rotate(-2.2deg)}
+.sb-card-b{width:46%;height:57%;right:0;top:3%;transform:rotate(4deg);border-color:rgba(0,242,234,.18)}
+.sb-card-a img,.sb-card-b img{width:100%;height:100%;object-fit:cover;display:block}
+.sb-card-a::after,.sb-card-b::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,30,.52),transparent 52%)}
+.sb-watermark{position:absolute;right:-40px;bottom:-65px;font-family:'Bebas Neue',sans-serif;font-size:190px;color:rgba(240,236,226,.025);letter-spacing:5px;z-index:0}
 
-/* =============================================
-   PROJECT HERO HEADER
-============================================= */
-.proj-hero{
-  position:relative;z-index:10;
-  min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:130px 56px 72px;
-  border-bottom:var(--glass-bd);
-}
-.proj-eyebrow{
-  font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);
-  margin-bottom:20px;opacity:0;animation:riseUp .7s ease forwards .2s;
-  display:flex;align-items:center;gap:12px;
-}
-.proj-eyebrow::before{content:'';width:32px;height:1px;background:var(--teal)}
-.proj-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(70px,13vw,160px);
-  line-height:.87;letter-spacing:3px;color:var(--cream);
-  opacity:0;animation:riseUp .85s ease forwards .35s;
-}
-.proj-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.22);color:transparent}
-.proj-title .t-teal{color:var(--teal)}
-.proj-accroche{
-  font-size:clamp(16px,1.8vw,22px);font-weight:300;font-style:italic;
-  color:var(--muted);max-width:680px;line-height:1.65;margin-top:28px;
-  opacity:0;animation:riseUp .85s ease forwards .52s;
-}
-/* decorative line */
-.hero-deco{
-  position:absolute;top:130px;right:56px;
-  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
-  opacity:0;animation:riseUp .9s ease forwards .65s;
-}
-.deco-tag{
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(240,236,226,.3);border:var(--glass-bd);
-  padding:5px 14px;border-radius:100px;background:var(--glass-bg);
-  backdrop-filter:var(--glass-blur);
-}
+.psec{position:relative;z-index:10;padding:88px 56px}.inner{max-width:1380px;margin:0 auto}
+.head{display:flex;align-items:center;gap:18px;margin-bottom:15px}.num{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:rgba(240,236,226,.18)}.ht{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,4vw,56px);letter-spacing:3px}.rule{flex:1;height:1px;background:rgba(255,255,255,.07)}
+.lead{max-width:760px;font-size:14px;line-height:1.75;color:var(--muted);margin-bottom:44px}
 
-/* =============================================
-   CONTENT LAYOUT
-============================================= */
-.proj-content{position:relative;z-index:10;padding:80px 56px}
-.content-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-.bubble{padding:32px 28px}
-.bubble-title{
-  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--teal);margin-bottom:16px;
-  display:flex;align-items:center;gap:10px;
-}
-.bubble-title::before{content:'';width:22px;height:1px;background:var(--teal);flex-shrink:0}
-.bubble-text{font-size:15px;font-weight:300;line-height:1.8;color:rgba(240,236,226,.75)}
+.story-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+.story-main,.story-side{border:var(--glass-bd);background:var(--glass-bg);border-radius:14px;padding:32px 30px}
+.kicker{font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:var(--teal)}
+.story-main h3,.story-side h3{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;line-height:1;margin-top:12px}
+.story-main p,.story-side p{font-size:13px;line-height:1.78;color:rgba(240,236,226,.58);margin-top:13px}
+.learn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.learn{min-height:215px;border:1px solid rgba(255,255,255,.085);border-radius:12px;padding:24px 21px;background:rgba(255,255,255,.017);position:relative;overflow:hidden}
+.learn-n{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;color:rgba(240,236,226,.055);position:absolute;right:16px;top:11px}
+.learn h4{font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:1.5px;margin-top:34px}
+.learn p{font-size:12px;line-height:1.65;color:rgba(240,236,226,.48);margin-top:9px}
 
-/* Full-width bubble */
-.bubble-full{grid-column:1/-1}
+.media-section{border-top:var(--glass-bd);border-bottom:var(--glass-bd);background:rgba(255,255,255,.008)}
+.media-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:16px}
+.media-main{position:relative;overflow:hidden;border-radius:14px;border:var(--glass-bd);min-height:610px;background:#080d18}
+.media-main video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.media-main::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,30,.82),transparent 46%);pointer-events:none}
+.media-caption{position:absolute;left:25px;bottom:23px;z-index:2}.mc-k{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--teal)}.mc-t{font-family:'Bebas Neue',sans-serif;font-size:31px;letter-spacing:2px;margin-top:5px}
+.media-stack{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.media-small{position:relative;overflow:hidden;min-height:295px;border-radius:13px;border:var(--glass-bd);background:#080d18}
+.media-small img,.media-small video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.media-small::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,30,.65),transparent 50%);pointer-events:none}
 
-/* =============================================
-   SECTION TITLES
-============================================= */
-.s-head{display:flex;align-items:center;gap:18px;margin-bottom:40px}
-.s-num{font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(240,236,226,.18);letter-spacing:2px}
-.s-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px}
-.s-rule{flex:1;height:1px;background:rgba(255,255,255,.07)}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gallery figure{position:relative;overflow:hidden;border-radius:13px;border:var(--glass-bd);min-height:390px;background:#080d18}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.gallery figure:hover img{transform:scale(1.035)}
+.gallery figcaption{position:absolute;left:18px;bottom:16px;font-size:8px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(240,236,226,.55);background:rgba(10,15,30,.55);backdrop-filter:blur(8px);padding:6px 9px;border-radius:100px}
 
-/* =============================================
-   SECTION MÉDIAS — Media Hub
-============================================= */
-.media-section{position:relative;z-index:10;padding:0 56px 80px}
+.project-note{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;border:1px solid rgba(0,242,234,.15);background:var(--glass-bg);border-radius:15px;padding:36px 32px}
+.project-note h3{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:2px}.project-note p{font-size:13px;line-height:1.7;color:var(--muted);max-width:720px;margin-top:8px}
 
-/* Vidéo paysage principale */
-.reel-main{
-  width:100%;border-radius:var(--radius);
-  overflow:hidden;
-  border:var(--glass-bd);
-  position:relative;
-  background:#000;
-  margin-bottom:14px;
-}
-.reel-main video{
-  width:100%;display:block;
-  aspect-ratio:16/9;object-fit:cover;
-}
-.reel-main-label{
-  position:absolute;bottom:16px;left:20px;
-  display:flex;align-items:center;gap:8px;
-  background:rgba(10,15,30,.7);backdrop-filter:blur(8px);
-  border:var(--glass-bd);border-radius:100px;
-  padding:5px 14px;font-size:10px;letter-spacing:2px;
-  text-transform:uppercase;color:var(--cream);
-}
-.reel-dot{width:5px;height:5px;border-radius:50%;background:var(--teal)}
-
-/* Grille 4 portraits */
-.reel-portraits{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-}
-.reel-slot{
-  aspect-ratio:9/16;
-  border-radius:var(--radius);
-  overflow:hidden;
-  border:var(--glass-bd);
-  background:#000;
-  position:relative;
-  transition:border-color .3s,transform .3s;
-  cursor:pointer;
-  max-height:340px;
-}
-.reel-slot:hover{border-color:rgba(0,242,234,.3);transform:translateY(-4px)}
-.reel-slot video{
-  width:100%;height:100%;object-fit:cover;display:block;
-}
-
-/* =============================================
-   GALERIE ASYMÉTRIQUE — 3 photos
-============================================= */
-.gallery-section{position:relative;z-index:10;padding:0 56px 80px}
-.gallery-asymm{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  grid-template-rows:240px 240px;
-  gap:14px;
-}
-.gal-slot{
-  border-radius:var(--radius);
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-  overflow:hidden;position:relative;cursor:pointer;
-  transition:border-color .3s,transform .3s;
-}
-.gal-slot:hover{border-color:rgba(0,242,234,.28);transform:scale(1.012)}
-.gal-slot:first-child{grid-row:1/3}
-.gal-slot img{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;opacity:.85;transition:opacity .3s;
-}
-.gal-slot:hover img{opacity:1}
-.gal-placeholder{font-size:32px;opacity:.35;position:relative;z-index:1}
-.gal-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.28);position:relative;z-index:1}
-
-/* Bulle avec image Instagram */
-.bubble-insta{
-  margin-top:16px;
-  border-radius:8px;overflow:hidden;
-  border:var(--glass-bd);
-  max-height:160px;
-}
-.bubble-insta img{
-  width:100%;display:block;
-  object-fit:cover;height:160px;
-}
-
-/* =============================================
-   RESPONSIVE
-============================================= */
 @media(max-width:960px){
-  .proj-hero{padding:100px 24px 56px;min-height:auto}
-  .hero-deco{display:none}
-  .proj-content,.media-section,.gallery-section{padding-left:24px;padding-right:24px}
-  .proj-content{padding-top:56px;padding-bottom:56px}
-  .content-grid{grid-template-columns:1fr}
-  .bubble-full{grid-column:auto}
-  .reel-portraits{grid-template-columns:repeat(2,1fr)}
-  .reel-slot{max-height:260px}
-  .gallery-asymm{grid-template-columns:1fr;grid-template-rows:auto}
-  .gal-slot{min-height:200px}
-  .gal-slot:first-child{grid-row:auto}
+ .sb-hero{grid-template-columns:1fr;padding:120px 24px 56px;min-height:auto}.sb-visual{min-height:500px}
+ .psec{padding:62px 24px}.story-grid,.media-grid{grid-template-columns:1fr}.learn-grid{grid-template-columns:1fr 1fr}
+ .gallery{grid-template-columns:1fr}.gallery figure{min-height:480px}.project-note{grid-template-columns:1fr}
 }
+@media(max-width:560px){.learn-grid,.media-stack{grid-template-columns:1fr}.sb-visual{min-height:410px}.gallery figure{min-height:380px}}
 </style>
 </head>
 <body>
-
-<div id="page-overlay"></div>
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="ring"></div>
-<div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div></div>
-<div class="grain"></div>
-
-<!-- SCROLL INDICATOR -->
-<div class="scroll-indicator" id="scrollInd" title="Haut de page">
-  <div class="si-track"></div>
-  <div class="si-fill" id="siFill"></div>
-  <div class="si-label" id="siLabel">↓</div>
-</div>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mob-close" onclick="closeMob()">✕</button>
-  <a href="index.html" onclick="closeMob()">Accueil</a>
-  <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
-  <a href="parcours.html" onclick="closeMob()">Parcours</a>
-  <a href="a-propos.html" onclick="closeMob()">À Propos</a>
-  <a href="contact.html" onclick="closeMob()">Contact</a>
-</div>
-
-<!-- NAV -->
-<nav id="nav">
-  <a href="index.html" class="logo-block">
-    <span class="logo-name">arthur.</span>
-    <span class="logo-sub">D'une inspiration naît une vision</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="portfolio.html" class="active">Portfolio</a></li>
-    <li><a href="parcours.html">Parcours</a></li>
-    <li><a href="a-propos.html">À Propos</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
-  </ul>
-  <button class="hamburger" onclick="toggleMob()">
-    <span></span><span></span><span></span>
-  </button>
+<div id="page-overlay"></div><div class="cursor" id="cur"></div><div class="cursor-ring" id="ring"></div>
+<div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div></div><div class="grain"></div>
+<div class="scroll-indicator" id="scrollInd"><div class="si-track"></div><div class="si-fill" id="siFill"></div><div class="si-label" id="siLabel">↓</div></div>
+<div class="mobile-menu" id="mobileMenu"><button class="mob-close" onclick="closeMob()">✕</button><a href="index.html" onclick="closeMob()">Accueil</a><a href="portfolio.html" onclick="closeMob()">Portfolio</a><a href="parcours.html" onclick="closeMob()">Parcours</a><a href="a-propos.html" onclick="closeMob()">À Propos</a><a href="contact.html" onclick="closeMob()">Contact</a></div>
+<nav>
+<a href="index.html" class="logo-block"><span class="logo-name">arthur.</span><span class="logo-sub">D'une inspiration naît une vision</span></a>
+<ul class="nav-links"><li><a class="active" href="portfolio.html">Portfolio</a></li><li><a href="parcours.html">Parcours</a></li><li><a href="a-propos.html">À Propos</a></li><li><a href="contact.html">Contact</a></li><li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li></ul>
+<button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ==================== PROJECT HERO ==================== -->
-<section class="proj-hero">
-  <div class="hero-deco">
-    <span class="deco-tag">Entrepreneuriat</span>
-    <span class="deco-tag">2022 — 2024</span>
-    <span class="deco-tag">Stratégie Digitale</span>
-  </div>
-  <div class="proj-eyebrow">ENTREPRENEURIAT & STRATÉGIE • 2022–2024</div>
-  <h1 class="proj-title">
-    <span>SNEAK</span><span class="t-stroke">ERS</span><br>
-    <span class="t-teal">BUSINESS</span>
-  </h1>
-  <p class="proj-accroche">"De la passion culturelle à la stratégie d'acquisition digitale."</p>
+<section class="sb-hero">
+ <div class="sb-watermark">RESALE</div>
+ <div class="sb-copy">
+   <div class="sb-eyebrow">PROJET PERSONNEL · 2022—2024</div>
+   <h1 class="sb-title">SNEAKERS<br><span class="stroke">BUSI</span><span class="teal">NESS.</span></h1>
+   <p class="sb-lead">Une activité d’achat-revente transformée en terrain d’apprentissage : comprendre un marché de niche, gérer un stock, trouver des clients et utiliser les réseaux sociaux comme levier d’acquisition.</p>
+   <div class="sb-meta"><span class="sb-pill">Entrepreneuriat</span><span class="sb-pill">Instagram</span><span class="sb-pill">TikTok</span><span class="sb-pill">E-commerce</span><span class="sb-pill">Veille marché</span></div>
+ </div>
+ <div class="sb-visual reveal-scale">
+   <div class="sb-card-a"><img src="assets/images/sneakers/SNK1.JPG" alt="Sneakers présentées dans le cadre de l'activité Sneakers Business"></div>
+   <div class="sb-card-b"><img src="assets/images/sneakers/SNK4.jpg" alt="Feed social Sneakers Business"></div>
+ </div>
 </section>
 
-<!-- ==================== BULLES GLASSMORPHISM ==================== -->
-<section class="proj-content">
-  <div class="s-head">
-    <span class="s-num">01 ///</span>
-    <h2 class="s-title">Le Projet</h2>
-    <div class="s-rule"></div>
+<section class="psec">
+ <div class="inner">
+  <div class="head"><span class="num">01 ///</span><h2 class="ht">Du produit au marché</h2><div class="rule"></div></div>
+  <p class="lead">Ce projet est antérieur à mes stages en communication, mais il explique une partie de mon profil actuel : l’envie de tester par moi-même, de comprendre pourquoi un produit se vend et de créer les contenus capables de l’amener devant la bonne audience.</p>
+  <div class="story-grid">
+    <article class="story-main reveal">
+      <div class="kicker">Le projet</div>
+      <h3>Achat, sélection, revente.</h3>
+      <p>Entre 2022 et 2024, j’ai mené une activité personnelle d’achat-revente de sneakers. La rareté des sorties, la variation des prix et les communautés très actives autour des modèles imposaient une veille régulière et une vraie discipline sur les achats.</p>
+      <p>L’intérêt n’était pas uniquement commercial : j’ai progressivement utilisé Instagram et TikTok pour présenter les produits, créer de la visibilité et élargir mon réseau de prospects.</p>
+    </article>
+    <article class="story-side reveal">
+      <div class="kicker">Pourquoi c’est encore pertinent</div>
+      <h3>Un premier laboratoire digital.</h3>
+      <p>Avant même mes expériences professionnelles en communication, ce projet m’a confronté à des problématiques que je retrouve aujourd’hui : audience, contenu, positionnement, rythme de publication, confiance et conversion.</p>
+    </article>
   </div>
 
-  <div class="content-grid">
-
-    <!-- Bulle 1 -->
-    <div class="glass-card bubble reveal">
-      <div class="bubble-title">L'essor d'une culture</div>
-      <p class="bubble-text">Plus qu'une simple chaussure, la sneaker incarne un phénomène culturel mondial, symbole d'identité et d'expression. Entre 2022 et 2024, j'ai transformé cette passion en une activité d'achat-revente. Mon objectif : exploiter la rareté des modèles issus de collaborations exclusives sur un marché secondaire florissant, redéfinissant ainsi les codes de l'entrepreneuriat urbain.</p>
-    </div>
-
-    <!-- Bulle 2 -->
-    <div class="glass-card bubble reveal">
-      <div class="bubble-title">Digitaliser l'acquisition</div>
-      <p class="bubble-text">Pour dynamiser l'activité et me démarquer, j'ai déployé une stratégie de contenu ciblée sur les réseaux sociaux. L'utilisation stratégique de plateformes comme TikTok et Instagram (vidéos courtes, stories immersives, publications régulières) m'a permis d'élargir mon réseau de prospects, d'atteindre de nouvelles audiences et de fidéliser une clientèle passionnée.</p>
-      <div class="bubble-insta">
-        <img src="assets/images/sneakers/SNK4.jpg" alt="Feed Instagram Sneakers Business">
-      </div>
-    </div>
-
-    <!-- Bulle 3 -->
-    <div class="glass-card bubble reveal">
-      <div class="bubble-title">Analyse de marché et optimisation</div>
-      <p class="bubble-text">Toujours à l'écoute des tendances du marché, j'ai intégré les conseils d'experts du secteur pour affiner mes stratégies d'achat et de vente. Cette veille constante m'a aidé à anticiper la demande, à gérer mes stocks avec précision et à maximiser la rentabilité de chaque transaction.</p>
-    </div>
-
-    <!-- Bulle 4 -->
-    <div class="glass-card bubble reveal">
-      <div class="bubble-title">Un laboratoire professionnel</div>
-      <p class="bubble-text">Cette activité a été fondatrice. Elle m'a permis de forger des compétences solides en gestion de budget, en organisation et en prise de décision. Actuellement en pause pour me consacrer pleinement à mon double diplôme en Techniques de Commercialisation, cette expérience reste le socle de ma vision stratégique et commerciale.</p>
-    </div>
-
+  <div class="learn-grid">
+    <article class="learn reveal"><div class="learn-n">01</div><h4>Veille</h4><p>Suivre les sorties, les tendances et les variations de demande avant de prendre une décision d’achat.</p></article>
+    <article class="learn reveal"><div class="learn-n">02</div><h4>Acquisition</h4><p>Utiliser les réseaux sociaux pour faire découvrir les produits à de nouveaux prospects.</p></article>
+    <article class="learn reveal"><div class="learn-n">03</div><h4>Gestion</h4><p>Arbitrer entre budget, stock, prix de revente et vitesse de rotation.</p></article>
+    <article class="learn reveal"><div class="learn-n">04</div><h4>Contenu</h4><p>Photographier, filmer et mettre en scène les produits dans des formats adaptés aux plateformes.</p></article>
   </div>
+ </div>
 </section>
 
-<!-- ==================== MEDIA HUB ==================== -->
-<section class="media-section">
-  <div class="s-head">
-    <span class="s-num">02 ///</span>
-    <h2 class="s-title">Media Hub</h2>
-    <div class="s-rule"></div>
-  </div>
-
-  <!-- Vidéo paysage principale -->
-  <div class="reel-main reveal">
-    <video src="assets/videos/sneakers/SNKVD1.mp4" autoplay muted loop playsinline></video>
-    <div class="reel-main-label">
-      <div class="reel-dot"></div>
-      Showreel Paysage
+<section class="psec media-section">
+ <div class="inner">
+  <div class="head"><span class="num">02 ///</span><h2 class="ht">Content lab</h2><div class="rule"></div></div>
+  <p class="lead">Une sélection des contenus utilisés autour de l’activité. Les vidéos sont volontairement chargées uniquement lorsque cette zone devient visible.</p>
+  <div class="media-grid">
+    <div class="media-main reveal">
+      <video class="project-video" src="assets/videos/sneakers/SNKVD1.mp4" muted loop playsinline preload="metadata"></video>
+      <div class="media-caption"><div class="mc-k">Format vertical</div><div class="mc-t">Produit en mouvement</div></div>
+    </div>
+    <div class="media-stack">
+      <div class="media-small reveal"><img src="assets/images/sneakers/SNK4.jpg" alt="Feed Instagram Sneakers Business"></div>
+      <div class="media-small reveal"><video class="project-video" src="assets/videos/sneakers/SNKVD2.mp4" muted loop playsinline preload="metadata"></video></div>
+      <div class="media-small reveal"><video class="project-video" src="assets/videos/sneakers/SNKVD3.mp4" muted loop playsinline preload="metadata"></video></div>
+      <div class="media-small reveal"><video class="project-video" src="assets/videos/sneakers/SNKVD5.mp4" muted loop playsinline preload="metadata"></video></div>
     </div>
   </div>
-
-  <!-- Grille 4 portraits -->
-  <div class="reel-portraits">
-    <div class="reel-slot reveal">
-      <video src="assets/videos/sneakers/SNKVD2.mp4" autoplay muted loop playsinline></video>
-    </div>
-    <div class="reel-slot reveal">
-      <video src="assets/videos/sneakers/SNKVD3.mp4" autoplay muted loop playsinline></video>
-    </div>
-    <div class="reel-slot reveal">
-      <video src="assets/videos/sneakers/SNKVD4.MOV" autoplay muted loop playsinline></video>
-    </div>
-    <div class="reel-slot reveal">
-      <video src="assets/videos/sneakers/SNKVD5.mp4" autoplay muted loop playsinline></video>
-    </div>
-  </div>
-
+ </div>
 </section>
 
-<!-- ==================== GALERIE MODÈLES ==================== -->
-<section class="gallery-section">
-  <div class="s-head">
-    <span class="s-num">03 ///</span>
-    <h2 class="s-title">Modèles Iconiques</h2>
-    <div class="s-rule"></div>
+<section class="psec">
+ <div class="inner">
+  <div class="head"><span class="num">03 ///</span><h2 class="ht">Produit & culture</h2><div class="rule"></div></div>
+  <div class="gallery">
+   <figure class="reveal"><img src="assets/images/sneakers/SNK1.JPG" alt="Sélection de sneakers — photo 1"><figcaption>Sélection produit</figcaption></figure>
+   <figure class="reveal"><img src="assets/images/sneakers/SNK2.jpg" alt="Sélection de sneakers — photo 2"><figcaption>Produit & détail</figcaption></figure>
+   <figure class="reveal"><img src="assets/images/sneakers/SNK3.jpg" alt="Sélection de sneakers — photo 3"><figcaption>Culture sneaker</figcaption></figure>
   </div>
-  <div class="gallery-asymm">
-    <!-- Grande case — SNK1 -->
-    <div class="gal-slot reveal">
-      <img src="assets/images/sneakers/SNK1.JPG" alt="Sneakers Business — Photo 1">
-    </div>
-    <!-- Cases secondaires -->
-    <div class="gal-slot reveal">
-      <img src="assets/images/sneakers/SNK2.jpg" alt="Sneakers Business — Photo 2">
-    </div>
-    <div class="gal-slot reveal">
-      <img src="assets/images/sneakers/SNK3.jpg" alt="Sneakers Business — Photo 3">
-    </div>
+
+  <div class="project-note reveal" style="margin-top:18px">
+    <div><h3>Un projet personnel, pas une entreprise actuelle.</h3><p>L’activité est aujourd’hui arrêtée. Je la présente pour ce qu’elle m’a appris : tester une idée, prendre des décisions avec mes propres moyens et comprendre très tôt le lien entre produit, communauté et acquisition digitale.</p></div>
+    <a href="portfolio.html" class="btn-primary">Retour aux projets ↗</a>
   </div>
+ </div>
 </section>
 
-<!-- ==================== FOOTER NAVIGATION DU PROJET ==================== -->
-<div class="proj-footer">
-  <a href="portfolio.html" class="btn-back">← Retour au Portfolio</a>
-  <a href="projet-revofit.html" class="btn-next">Projet suivant : RevoFit →</a>
-</div>
-
-<!-- FOOTER GLOBAL -->
-<footer>
-  <div class="f-logo">Arthur Viaud · 2026</div>
-  <div class="f-links">
-    <a href="portfolio.html">Portfolio</a>
-    <a href="parcours.html">Parcours</a>
-    <a href="a-propos.html">À Propos</a>
-    <a href="contact.html">Contact</a>
-    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
-  </div>
-  <div class="f-copy">D'une inspiration naît une vision</div>
-</footer>
-
-<script src="shared.js" defer></script>
+<div class="proj-footer"><a href="portfolio.html" class="btn-back">← Retour au Portfolio</a><a href="projet-revofit.html" class="btn-next">Projet suivant : RevoFit →</a></div>
+<footer><div class="f-logo">Arthur Viaud · 2026</div><div class="f-links"><a href="portfolio.html">Portfolio</a><a href="parcours.html">Parcours</a><a href="a-propos.html">À Propos</a><a href="contact.html">Contact</a></div><div class="f-copy">D'une inspiration naît une vision</div></footer>
+<script src="shared.js"></script><script src="project-secondary.js"></script>
 </body>
 </html>

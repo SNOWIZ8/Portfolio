@@ -1,0 +1,18 @@
+PHASE 1 — UX + GRAPHIC
+
+À la racine du portfolio, remplace :
+- index.html
+- home.css
+- home.js
+- projet-garden-open.html
+- garden-open.css
+- garden-open.js
+- shared.css
+- shared.js
+
+Ajoute :
+- visual-polish.css
+- visual-polish.js
+
+Aucun asset à déplacer.
+Ensuite : Cmd + Shift + R.

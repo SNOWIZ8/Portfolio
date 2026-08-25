@@ -5,284 +5,115 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RevoFit — Arthur Viaud</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<meta name="description" content="RevoFit — projet académique de marketplace de création vestimentaire : positionnement, identité visuelle et réflexion d'interface.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* GLASS CARD hover (override local) */
-.glass-card{transition:background .3s,border-color .3s,transform .3s}
-.glass-card:hover{background:rgba(255,255,255,.05);border-color:rgba(0,242,234,.22);transform:translateY(-4px)}
+.rv-hero{position:relative;z-index:10;min-height:91vh;padding:130px 56px 64px;display:grid;grid-template-columns:1fr .9fr;gap:55px;align-items:end;border-bottom:var(--glass-bd);overflow:hidden}
+.rv-hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 72% 38%,rgba(138,43,226,.12),transparent 28%),repeating-linear-gradient(0deg,transparent,transparent 89px,rgba(255,255,255,.02) 90px);mask-image:linear-gradient(to bottom,#000,transparent 95%)}
+.rv-copy{position:relative;z-index:2}.rv-eyebrow{display:flex;align-items:center;gap:11px;font-size:10px;letter-spacing:2.8px;text-transform:uppercase;color:#b48aff;margin-bottom:22px}.rv-eyebrow::before{content:'';width:30px;height:1px;background:#b48aff}
+.rv-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,12vw,158px);line-height:.83;letter-spacing:3px}.rv-title .stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}.rv-title .purple{color:var(--mauve)}
+.rv-lead{max-width:670px;margin-top:28px;font-size:clamp(15px,1.4vw,18px);line-height:1.72;color:var(--muted);font-weight:300}.rv-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:25px}.rv-pill{padding:7px 12px;border-radius:100px;border:var(--glass-bd);background:var(--glass-bg);font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,236,226,.4)}
+.rv-visual{position:relative;z-index:2;min-height:600px}.rv-sheet{position:absolute;inset:7% 4% 8% 10%;border-radius:16px;border:var(--glass-bd);overflow:hidden;background:#0c111f;transform:rotate(1.8deg);box-shadow:0 40px 100px rgba(0,0,0,.28)}.rv-sheet img{width:100%;height:100%;object-fit:cover;display:block}.rv-phone{position:absolute;width:34%;right:0;bottom:0;aspect-ratio:9/19.5;border-radius:28px;padding:5px;background:#0a0e18;border:1px solid rgba(255,255,255,.18);box-shadow:0 28px 70px rgba(0,0,0,.5),0 0 45px rgba(138,43,226,.12);overflow:hidden;transform:rotate(-4deg)}.rv-phone video{width:100%;height:100%;object-fit:cover;border-radius:23px;display:block}
+.rv-watermark{position:absolute;right:-35px;bottom:-60px;font-family:'Bebas Neue',sans-serif;font-size:190px;color:rgba(240,236,226,.023);letter-spacing:5px}
 
-/* =============================================
-   PROJECT HERO
-============================================= */
-.proj-hero{
-  position:relative;z-index:10;
-  min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:130px 56px 72px;
-  border-bottom:var(--glass-bd);
-  overflow:hidden;
-}
-/* Accent stripe décoratif */
-.hero-stripe{
-  position:absolute;top:0;right:0;width:3px;height:100%;
-  background:linear-gradient(to bottom,transparent,var(--mauve),transparent);
-  opacity:.5;
-}
-.proj-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--mauve);margin-bottom:20px;opacity:0;animation:riseUp .7s ease forwards .2s;display:flex;align-items:center;gap:12px}
-.proj-eyebrow::before{content:'';width:32px;height:1px;background:var(--mauve)}
-.proj-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(70px,13vw,160px);line-height:.87;letter-spacing:3px;color:var(--cream);opacity:0;animation:riseUp .85s ease forwards .35s}
-.proj-title .t-mauve{color:var(--mauve)}
-.proj-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
-.proj-accroche{font-size:clamp(16px,1.8vw,22px);font-weight:300;font-style:italic;color:var(--muted);max-width:680px;line-height:1.65;margin-top:28px;opacity:0;animation:riseUp .85s ease forwards .52s}
-.hero-deco{position:absolute;top:130px;right:56px;display:flex;flex-direction:column;align-items:flex-end;gap:8px;opacity:0;animation:riseUp .9s ease forwards .65s}
-.deco-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.3);border:var(--glass-bd);padding:5px 14px;border-radius:100px;background:var(--glass-bg);backdrop-filter:var(--glass-blur)}
+.psec{position:relative;z-index:10;padding:88px 56px}.inner{max-width:1380px;margin:0 auto}.head{display:flex;align-items:center;gap:18px;margin-bottom:15px}.num{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:rgba(240,236,226,.18)}.ht{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,4vw,56px);letter-spacing:3px}.rule{flex:1;height:1px;background:rgba(255,255,255,.07)}.lead{max-width:760px;font-size:14px;line-height:1.75;color:var(--muted);margin-bottom:44px}
+.concept-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}.concept-main,.concept-side{border:var(--glass-bd);background:var(--glass-bg);border-radius:14px;padding:32px 30px}.kicker{font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:#b48aff}.concept-main h3,.concept-side h3{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;line-height:1;margin-top:12px}.concept-main p,.concept-side p{font-size:13px;line-height:1.78;color:rgba(240,236,226,.57);margin-top:13px}
+.role-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.role{min-height:220px;border:1px solid rgba(255,255,255,.085);border-radius:12px;padding:24px 21px;background:rgba(255,255,255,.017);position:relative;overflow:hidden}.role-n{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;color:rgba(240,236,226,.055);position:absolute;right:15px;top:10px}.role h4{font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:1.5px;margin-top:34px}.role p{font-size:12px;line-height:1.65;color:rgba(240,236,226,.48);margin-top:9px}
 
-/* =============================================
-   CONTENT
-============================================= */
-.proj-content{position:relative;z-index:10;padding:80px 56px}
-.s-head{display:flex;align-items:center;gap:18px;margin-bottom:40px}
-.s-num{font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(240,236,226,.18);letter-spacing:2px}
-.s-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px}
-.s-rule{flex:1;height:1px;background:rgba(255,255,255,.07)}
+.showcase-section{border-top:var(--glass-bd);border-bottom:var(--glass-bd);background:rgba(255,255,255,.008)}
+.showcase{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;align-items:stretch}.brand-card,.ui-card{position:relative;overflow:hidden;border-radius:15px;border:var(--glass-bd);background:#080d18;min-height:610px}.brand-card img,.ui-card img{width:100%;height:100%;object-fit:cover;display:block}.brand-card::after,.ui-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,30,.72),transparent 46%);pointer-events:none}.show-label{position:absolute;left:24px;bottom:22px;z-index:2}.show-k{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#b48aff}.show-t{font-family:'Bebas Neue',sans-serif;font-size:31px;letter-spacing:2px;margin-top:5px}
 
-.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.bubble{padding:32px 28px}
-.bubble-title{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--mauve);margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.bubble-title::before{content:'';width:22px;height:1px;background:var(--mauve);flex-shrink:0}
-.bubble-text{font-size:15px;font-weight:300;line-height:1.8;color:rgba(240,236,226,.75)}
-
-/* Bulle spéciale avec liste compétences */
-.skill-list{margin-top:14px;display:flex;flex-direction:column;gap:9px}
-.skill-item{display:flex;align-items:flex-start;gap:12px;font-size:14px;font-weight:300;line-height:1.5;color:rgba(240,236,226,.75)}
-.skill-dot{width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--mauve));margin-top:7px;flex-shrink:0}
-
-/* =============================================
-   TRIPTYQUE BRAND & UI
-============================================= */
-.mockup-section{position:relative;z-index:10;padding:0 56px 80px}
-.triptych{
-  display:grid;
-  grid-template-columns:1fr 1.05fr 1fr;
-  gap:18px;
-  align-items:end;
-}
-.tripty-col{
-  display:flex;flex-direction:column;align-items:center;gap:0;
-}
-/* Colonne image latérale */
-.tripty-side .tripty-media{
-  width:100%;border-radius:var(--radius);
-  overflow:hidden;
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);
-  transition:transform .3s,border-color .3s;
-}
-.tripty-side .tripty-media:hover{transform:translateY(-6px);border-color:rgba(138,43,226,.3)}
-.tripty-side .tripty-media img{
-  width:100%;display:block;
-  object-fit:cover;min-height:320px;
-}
-/* Colonne centrale — téléphone */
-.tripty-center .phone-3d{
-  width:100%;max-width:200px;
-  filter:drop-shadow(0 40px 80px rgba(0,0,0,.6));
-}
-.phone-shell{
-  width:100%;
-  background:#0d1220;
-  border:1.5px solid rgba(255,255,255,.18);
-  border-radius:36px;
-  overflow:hidden;
-  position:relative;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.04) inset,
-    0 32px 80px rgba(0,0,0,.7),
-    0 0 40px rgba(138,43,226,.12);
-  aspect-ratio:9/20;
-}
-.phone-notch{
-  position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:90px;height:22px;
-  background:#0d1220;border-radius:0 0 14px 14px;
-  z-index:10;
-}
-.phone-video{
-  position:absolute;inset:0;
-  width:100%;height:100%;object-fit:cover;
-  display:block;
-}
-/* Étiquette sous chaque colonne */
-.tripty-label{
-  padding:14px 0;text-align:center;width:100%;
-}
-.tripty-tag{
-  display:block;font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--mauve);margin-bottom:4px;
-}
-.tripty-name{
-  display:block;font-size:13px;font-weight:500;color:rgba(240,236,226,.7);
-}
+.process{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.process-card{border:1px solid rgba(255,255,255,.085);border-radius:12px;padding:27px 24px;background:var(--glass-bg);min-height:250px}.process-tag{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#b48aff}.process-card h4{font-family:'Bebas Neue',sans-serif;font-size:29px;letter-spacing:1.7px;margin-top:16px}.process-card p{font-size:12.5px;line-height:1.7;color:rgba(240,236,226,.51);margin-top:10px}
+.project-note{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;border:1px solid rgba(138,43,226,.17);background:var(--glass-bg);border-radius:15px;padding:36px 32px;margin-top:18px}.project-note h3{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:2px}.project-note p{font-size:13px;line-height:1.7;color:var(--muted);max-width:720px;margin-top:8px}
 
 @media(max-width:960px){
-  .proj-hero{padding:100px 24px 56px;min-height:auto}
-  .hero-deco{display:none}
-  .proj-content,.mockup-section{padding-left:24px;padding-right:24px;padding-top:56px;padding-bottom:56px}
-  .content-grid{grid-template-columns:1fr}
-  .triptych{grid-template-columns:1fr;gap:24px}
-  .tripty-center .phone-3d{max-width:160px}
+ .rv-hero{grid-template-columns:1fr;padding:120px 24px 56px;min-height:auto}.rv-visual{min-height:520px}
+ .psec{padding:62px 24px}.concept-grid,.showcase{grid-template-columns:1fr}.role-grid{grid-template-columns:1fr 1fr}.process{grid-template-columns:1fr}.project-note{grid-template-columns:1fr}
+ .brand-card,.ui-card{min-height:520px}
 }
+@media(max-width:560px){.role-grid{grid-template-columns:1fr}.rv-visual{min-height:420px}.brand-card,.ui-card{min-height:390px}}
 </style>
 </head>
 <body>
-
-<div id="page-overlay"></div>
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="ring"></div>
-<div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div></div>
-<div class="grain"></div>
-
-<div class="scroll-indicator" id="scrollInd">
-  <div class="si-track"></div>
-  <div class="si-fill" id="siFill"></div>
-  <div class="si-label" id="siLabel">↓</div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mob-close" onclick="closeMob()">✕</button>
-  <a href="index.html" onclick="closeMob()">Accueil</a>
-  <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
-  <a href="parcours.html" onclick="closeMob()">Parcours</a>
-  <a href="a-propos.html" onclick="closeMob()">À Propos</a>
-  <a href="contact.html" onclick="closeMob()">Contact</a>
-</div>
-
-<nav id="nav">
-  <a href="index.html" class="logo-block">
-    <span class="logo-name">arthur.</span>
-    <span class="logo-sub">D'une inspiration naît une vision</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="portfolio.html" class="active">Portfolio</a></li>
-    <li><a href="parcours.html">Parcours</a></li>
-    <li><a href="a-propos.html">À Propos</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
-  </ul>
-  <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
+<div id="page-overlay"></div><div class="cursor" id="cur"></div><div class="cursor-ring" id="ring"></div>
+<div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div></div><div class="grain"></div>
+<div class="scroll-indicator" id="scrollInd"><div class="si-track"></div><div class="si-fill" id="siFill"></div><div class="si-label" id="siLabel">↓</div></div>
+<div class="mobile-menu" id="mobileMenu"><button class="mob-close" onclick="closeMob()">✕</button><a href="index.html" onclick="closeMob()">Accueil</a><a href="portfolio.html" onclick="closeMob()">Portfolio</a><a href="parcours.html" onclick="closeMob()">Parcours</a><a href="a-propos.html" onclick="closeMob()">À Propos</a><a href="contact.html" onclick="closeMob()">Contact</a></div>
+<nav>
+<a href="index.html" class="logo-block"><span class="logo-name">arthur.</span><span class="logo-sub">D'une inspiration naît une vision</span></a>
+<ul class="nav-links"><li><a class="active" href="portfolio.html">Portfolio</a></li><li><a href="parcours.html">Parcours</a></li><li><a href="a-propos.html">À Propos</a></li><li><a href="contact.html">Contact</a></li><li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li></ul>
+<button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ==================== HERO ==================== -->
-<section class="proj-hero">
-  <div class="hero-stripe"></div>
-  <div class="hero-deco">
-    <span class="deco-tag">Projet Académique</span>
-    <span class="deco-tag">2024</span>
-    <span class="deco-tag">BUT TC — IUT de Poitiers</span>
-  </div>
-  <div class="proj-eyebrow">PROJET ACADÉMIQUE • 2024</div>
-  <h1 class="proj-title">
-    <span class="t-stroke">REV</span><span class="t-mauve">O</span><br>
-    <span>FIT</span>
-  </h1>
-  <p class="proj-accroche">"La conceptualisation d'une marketplace visant à redéfinir l'économie de la création vestimentaire."</p>
+<section class="rv-hero">
+ <div class="rv-watermark">CONCEPT</div>
+ <div class="rv-copy">
+   <div class="rv-eyebrow">PROJET ACADÉMIQUE · BUT TC · 2024</div>
+   <h1 class="rv-title"><span class="stroke">REV</span><span class="purple">O</span><br>FIT.</h1>
+   <p class="rv-lead">Concevoir une marketplace dédiée aux créations vestimentaires indépendantes : du positionnement au branding, jusqu’à la réflexion sur l’expérience digitale.</p>
+   <div class="rv-meta"><span class="rv-pill">Branding</span><span class="rv-pill">Positionnement</span><span class="rv-pill">Business Model</span><span class="rv-pill">UI</span></div>
+ </div>
+ <div class="rv-visual reveal-scale">
+   <div class="rv-sheet"><img src="assets/images/revofit/RVF2.png" alt="Écrans et interface du concept RevoFit"></div>
+   <div class="rv-phone"><video class="project-video" src="assets/videos/revofit/RVFVideo1.mp4" muted loop playsinline preload="metadata"></video></div>
+ </div>
 </section>
 
-<!-- ==================== BULLES ==================== -->
-<section class="proj-content">
-  <div class="s-head">
-    <span class="s-num">01 ///</span>
-    <h2 class="s-title">Le Concept</h2>
-    <div class="s-rule"></div>
+<section class="psec">
+ <div class="inner">
+  <div class="head"><span class="num">01 ///</span><h2 class="ht">Le concept</h2><div class="rule"></div></div>
+  <p class="lead">RevoFit est un projet de création d’entreprise réalisé à quatre en deuxième année de BUT. L’objectif n’était pas de présenter une entreprise existante, mais de construire un concept cohérent de marketplace autour de la customisation et de la création vestimentaire indépendante.</p>
+  <div class="concept-grid">
+    <article class="concept-main reveal">
+      <div class="kicker">Point de départ</div>
+      <h3>Valoriser les créateurs.</h3>
+      <p>Le concept part d’un constat simple : de nombreux designers et créateurs indépendants ont besoin de visibilité, tandis qu’une partie du public recherche des pièces plus singulières et personnalisées.</p>
+      <p>Le travail de groupe a consisté à transformer cette idée en proposition structurée : cible, valeur apportée, modèle économique, univers de marque et premières interfaces.</p>
+    </article>
+    <article class="concept-side reveal">
+      <div class="kicker">Mon apport</div>
+      <h3>Faire tenir stratégie et image ensemble.</h3>
+      <p>Je me suis particulièrement investi dans la stratégie de communication, le positionnement et la cohérence de l’identité visuelle, tout en participant à la réflexion globale sur le projet.</p>
+    </article>
   </div>
-  <div class="content-grid">
-
-    <div class="glass-card bubble reveal">
-      <div class="bubble-title">Un concept né en cours</div>
-      <p class="bubble-text">Imaginé dans le cadre d'un projet de création d'entreprise en deuxième année de BUT, RevoFit est un concept né d'une volonté de valoriser le travail minutieux des designers indépendants. Nous avons théorisé et designé une plateforme spécialisée dans les créations vestimentaires et la customisation.</p>
-    </div>
-
-    <div class="glass-card bubble reveal">
-      <div class="bubble-title">Stratégie de communication globale</div>
-      <p class="bubble-text">De l'analyse de marché initiale à la création de la charte graphique, j'ai piloté la stratégie de communication globale pour donner vie à ce concept, avec pour but d'attirer à la fois les créateurs et une clientèle exigeante.</p>
-    </div>
-
-    <div class="glass-card bubble reveal" style="grid-column:1/-1">
-      <div class="bubble-title">Un laboratoire grandeur nature</div>
-      <p class="bubble-text">Ce projet d'étude à 4 a été un véritable laboratoire grandeur nature. J'ai assuré la cohérence entre le pôle commercial, l'étude financière et notre image de marque, garantissant un Business Model viable sur le papier et un positionnement haut de gamme assumé.</p>
-    </div>
-
+  <div class="role-grid">
+    <article class="role reveal"><div class="role-n">01</div><h4>Marché</h4><p>Analyser le contexte et identifier les publics à réunir autour de la plateforme.</p></article>
+    <article class="role reveal"><div class="role-n">02</div><h4>Positionnement</h4><p>Clarifier la promesse et construire une image plus premium que marketplace généraliste.</p></article>
+    <article class="role reveal"><div class="role-n">03</div><h4>Branding</h4><p>Définir une identité cohérente avec l’univers mode, création et personnalisation.</p></article>
+    <article class="role reveal"><div class="role-n">04</div><h4>Interface</h4><p>Traduire le concept en parcours et écrans suffisamment concrets pour pouvoir le présenter.</p></article>
   </div>
+ </div>
 </section>
 
-<!-- ==================== TRIPTYQUE BRAND & UI ==================== -->
-<section class="mockup-section">
-  <div class="s-head">
-    <span class="s-num">02 ///</span>
-    <h2 class="s-title">Brand & Interface</h2>
-    <div class="s-rule"></div>
+<section class="psec showcase-section">
+ <div class="inner">
+  <div class="head"><span class="num">02 ///</span><h2 class="ht">Brand & interface</h2><div class="rule"></div></div>
+  <p class="lead">Les éléments visuels ci-dessous sont des productions de projet académique : ils servent à rendre la proposition tangible, pas à présenter un produit commercial déjà lancé.</p>
+  <div class="showcase">
+   <figure class="brand-card reveal"><img src="assets/images/revofit/RVF1.png" alt="Logo et identité visuelle RevoFit"><figcaption class="show-label"><span class="show-k">Identité visuelle</span><div class="show-t">Logo & langage graphique</div></figcaption></figure>
+   <figure class="ui-card reveal"><img src="assets/images/revofit/RVF2.png" alt="Maquettes d'interface RevoFit"><figcaption class="show-label"><span class="show-k">Expérience digitale</span><div class="show-t">Premiers écrans du concept</div></figcaption></figure>
   </div>
-  <div class="triptych">
-
-    <!-- Col 1 — Logo & Charte -->
-    <div class="tripty-col tripty-side reveal">
-      <div class="tripty-media">
-        <img src="assets/images/revofit/RVF1.png" alt="RevoFit — Logo & Charte graphique">
-      </div>
-      <div class="tripty-label">
-        <span class="tripty-tag">Identité Visuelle</span>
-        <span class="tripty-name">Logo & Charte</span>
-      </div>
-    </div>
-
-    <!-- Col 2 — Smartphone + Vidéo (centre) -->
-    <div class="tripty-col tripty-center reveal">
-      <div class="phone-3d">
-        <div class="phone-shell">
-          <div class="phone-notch"></div>
-          <video class="phone-video"
-            src="assets/videos/revofit/RVFVideo1.mp4"
-            autoplay muted loop playsinline></video>
-        </div>
-      </div>
-      <div class="tripty-label">
-        <span class="tripty-tag">Démo Produit</span>
-        <span class="tripty-name">Interface Digitale</span>
-      </div>
-    </div>
-
-    <!-- Col 3 — UI Screens -->
-    <div class="tripty-col tripty-side reveal">
-      <div class="tripty-media">
-        <img src="assets/images/revofit/RVF2.png" alt="RevoFit — Écrans UI">
-      </div>
-      <div class="tripty-label">
-        <span class="tripty-tag">Design UI</span>
-        <span class="tripty-name">Écrans App</span>
-      </div>
-    </div>
-
-  </div>
+ </div>
 </section>
 
-<!-- FOOTER PROJET -->
-<div class="proj-footer">
-  <a href="portfolio.html" class="btn-back">← Retour au Portfolio</a>
-  <a href="projet-palmfest.html" class="btn-next">Projet suivant : Palm'Fest →</a>
-</div>
-
-<footer>
-  <div class="f-logo">Arthur Viaud · 2026</div>
-  <div class="f-links">
-    <a href="portfolio.html">Portfolio</a>
-    <a href="parcours.html">Parcours</a>
-    <a href="a-propos.html">À Propos</a>
-    <a href="contact.html">Contact</a>
-    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
+<section class="psec">
+ <div class="inner">
+  <div class="head"><span class="num">03 ///</span><h2 class="ht">Ce que le projet m’a appris</h2><div class="rule"></div></div>
+  <div class="process">
+    <article class="process-card reveal"><div class="process-tag">Cohérence</div><h4>Une marque n’est pas juste un logo.</h4><p>Le nom, l’identité, le ton et l’interface doivent soutenir le même positionnement, sinon le concept perd rapidement en crédibilité.</p></article>
+    <article class="process-card reveal"><div class="process-tag">Équipe</div><h4>Faire converger plusieurs pôles.</h4><p>Le projet nécessitait de relier les réflexions commerciales, financières et de communication au lieu de les traiter séparément.</p></article>
+    <article class="process-card reveal"><div class="process-tag">Concret</div><h4>Donner une forme à une idée.</h4><p>Construire des écrans et une identité oblige à préciser le concept : ce qu’il promet, à qui il s’adresse et comment il doit être perçu.</p></article>
   </div>
-  <div class="f-copy">D'une inspiration naît une vision</div>
-</footer>
+  <div class="project-note reveal">
+    <div><h3>Un projet secondaire, mais utile.</h3><p>RevoFit complète les expériences professionnelles du portfolio en montrant une autre facette : ma capacité à partir d’une idée encore abstraite pour construire progressivement un positionnement et une expression de marque.</p></div>
+    <a href="portfolio.html" class="btn-primary">Retour aux projets ↗</a>
+  </div>
+ </div>
+</section>
 
-<script src="shared.js" defer></script>
+<div class="proj-footer"><a href="projet-sneakers.html" class="btn-back">← Sneakers Business</a><a href="projet-palmfest.html" class="btn-next">Projet suivant : Palm'Fest →</a></div>
+<footer><div class="f-logo">Arthur Viaud · 2026</div><div class="f-links"><a href="portfolio.html">Portfolio</a><a href="parcours.html">Parcours</a><a href="a-propos.html">À Propos</a><a href="contact.html">Contact</a></div><div class="f-copy">D'une inspiration naît une vision</div></footer>
+<script src="shared.js"></script><script src="project-secondary.js"></script>
 </body>
 </html>

@@ -5,204 +5,225 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact — Arthur Viaud</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<meta name="description" content="Contacter Arthur Viaud — communication marketing, création de contenu et événementiel. Disponible pour un CDI dès septembre 2026.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
+/* =========================================================
+   CONTACT V1
+   Objectif : conversion rapide, sans backend fragile.
+========================================================= */
 
-/* =============================================
-   PAGE HERO
-============================================= */
-.page-hero{
-  position:relative;z-index:10;
-  min-height:56vh;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:130px 56px 60px;border-bottom:var(--glass-bd);overflow:hidden;
-}
-.hero-bg-text{
-  position:absolute;left:-20px;bottom:-60px;
-  font-family:'Bebas Neue',sans-serif;font-size:clamp(140px,22vw,280px);
-  color:rgba(255,255,255,.018);letter-spacing:6px;
-  pointer-events:none;user-select:none;line-height:1;white-space:nowrap;
-}
-.page-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:18px;opacity:0;animation:riseUp .7s ease forwards .2s;display:flex;align-items:center;gap:12px}
-.page-eyebrow::before{content:'';width:32px;height:1px;background:var(--teal)}
-.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10vw,128px);line-height:.87;letter-spacing:3px;opacity:0;animation:riseUp .85s ease forwards .35s}
-.page-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
-.page-title .t-teal{color:var(--teal)}
-.page-accroche{font-size:clamp(15px,1.6vw,20px);font-weight:300;font-style:italic;color:var(--muted);max-width:580px;line-height:1.65;margin-top:22px;opacity:0;animation:riseUp .85s ease forwards .5s}
+#spotlight{position:fixed;inset:0;z-index:3;pointer-events:none}
 
-/* =============================================
-   MAIN LAYOUT — épuré, centré
-============================================= */
-.contact-wrap{
-  position:relative;z-index:10;
-  padding:80px 56px 0;
-  display:grid;
-  grid-template-columns:1fr 1.4fr;
-  gap:24px;
-  max-width:1100px;margin:0 auto;
+/* ---------- HERO ---------- */
+.c-hero{
+  position:relative;z-index:10;min-height:76vh;
+  display:flex;align-items:flex-end;overflow:hidden;
+  padding:138px 56px 68px;border-bottom:var(--glass-bd);
 }
+.c-grid{
+  position:absolute;inset:0;pointer-events:none;opacity:.38;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 89px,rgba(240,236,226,.024) 90px),
+    repeating-linear-gradient(90deg,transparent,transparent 89px,rgba(240,236,226,.024) 90px);
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),transparent 94%);
+}
+.c-watermark{
+  position:absolute;right:-30px;bottom:-42px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(150px,21vw,300px);line-height:.8;letter-spacing:6px;
+  color:rgba(240,236,226,.021);pointer-events:none;white-space:nowrap;will-change:transform;
+}
+.c-hero-inner{width:100%;max-width:1380px;margin:0 auto;position:relative;z-index:3}
+.c-eyebrow{
+  display:flex;align-items:center;gap:12px;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:23px
+}
+.c-eyebrow::before{content:'';width:30px;height:1px;background:var(--teal)}
+.c-title{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(76px,11.5vw,158px);
+  line-height:.84;letter-spacing:3px;max-width:1100px
+}
+.c-mask{display:block;overflow:hidden}
+.c-mask-in{display:block}
+.c-title .stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
+.c-title .teal{color:var(--teal)}
+.c-lead{
+  max-width:780px;margin-top:28px;font-size:clamp(15px,1.5vw,19px);
+  line-height:1.75;font-weight:300;color:var(--muted)
+}
+.c-lead strong{color:var(--cream);font-weight:500}
+.c-status-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.c-pill{
+  border:var(--glass-bd);background:var(--glass-bg);backdrop-filter:var(--glass-blur);
+  border-radius:100px;padding:7px 13px;font-size:9px;letter-spacing:1.8px;text-transform:uppercase;
+  color:rgba(240,236,226,.4)
+}
+.c-pill.live{color:var(--teal);border-color:rgba(0,242,234,.24)}
+.c-pill.live::before{
+  content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--teal);
+  margin-right:7px;box-shadow:0 0 12px rgba(0,242,234,.65);vertical-align:1px
+}
+.js-ready .c-enter{opacity:0;transform:translateY(20px)}
+.js-ready .c-mask-in{transform:translateY(112%)}
 
-/* Coordonnées directes */
-.coords-card{
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
-  padding:28px;display:flex;flex-direction:column;gap:14px;
-  height:fit-content;
-}
-.bubble-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:4px;display:flex;align-items:center;gap:8px}
-.bubble-tag::before{content:'';width:18px;height:1px;background:var(--teal)}
-.coord-row{
-  display:flex;align-items:center;gap:14px;
-  padding:12px 14px;border-radius:8px;
-  background:rgba(255,255,255,.02);border:var(--glass-bd);
-  text-decoration:none;color:var(--cream);
-  transition:background .25s,border-color .25s,transform .22s;
-}
-.coord-row:hover{background:rgba(0,242,234,.06);border-color:rgba(0,242,234,.25);transform:translateX(4px)}
-.coord-icon{
-  width:36px;height:36px;border-radius:8px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:16px;
-}
-.ci-mail{background:rgba(0,242,234,.08);border:1px solid rgba(0,242,234,.15)}
-.ci-li{background:rgba(10,102,194,.15);border:1px solid rgba(10,102,194,.25)}
-.coord-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1px}
-.coord-value{font-size:13px;font-weight:400;color:var(--cream)}
-.coord-arrow{margin-left:auto;color:var(--muted);font-size:14px;transition:color .25s,transform .22s}
-.coord-row:hover .coord-arrow{color:var(--teal);transform:translateX(3px)}
+/* ---------- MAIN ---------- */
+.c-section{position:relative;z-index:10;padding:88px 56px 94px}
+.c-inner{max-width:1380px;margin:0 auto}
+.c-head{display:flex;align-items:center;gap:18px;margin-bottom:14px}
+.c-num{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:rgba(240,236,226,.18)}
+.c-head-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,4.2vw,58px);letter-spacing:3px}
+.c-rule{height:1px;flex:1;background:rgba(255,255,255,.07)}
+.c-section-lead{max-width:710px;font-size:14px;line-height:1.75;color:var(--muted);margin-bottom:42px}
 
-/* =============================================
-   COLONNE DROITE — FORMULAIRE
-============================================= */
-.col-right{}
-.form-card{
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
-  padding:40px 36px;position:relative;overflow:hidden;
-  height:100%;
+/* ---------- CONTACT GRID ---------- */
+.contact-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:18px;align-items:stretch}
+.direct-card,.message-card{
+  position:relative;overflow:hidden;border:var(--glass-bd);background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);border-radius:16px
 }
-.form-card::before{
-  content:'';position:absolute;top:0;right:0;
-  width:200px;height:200px;
-  background:radial-gradient(circle,rgba(0,242,234,.05) 0%,transparent 70%);
-  pointer-events:none;
+.direct-card{padding:32px 28px}
+.direct-card::before{
+  content:'';position:absolute;width:300px;height:300px;border-radius:50%;
+  left:-160px;top:-160px;background:var(--teal);filter:blur(110px);opacity:.08
 }
-.form-top{margin-bottom:32px}
-.form-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.form-tag::before{content:'';width:18px;height:1px;background:var(--teal)}
-.form-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;line-height:1}
-.form-sub{font-size:13px;font-weight:300;color:var(--muted);margin-top:6px;line-height:1.5}
+.card-kicker{
+  position:relative;z-index:2;font-size:9px;letter-spacing:2.3px;text-transform:uppercase;color:var(--teal)
+}
+.direct-title{
+  position:relative;z-index:2;font-family:'Bebas Neue',sans-serif;
+  font-size:42px;line-height:1;letter-spacing:2.2px;margin-top:12px
+}
+.direct-copy{
+  position:relative;z-index:2;font-size:13px;line-height:1.7;color:rgba(240,236,226,.54);
+  margin-top:12px;max-width:480px
+}
+.contact-links{position:relative;z-index:2;display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.contact-link{
+  display:grid;grid-template-columns:44px 1fr auto;gap:13px;align-items:center;
+  padding:13px 14px;border:1px solid rgba(255,255,255,.09);border-radius:10px;
+  background:rgba(255,255,255,.018);text-decoration:none;color:inherit;
+  transition:transform .26s,border-color .26s,background .26s
+}
+.contact-link:hover{
+  transform:translateX(4px);border-color:rgba(0,242,234,.24);background:rgba(0,242,234,.035)
+}
+.cl-icon{
+  width:44px;height:44px;border-radius:10px;border:1px solid rgba(0,242,234,.15);
+  display:flex;align-items:center;justify-content:center;color:var(--teal);font-size:17px;
+  background:rgba(0,242,234,.05)
+}
+.cl-label{font-size:8px;letter-spacing:1.7px;text-transform:uppercase;color:rgba(240,236,226,.32)}
+.cl-value{font-size:12.5px;color:rgba(240,236,226,.78);margin-top:3px;word-break:break-word}
+.cl-arrow{font-size:14px;color:rgba(240,236,226,.28);transition:transform .2s,color .2s}
+.contact-link:hover .cl-arrow{transform:translateX(3px);color:var(--teal)}
+.copy-btn{
+  width:100%;margin-top:10px;padding:12px 14px;border-radius:9px;
+  border:1px solid rgba(255,255,255,.08);background:transparent;color:rgba(240,236,226,.42);
+  font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:1.7px;text-transform:uppercase;cursor:pointer;
+  transition:border-color .2s,color .2s,background .2s
+}
+.copy-btn:hover{border-color:rgba(0,242,234,.2);color:var(--teal);background:rgba(0,242,234,.03)}
 
-/* Champs du formulaire */
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.quickfacts{
+  position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:28px
+}
+.qf{
+  border-top:1px solid rgba(255,255,255,.07);padding-top:12px;
+  font-size:10px;line-height:1.5;color:rgba(240,236,226,.36)
+}
+.qf strong{display:block;color:var(--cream);font-size:11px;font-weight:500;margin-bottom:3px}
+
+/* ---------- MESSAGE CARD ---------- */
+.message-card{padding:34px 32px}
+.message-card::before{
+  content:'';position:absolute;width:320px;height:320px;border-radius:50%;
+  right:-170px;bottom:-170px;background:var(--mauve);filter:blur(115px);opacity:.08
+}
+.message-top{position:relative;z-index:2;margin-bottom:27px}
+.message-kicker{font-size:9px;letter-spacing:2.3px;text-transform:uppercase;color:#b48aff}
+.message-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2.2px;line-height:1;margin-top:12px}
+.message-sub{font-size:12.5px;line-height:1.65;color:rgba(240,236,226,.46);margin-top:8px;max-width:610px}
+.form-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-group{display:flex;flex-direction:column;gap:7px}
 .form-group.full{grid-column:1/-1}
-.form-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.45)}
+.form-label{font-size:8px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(240,236,226,.35)}
 .form-input,.form-textarea,.form-select{
-  background:rgba(255,255,255,.04);
-  border:var(--glass-bd);
-  border-radius:8px;
-  color:var(--cream);
-  font-family:'DM Sans',sans-serif;
-  font-size:14px;font-weight:300;
-  padding:14px 16px;
-  outline:none;
-  transition:border-color .25s,background .25s;
-  width:100%;
-  -webkit-appearance:none;
+  width:100%;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:300;color:var(--cream);
+  padding:13px 14px;border-radius:9px;border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.025);outline:none;
+  transition:border-color .22s,background .22s,box-shadow .22s;-webkit-appearance:none
 }
-.form-input::placeholder,.form-textarea::placeholder{color:rgba(240,236,226,.25)}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(240,236,226,.2)}
 .form-input:focus,.form-textarea:focus,.form-select:focus{
-  border-color:rgba(0,242,234,.45);
-  background:rgba(0,242,234,.04);
+  border-color:rgba(0,242,234,.35);background:rgba(0,242,234,.025);
+  box-shadow:0 0 0 3px rgba(0,242,234,.035)
 }
-.form-textarea{resize:none;height:130px;line-height:1.6}
-.form-select{cursor:pointer;color:rgba(240,236,226,.6)}
+.form-select{color:rgba(240,236,226,.62);cursor:pointer}
 .form-select option{background:#0A0F1E;color:var(--cream)}
+.form-textarea{height:128px;resize:none;line-height:1.6}
+.form-hint{font-size:9px;color:rgba(240,236,226,.25);line-height:1.5;margin-top:2px}
+.form-actions{position:relative;z-index:2;display:flex;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.send-btn{
+  border:none;border-radius:5px;background:linear-gradient(135deg,var(--teal),#00c7c1);
+  color:#07101b;padding:15px 22px;font-family:'DM Sans',sans-serif;font-size:10px;
+  font-weight:600;letter-spacing:1.7px;text-transform:uppercase;cursor:pointer;
+  transition:transform .22s,box-shadow .28s
+}
+.send-btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,242,234,.2)}
+.form-note{font-size:9px;line-height:1.45;color:rgba(240,236,226,.28);max-width:330px}
 
-/* Bouton submit */
-.btn-submit{
-  width:100%;padding:17px 32px;margin-top:20px;
-  background:linear-gradient(135deg,var(--teal),#00c4be);
-  color:#0A0F1E;border:none;border-radius:4px;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;
-  letter-spacing:2px;text-transform:uppercase;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  transition:transform .22s,box-shadow .3s,background .3s;
-  position:relative;overflow:hidden;
+/* ---------- NEXT STEPS ---------- */
+.next-section{
+  position:relative;z-index:10;border-top:var(--glass-bd);background:rgba(255,255,255,.008);
+  padding:72px 56px
 }
-.btn-submit::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);
-  opacity:0;transition:opacity .25s;
+.next-inner{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:38px;align-items:center}
+.next-kicker{font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:var(--teal)}
+.next-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,4vw,56px);letter-spacing:2.3px;line-height:1;margin-top:10px}
+.next-copy{font-size:13px;line-height:1.7;color:var(--muted);margin-top:10px;max-width:550px}
+.next-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.next-card{
+  border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:20px 18px;
+  text-decoration:none;color:inherit;background:var(--glass-bg);transition:transform .25s,border-color .25s
 }
-.btn-submit:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(0,242,234,.28)}
-.btn-submit:hover::before{opacity:1}
-.btn-submit:active{transform:translateY(0)}
-.btn-submit .arrow{transition:transform .25s}
-.btn-submit:hover .arrow{transform:translateX(4px)}
+.next-card:hover{transform:translateY(-4px);border-color:rgba(0,242,234,.22)}
+.next-card-label{font-size:8px;letter-spacing:1.8px;text-transform:uppercase;color:var(--teal)}
+.next-card-title{font-family:'Bebas Neue',sans-serif;font-size:27px;letter-spacing:1.7px;margin-top:9px}
+.next-card-copy{font-size:10.5px;color:rgba(240,236,226,.38);margin-top:5px;line-height:1.5}
 
-/* État de succès */
-.form-success{
-  display:none;flex-direction:column;align-items:center;justify-content:center;
-  gap:16px;text-align:center;padding:48px 24px;
-  min-height:300px;
-}
-.success-icon{
-  width:64px;height:64px;border-radius:50%;
-  background:rgba(0,242,234,.1);border:1px solid rgba(0,242,234,.3);
-  display:flex;align-items:center;justify-content:center;font-size:26px;
-}
-.success-title{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px}
-.success-sub{font-size:14px;font-weight:300;color:var(--muted);max-width:320px;line-height:1.6}
-
-/* =============================================
-   CITATION FOOTER DE PAGE
-============================================= */
-.page-quote{
-  position:relative;z-index:10;
-  padding:64px 56px;text-align:center;
-}
-.quote-text{
-  font-size:clamp(16px,2vw,22px);font-weight:300;font-style:italic;
-  color:rgba(240,236,226,.35);max-width:600px;margin:0 auto;line-height:1.6;
-  position:relative;
-}
-.quote-text::before,.quote-text::after{
-  font-family:'Georgia',serif;font-size:52px;font-style:normal;
-  color:rgba(0,242,234,.15);line-height:0;vertical-align:-0.3em;
-}
-.quote-text::before{content:'"';margin-right:4px}
-.quote-text::after{content:'"';margin-left:4px}
-
-/* =============================================
-   RESPONSIVE
-============================================= */
+/* ---------- RESPONSIVE ---------- */
 @media(max-width:960px){
-  .page-hero{padding:100px 24px 48px;min-height:auto}
-  .hero-bg-text{display:none}
-  .contact-wrap{grid-template-columns:1fr;padding:52px 24px 0;gap:20px}
+  .c-hero{min-height:auto;padding:120px 24px 58px}
+  .c-watermark{display:none}
+  .c-section{padding:64px 24px}
+  .contact-grid{grid-template-columns:1fr}
+  .next-section{padding:58px 24px}
+  .next-inner{grid-template-columns:1fr}
+}
+@media(max-width:620px){
   .form-grid{grid-template-columns:1fr}
   .form-group.full{grid-column:auto}
-  .page-quote{padding:48px 24px}
+  .quickfacts,.next-actions{grid-template-columns:1fr}
+  .c-title{font-size:clamp(64px,20vw,92px)}
 }
-@media(max-width:640px){
-  .contact-wrap{padding-left:20px;padding-right:20px}
+@media(prefers-reduced-motion:reduce){
+  .js-ready .c-enter,.js-ready .c-mask-in{opacity:1!important;transform:none!important}
 }
 </style>
 </head>
-<body>
+<body class="page-contact">
 
 <div id="page-overlay"></div>
+<div id="spotlight"></div>
 <div class="cursor" id="cur"></div>
 <div class="cursor-ring" id="ring"></div>
 <div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div></div>
 <div class="grain"></div>
 
 <div class="scroll-indicator" id="scrollInd">
-  <div class="si-track"></div>
-  <div class="si-fill" id="siFill"></div>
-  <div class="si-label" id="siLabel">↓</div>
+  <div class="si-track"></div><div class="si-fill" id="siFill"></div><div class="si-label" id="siLabel">↓</div>
 </div>
 
 <div class="mobile-menu" id="mobileMenu">
@@ -229,194 +250,156 @@
   <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ==================== PAGE HERO ==================== -->
-<section class="page-hero">
-  <div class="hero-bg-text">CONTACT</div>
-  <div class="page-eyebrow">DISCUTONS DE VOTRE PROJET</div>
-  <h1 class="page-title">
-    <span class="t-stroke">CON</span><span class="t-teal">TACT</span>
-  </h1>
-  <p class="page-accroche">"Faisons équipe pour donner du relief à votre communication."</p>
+<!-- HERO -->
+<section class="c-hero">
+  <div class="c-grid" id="cGrid"></div>
+  <div class="c-watermark" id="cWatermark">CONTACT</div>
+
+  <div class="c-hero-inner">
+    <div class="c-eyebrow c-enter">UN PROJET · UNE OPPORTUNITÉ · UNE IDÉE</div>
+    <h1 class="c-title">
+      <span class="c-mask"><span class="c-mask-in">ON PEUT</span></span>
+      <span class="c-mask"><span class="c-mask-in"><span class="stroke">EN PARLER.</span></span></span>
+      <span class="c-mask"><span class="c-mask-in teal">SIMPLEMENT.</span></span>
+    </h1>
+
+    <p class="c-lead c-enter">
+      Pour une opportunité en <strong>communication marketing</strong>, création de contenu ou événementiel,
+      le plus simple reste un message direct. Je réponds dès que possible.
+    </p>
+
+    <div class="c-status-row c-enter">
+      <span class="c-pill live">Disponible CDI · Septembre 2026</span>
+      <span class="c-pill">Permis B · véhicule</span>
+      <span class="c-pill">Royan · Charente-Maritime</span>
+    </div>
+  </div>
 </section>
 
-<!-- ==================== GRILLE PRINCIPALE ==================== -->
-<div class="contact-wrap">
-
-  <!-- ========== COLONNE GAUCHE — COORDONNÉES ========== -->
-  <div class="coords-card reveal">
-    <div class="bubble-tag">Coordonnées directes</div>
-
-    <a href="mailto:arthurviaudpro@gmail.com" class="coord-row">
-      <div class="coord-icon ci-mail">📧</div>
-      <div>
-        <div class="coord-label">Email professionnel</div>
-        <div class="coord-value">arthurviaudpro@gmail.com</div>
-      </div>
-      <div class="coord-arrow">→</div>
-    </a>
-
-    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank" class="coord-row">
-      <div class="coord-icon ci-li">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="24" height="24" rx="4" fill="#0A66C2"/>
-          <path d="M6.5 10H4V20H6.5V10ZM5.25 8.8C5.97 8.8 6.5 8.27 6.5 7.55C6.5 6.83 5.97 6.3 5.25 6.3C4.53 6.3 4 6.83 4 7.55C4 8.27 4.53 8.8 5.25 8.8ZM20 20H17.5V14.9C17.5 13.1 16.5 12.5 15.5 12.5C14.5 12.5 13.5 13.3 13.5 14.9V20H11V10H13.4V11.3C13.9 10.5 14.9 9.8 16.3 9.8C18.5 9.8 20 11.2 20 13.9V20Z" fill="white"/>
-        </svg>
-      </div>
-      <div>
-        <div class="coord-label">LinkedIn</div>
-        <div class="coord-value">Créateur de contenus & Communicant</div>
-      </div>
-      <div class="coord-arrow">→</div>
-    </a>
-
-    <a href="a-propos.html" class="coord-row" style="margin-top:8px">
-      <div class="coord-icon" style="background:rgba(138,43,226,.1);border:1px solid rgba(138,43,226,.2);font-size:16px">👤</div>
-      <div>
-        <div class="coord-label">Qui suis-je ?</div>
-        <div class="coord-value">Découvrir mon profil →</div>
-      </div>
-      <div class="coord-arrow">→</div>
-    </a>
-  </div>
-
-  <!-- ========== COLONNE DROITE — FORMULAIRE ========== -->
-  <div class="col-right reveal">
-    <div class="form-card">
-
-      <!-- Formulaire -->
-      <div id="formWrap">
-        <div class="form-top">
-          <div class="form-tag">Formulaire de contact</div>
-          <div class="form-title">Écrivez-moi</div>
-          <p class="form-sub">Une idée, une proposition de stage, une collaboration ? Je réponds sous 24h.</p>
-        </div>
-
-        <div class="form-grid">
-
-          <div class="form-group">
-            <label class="form-label" for="nom">Nom complet</label>
-            <input class="form-input" id="nom" type="text" placeholder="Jean Dupont" autocomplete="name">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="email">Adresse email</label>
-            <input class="form-input" id="email" type="email" placeholder="jean@entreprise.fr" autocomplete="email">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="entreprise">Entreprise</label>
-            <input class="form-input" id="entreprise" type="text" placeholder="Nom de votre entreprise">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="sujet">Sujet</label>
-            <select class="form-select" id="sujet">
-              <option value="" disabled selected>Choisir un sujet…</option>
-              <option value="stage">Proposition de stage</option>
-              <option value="collab">Collaboration créative</option>
-              <option value="projet">Projet de communication</option>
-              <option value="autre">Autre demande</option>
-            </select>
-          </div>
-
-          <div class="form-group full">
-            <label class="form-label" for="message">Message</label>
-            <textarea class="form-textarea" id="message" placeholder="Décrivez votre projet ou votre besoin…"></textarea>
-          </div>
-
-        </div>
-
-        <button class="btn-submit" onclick="submitForm()">
-          Envoyer le message <span class="arrow">↗</span>
-        </button>
-      </div>
-
-      <!-- État succès -->
-      <div class="form-success" id="formSuccess">
-        <div class="success-icon">✓</div>
-        <div class="success-title">Message Envoyé !</div>
-        <p class="success-sub">Merci pour votre message. Je reviendrai vers vous dans les plus brefs délais.</p>
-      </div>
-
+<!-- MAIN -->
+<section class="c-section">
+  <div class="c-inner">
+    <div class="c-head">
+      <span class="c-num">01 ///</span>
+      <h2 class="c-head-title">Prendre contact</h2>
+      <div class="c-rule"></div>
     </div>
-  </div><!-- /col-right -->
+    <p class="c-section-lead">Deux chemins : me contacter directement, ou préparer un message ici. Le formulaire n’envoie aucune donnée à un service tiers : il ouvre simplement votre application mail avec le message prérempli.</p>
 
-</div><!-- /contact-wrap -->
+    <div class="contact-grid">
+      <aside class="direct-card reveal">
+        <div class="card-kicker">Accès direct</div>
+        <h3 class="direct-title">Sans intermédiaire.</h3>
+        <p class="direct-copy">Pour une candidature, un échange professionnel ou simplement une question sur un projet, vous pouvez me joindre directement par mail ou LinkedIn.</p>
 
-<!-- ==================== CITATION ==================== -->
-<div class="page-quote reveal">
-  <p class="quote-text">Mettre l'énergie et la créativité au service de la visibilité de vos projets.</p>
-</div>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:arthurviaudpro@gmail.com">
+            <div class="cl-icon">✉</div>
+            <div>
+              <div class="cl-label">Email</div>
+              <div class="cl-value">arthurviaudpro@gmail.com</div>
+            </div>
+            <div class="cl-arrow">↗</div>
+          </a>
 
-<!-- FOOTER -->
+          <a class="contact-link" href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank" rel="noopener">
+            <div class="cl-icon">in</div>
+            <div>
+              <div class="cl-label">LinkedIn</div>
+              <div class="cl-value">Arthur Viaud</div>
+            </div>
+            <div class="cl-arrow">↗</div>
+          </a>
+        </div>
+
+        <button class="copy-btn" id="copyEmail" type="button">Copier l’adresse email</button>
+
+        <div class="quickfacts">
+          <div class="qf"><strong>Disponibilité</strong>CDI dès septembre 2026</div>
+          <div class="qf"><strong>Mobilité</strong>Permis B + véhicule</div>
+          <div class="qf"><strong>Profil</strong>Communication · contenu · événementiel</div>
+          <div class="qf"><strong>Langues</strong>FR · EN B2 · ES B1</div>
+        </div>
+      </aside>
+
+      <article class="message-card reveal">
+        <div class="message-top">
+          <div class="message-kicker">Préparer un message</div>
+          <h3 class="message-title">Quelques lignes suffisent.</h3>
+          <p class="message-sub">Remplissez les champs utiles puis cliquez sur « Préparer l’email ». Votre logiciel de messagerie s’ouvrira avec le contenu déjà renseigné.</p>
+        </div>
+
+        <form id="contactForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="name">Nom</label>
+              <input class="form-input" id="name" name="name" type="text" placeholder="Votre nom">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="company">Entreprise</label>
+              <input class="form-input" id="company" name="company" type="text" placeholder="Votre entreprise">
+            </div>
+            <div class="form-group full">
+              <label class="form-label" for="subject">Sujet</label>
+              <select class="form-select" id="subject" name="subject">
+                <option value="Opportunité professionnelle">Opportunité professionnelle</option>
+                <option value="Candidature / recrutement">Candidature / recrutement</option>
+                <option value="Projet de communication">Projet de communication</option>
+                <option value="Échange autour du portfolio">Échange autour du portfolio</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label" for="message">Message</label>
+              <textarea class="form-textarea" id="message" name="message" placeholder="Bonjour Arthur,&#10;&#10;Je vous contacte au sujet de…"></textarea>
+              <div class="form-hint">Aucune donnée n’est enregistrée sur le site.</div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="send-btn" type="submit">Préparer l’email ↗</button>
+            <div class="form-note">Le bouton ouvre votre client mail avec l’adresse, le sujet et le message déjà préparés.</div>
+          </div>
+        </form>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT -->
+<section class="next-section">
+  <div class="next-inner">
+    <div>
+      <div class="next-kicker">Avant d’écrire</div>
+      <h2 class="next-title">Vous voulez d’abord voir le travail ?</h2>
+      <p class="next-copy">Les deux expériences les plus représentatives sont accessibles directement ci-contre.</p>
+    </div>
+    <div class="next-actions">
+      <a class="next-card" href="projet-garden-open.html">
+        <div class="next-card-label">Étude de cas 2026</div>
+        <div class="next-card-title">Royan Atlantique Open</div>
+        <div class="next-card-copy">Social media · vidéo · communication temps réel · événementiel</div>
+      </a>
+      <a class="next-card" href="projet-palmfest.html">
+        <div class="next-card-label">Stage 2025</div>
+        <div class="next-card-title">Palm’Fest</div>
+        <div class="next-card-copy">LinkedIn · mécénat · partenaires · storytelling</div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="f-logo">Arthur Viaud · 2026</div>
   <div class="f-links">
-    <a href="portfolio.html">Portfolio</a>
-    <a href="parcours.html">Parcours</a>
-    <a href="a-propos.html">À Propos</a>
-    <a href="contact.html">Contact</a>
-    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
+    <a href="portfolio.html">Portfolio</a><a href="parcours.html">Parcours</a>
+    <a href="a-propos.html">À Propos</a><a href="contact.html">Contact</a>
+    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
   <div class="f-copy">D'une inspiration naît une vision</div>
 </footer>
 
-<script src="shared.js" defer></script>
-<script>
-/* --- Validation & submit simulé --- */
-function submitForm(){
-  const nom=document.getElementById('nom').value.trim();
-  const email=document.getElementById('email').value.trim();
-  const sujet=document.getElementById('sujet').value;
-  const message=document.getElementById('message').value.trim();
-
-  /* Highlight champs vides */
-  [['nom',nom],['email',email],['sujet',sujet],['message',message]].forEach(([id,val])=>{
-    const el=document.getElementById(id);
-    if(!val){
-      el.style.borderColor='rgba(255,80,80,.5)';
-      el.addEventListener('input',()=>el.style.borderColor='',{once:true});
-      el.addEventListener('change',()=>el.style.borderColor='',{once:true});
-    }
-  });
-
-  if(!nom||!email||!sujet||!message) return;
-
-  /* Validation email basique */
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    const el=document.getElementById('email');
-    el.style.borderColor='rgba(255,80,80,.5)';
-    el.placeholder='Email invalide';
-    return;
-  }
-
-  /* Animation bouton */
-  const btn=document.querySelector('.btn-submit');
-  btn.textContent='Envoi en cours…';
-  btn.style.opacity='.7';
-  btn.style.pointerEvents='none';
-
-  /* Simule l'envoi (remplacer par fetch vers un backend / Formspree) */
-  setTimeout(()=>{
-    document.getElementById('formWrap').style.display='none';
-    const success=document.getElementById('formSuccess');
-    success.style.display='flex';
-    success.style.opacity='0';
-    requestAnimationFrame(()=>{
-      success.style.transition='opacity .6s ease';
-      success.style.opacity='1';
-    });
-  }, 1400);
-}
-
-/* Pour connecter un vrai backend, remplace le setTimeout par :
-   fetch('https://formspree.io/f/TON_ID', {
-     method:'POST',
-     headers:{'Content-Type':'application/json'},
-     body: JSON.stringify({nom, email, sujet, message})
-   }).then(()=>{ ... afficher succès ... })
-*/
-
-</script>
+<script src="shared.js"></script>
+<script src="contact.js"></script>
 </body>
 </html>

@@ -5,251 +5,159 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Arthur Viaud</title>
+<meta name="description" content="Sélection de projets en communication marketing, création de contenu, événementiel et entrepreneuriat — Arthur Viaud.">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-
 /* =============================================
-   PAGE HERO
+   PORTFOLIO — REFONTE 2026
 ============================================= */
+body{background:var(--bg)}
+
+/* HERO */
 .page-hero{
-  position:relative;z-index:10;
-  min-height:68vh;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:130px 56px 72px;border-bottom:var(--glass-bd);overflow:hidden;
+  position:relative;z-index:10;min-height:72vh;
+  display:flex;align-items:flex-end;
+  padding:148px 56px 74px;
+  overflow:hidden;border-bottom:var(--glass-bd);
+}
+.hero-glow{
+  position:absolute;width:520px;height:520px;border-radius:50%;
+  right:5%;top:6%;background:var(--teal);filter:blur(120px);opacity:.08;pointer-events:none;
 }
 .hero-bg-text{
-  position:absolute;right:-20px;bottom:-30px;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(140px,22vw,280px);
-  color:rgba(255,255,255,.02);letter-spacing:6px;
-  pointer-events:none;user-select:none;line-height:1;
+  position:absolute;right:-1vw;bottom:-5vw;
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(150px,23vw,320px);
+  color:rgba(255,255,255,.022);letter-spacing:6px;line-height:.8;
+  pointer-events:none;user-select:none;
 }
+.hero-content{position:relative;z-index:2;max-width:980px}
 .page-eyebrow{
-  font-size:11px;letter-spacing:3px;text-transform:uppercase;
-  color:var(--teal);margin-bottom:18px;
-  opacity:0;animation:riseUp .7s ease forwards .2s;
-  display:flex;align-items:center;gap:12px;
+  font-size:10px;letter-spacing:2.8px;text-transform:uppercase;color:var(--teal);
+  margin-bottom:22px;display:flex;align-items:center;gap:12px;
+  opacity:0;animation:riseUp .7s ease forwards .18s;
 }
-.page-eyebrow::before{content:'';width:32px;height:1px;background:var(--teal)}
+.page-eyebrow::before{content:'';width:34px;height:1px;background:var(--teal)}
 .page-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(64px,10vw,140px);
-  line-height:.87;letter-spacing:3px;
-  opacity:0;animation:riseUp .85s ease forwards .35s;
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(70px,11vw,148px);
+  line-height:.84;letter-spacing:2px;opacity:0;animation:riseUp .85s ease forwards .3s;
 }
-.page-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.18);color:transparent}
-.page-title .t-teal{color:var(--teal)}
+.page-title .outline{-webkit-text-stroke:2px rgba(240,236,226,.28);color:transparent}
+.page-title .accent{color:var(--teal)}
 .page-accroche{
-  font-size:clamp(15px,1.6vw,20px);font-weight:300;font-style:italic;
-  color:var(--muted);max-width:520px;line-height:1.65;margin-top:24px;
-  opacity:0;animation:riseUp .85s ease forwards .52s;
+  max-width:680px;margin-top:26px;font-size:clamp(15px,1.55vw,20px);
+  line-height:1.7;font-weight:300;color:rgba(240,236,226,.62);
+  opacity:0;animation:riseUp .8s ease forwards .46s;
 }
-.hero-count{
-  position:absolute;top:130px;right:56px;
-  display:flex;flex-direction:column;align-items:flex-end;gap:4px;
-  opacity:0;animation:riseUp .9s ease forwards .65s;
+.hero-meta{
+  position:absolute;right:56px;top:132px;z-index:2;text-align:right;
+  opacity:0;animation:riseUp .8s ease forwards .58s;
 }
-.hero-count-n{
-  font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;
-  color:var(--cream);letter-spacing:2px;
-}
-.hero-count-n em{font-style:normal;color:var(--teal);font-size:36px}
-.hero-count-l{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+.hero-meta strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:.95;letter-spacing:1px}
+.hero-meta strong em{font-style:normal;color:var(--teal);font-size:.56em}
+.hero-meta span{display:block;margin-top:8px;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,226,.35)}
 
-/* =============================================
-   FILTRES
-============================================= */
+/* FILTER */
 .filter-bar{
-  position:relative;z-index:10;
-  padding:40px 56px;
-  border-bottom:var(--glass-bd);
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-  background:rgba(255,255,255,.012);
+  position:relative;z-index:10;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:28px 56px;border-bottom:var(--glass-bd);background:rgba(255,255,255,.012);
 }
-.filter-label{
-  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
-  color:rgba(240,236,226,.3);margin-right:8px;
-}
+.filter-label{font-size:8px;letter-spacing:2.2px;text-transform:uppercase;color:rgba(240,236,226,.28);margin-right:8px}
 .filter-btn{
-  font-family:'DM Sans',sans-serif;
-  font-size:11px;letter-spacing:2px;text-transform:uppercase;
-  padding:9px 20px;border-radius:4px;border:none;cursor:pointer;
-  background:var(--glass-bg);border:var(--glass-bd);
-  color:var(--muted);
-  transition:background .25s,border-color .25s,color .25s;
+  border:var(--glass-bd);background:rgba(255,255,255,.025);color:rgba(240,236,226,.5);
+  border-radius:999px;padding:8px 15px;font:500 9px 'DM Sans',sans-serif;
+  letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:.25s;
 }
 .filter-btn:hover{color:var(--cream);border-color:rgba(255,255,255,.2)}
-.filter-btn.active{
-  background:rgba(0,242,234,.1);
-  border-color:rgba(0,242,234,.4);
-  color:var(--teal);
-}
+.filter-btn.active{color:var(--teal);border-color:rgba(0,242,234,.32);background:rgba(0,242,234,.07)}
 
-/* =============================================
-   GRILLE PROJETS
-============================================= */
-.portfolio-wrap{
-  position:relative;z-index:10;
-  padding:64px 56px 80px;
-  max-width:1400px;margin:0 auto;
-}
-.proj-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-}
+/* WRAP */
+.portfolio-wrap{position:relative;z-index:10;max-width:1400px;margin:0 auto;padding:72px 56px 96px}
+.section-kicker{font-size:8px;letter-spacing:2.2px;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4.5vw,62px);letter-spacing:1.5px;line-height:1;margin-bottom:28px}
 
-/* Card projet */
-.proj-card{
-  position:relative;overflow:hidden;
-  border-radius:var(--radius);
-  border:var(--glass-bd);
-  background:var(--glass-bg);
-  backdrop-filter:var(--glass-blur);
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:0;cursor:pointer;text-decoration:none;
-  transition:transform .32s,border-color .32s,box-shadow .32s;
-  min-height:320px;
+/* FEATURED GARDEN */
+.featured-card{
+  position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);
+  min-height:560px;border:var(--glass-bd);border-radius:18px;overflow:hidden;text-decoration:none;color:var(--cream);
+  background:rgba(255,255,255,.025);transition:transform .35s,border-color .35s,box-shadow .35s;
 }
-.proj-card:hover{
-  transform:translateY(-6px);
-  border-color:rgba(0,242,234,.28);
-  box-shadow:0 28px 60px rgba(0,0,0,.35);
-}
+.featured-card:hover{transform:translateY(-5px);border-color:rgba(0,242,234,.3);box-shadow:0 34px 80px rgba(0,0,0,.35)}
+.featured-media{position:relative;min-height:560px;overflow:hidden;background:#080d18}
+.featured-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 48%;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.featured-card:hover .featured-media img{transform:scale(1.025)}
+.featured-media::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,rgba(10,15,30,.42)),linear-gradient(to top,rgba(10,15,30,.55),transparent 55%)}
+.featured-credit{position:absolute;left:16px;bottom:12px;z-index:2;font-size:6px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(240,236,226,.34)}
+.featured-content{padding:46px 42px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.featured-content::before{content:'01';position:absolute;right:28px;top:24px;font-family:'Bebas Neue';font-size:72px;color:rgba(255,255,255,.025)}
+.card-overline{font-size:8px;letter-spacing:2.1px;text-transform:uppercase;color:var(--teal);margin-bottom:15px}
+.featured-content h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,5.8vw,78px);line-height:.9;letter-spacing:1.4px;max-width:530px}
+.featured-content h2 span{color:var(--teal)}
+.featured-content>p{font-size:13px;line-height:1.75;font-weight:300;color:rgba(240,236,226,.55);margin:22px 0;max-width:500px}
+.kpi-row{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:28px}
+.kpi-chip{padding:9px 12px;border-radius:7px;border:var(--glass-bd);background:rgba(255,255,255,.025)}
+.kpi-chip strong{font-family:'Bebas Neue';font-size:24px;line-height:1;color:var(--cream);letter-spacing:.6px}
+.kpi-chip span{display:block;margin-top:2px;font-size:6.5px;letter-spacing:1.25px;text-transform:uppercase;color:rgba(240,236,226,.35)}
+.card-link{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:var(--teal)}
+.card-link b{font-size:16px;font-weight:400;transition:transform .25s}.featured-card:hover .card-link b{transform:translate(3px,-3px)}
 
-/* Card large (1ère colonne entière ou 3e carte) */
-.proj-card.wide{grid-column:1/-1;min-height:380px}
+/* SECONDARY GRID */
+.secondary-head{margin-top:90px;display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:28px}
+.secondary-head p{max-width:430px;font-size:11.5px;line-height:1.7;color:rgba(240,236,226,.42);font-weight:300;text-align:right}
+.secondary-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.project-card{
+  position:relative;min-height:390px;border-radius:14px;border:var(--glass-bd);overflow:hidden;
+  text-decoration:none;color:var(--cream);background:#0d1321;transition:transform .32s,border-color .32s,box-shadow .32s;
+}
+.project-card:hover{transform:translateY(-5px);border-color:rgba(0,242,234,.25);box-shadow:0 28px 65px rgba(0,0,0,.3)}
+.project-card.palmfest{grid-column:1/-1;min-height:440px}
+.project-media{position:absolute;inset:0;overflow:hidden}
+.project-media img{width:100%;height:100%;object-fit:cover;transition:transform .65s ease,filter .35s ease;filter:saturate(.9) brightness(.8)}
+.project-card:hover .project-media img{transform:scale(1.025);filter:saturate(1) brightness(.9)}
+.project-card.palmfest .project-media img{object-position:center 36%}
+.project-card.sneakers .project-media img{object-position:center 24%}
+.project-card.revofit .project-media img{object-position:center top}
+.project-shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,30,.98) 0%,rgba(10,15,30,.6) 42%,rgba(10,15,30,.05) 80%)}
+.project-card.palmfest .project-shade{background:linear-gradient(90deg,rgba(10,15,30,.9) 0%,rgba(10,15,30,.47) 54%,rgba(10,15,30,.18)),linear-gradient(to top,rgba(10,15,30,.9),transparent 65%)}
+.project-top{position:absolute;z-index:3;left:22px;right:22px;top:20px;display:flex;justify-content:space-between;align-items:center}
+.project-tag{font-size:7px;letter-spacing:1.6px;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(10,15,30,.48);backdrop-filter:blur(8px)}
+.project-arrow{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:var(--glass-bd);background:rgba(10,15,30,.42);font-size:13px;transition:.25s}
+.project-card:hover .project-arrow{background:var(--teal);color:#0A0F1E;border-color:var(--teal);transform:rotate(45deg)}
+.project-copy{position:absolute;z-index:3;left:28px;right:28px;bottom:28px}
+.project-year{font-size:7px;letter-spacing:1.7px;text-transform:uppercase;color:rgba(240,236,226,.4);margin-bottom:8px}
+.project-copy h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4vw,56px);line-height:.92;letter-spacing:1.3px}
+.project-copy p{margin-top:10px;font-size:11.5px;line-height:1.6;color:rgba(240,236,226,.52);max-width:620px}
+.project-proof{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}
+.project-proof span{font-size:6.5px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(240,236,226,.55);border:1px solid rgba(255,255,255,.11);padding:5px 8px;border-radius:999px;background:rgba(10,15,30,.34)}
 
-/* Fond illustratif de la card */
-.card-bg{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:clamp(80px,10vw,130px);
-  opacity:.08;
-  pointer-events:none;
-  transition:opacity .35s,transform .35s;
-}
-.proj-card:hover .card-bg{opacity:.14;transform:scale(1.06)}
+/* FILTER STATES */
+[data-project].is-hidden{display:none}
+[data-project].is-entering{animation:projectIn .35s ease both}
+@keyframes projectIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-/* Overlay gradient bas */
-.card-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(10,15,30,.85) 0%,transparent 60%);
-  pointer-events:none;
-}
+/* BOTTOM CTA */
+.cta-section{position:relative;z-index:10;padding:72px 56px;border-top:var(--glass-bd);text-align:center;background:rgba(0,0,0,.14)}
+.cta-section>span{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--teal)}
+.cta-section h2{font-family:'Bebas Neue';font-size:clamp(42px,6vw,78px);line-height:.94;letter-spacing:1.4px;margin:14px auto 26px;max-width:850px}
+.cta-section p{font-size:12px;color:rgba(240,236,226,.45);margin:-10px auto 28px;max-width:580px;line-height:1.7}
+.cta-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
 
-/* Contenu texte de la card */
-.card-body{
-  position:relative;z-index:2;
-  padding:32px 28px;
-  display:flex;flex-direction:column;gap:8px;
+@media(max-width:1000px){
+  .page-hero{min-height:62vh;padding:128px 28px 62px}.hero-meta{right:28px;top:114px}
+  .filter-bar{padding:24px 28px}.portfolio-wrap{padding:60px 28px 80px}
+  .featured-card{grid-template-columns:1fr;min-height:auto}.featured-media{min-height:500px}.featured-content{padding:38px 34px 42px}
+  .secondary-head{margin-top:70px}.secondary-grid{grid-template-columns:1fr 1fr}.project-card.palmfest{grid-column:1/-1}
 }
-.card-top{
-  display:flex;align-items:center;justify-content:space-between;
-  position:absolute;top:22px;left:28px;right:22px;
-  z-index:2;
+@media(max-width:700px){
+  .page-hero{min-height:auto;padding:116px 20px 50px}.hero-bg-text,.hero-meta{display:none}.page-title{font-size:clamp(68px,22vw,102px)}
+  .filter-bar{padding:20px;gap:7px}.filter-label{width:100%;margin-bottom:3px}.filter-btn{padding:7px 11px;font-size:8px}
+  .portfolio-wrap{padding:46px 20px 64px}.featured-media{min-height:410px}.featured-media img{object-position:center}.featured-content{padding:31px 24px 34px}
+  .featured-content h2{font-size:56px}.featured-content>p{font-size:12px}.kpi-chip strong{font-size:21px}
+  .secondary-head{display:block;margin-top:62px}.secondary-head p{text-align:left;margin-top:10px}
+  .secondary-grid{grid-template-columns:1fr}.project-card,.project-card.palmfest{grid-column:auto;min-height:360px}
+  .cta-section{padding:58px 20px}
 }
-.card-tag{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:9.5px;letter-spacing:2px;text-transform:uppercase;
-  padding:5px 12px;border-radius:100px;
-  border:var(--glass-bd);background:rgba(0,0,0,.3);
-  backdrop-filter:blur(8px);
-  transition:border-color .25s;
-}
-.tag-entrepreneuriat{color:var(--teal);border-color:rgba(0,242,234,.25)}
-.tag-communication{color:#b48aff;border-color:rgba(180,138,255,.25)}
-.tag-formation{color:#ffd97d;border-color:rgba(255,217,125,.25)}
-
-.card-arrow{
-  width:34px;height:34px;border-radius:50%;
-  border:var(--glass-bd);
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;color:var(--cream);
-  background:rgba(0,0,0,.25);
-  backdrop-filter:blur(8px);
-  transition:background .25s,border-color .25s,transform .25s;
-}
-.proj-card:hover .card-arrow{
-  background:var(--teal);
-  border-color:var(--teal);
-  color:#0A0F1E;
-  transform:rotate(45deg);
-}
-
-.card-year{
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(240,236,226,.35);
-}
-.card-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(32px,3.5vw,46px);
-  letter-spacing:2px;line-height:.92;color:var(--cream);
-}
-.card-desc{
-  font-size:13px;font-weight:300;color:var(--muted);
-  line-height:1.5;max-width:480px;
-}
-
-/* État "masqué" pour le filtrage */
-.proj-card.hidden{
-  display:none;
-}
-.proj-card.fade-out{
-  opacity:0;transform:scale(.96);pointer-events:none;
-  transition:opacity .22s ease,transform .22s ease;
-}
-.proj-card.fade-in{
-  opacity:1;transform:scale(1);
-  transition:opacity .3s ease .1s,transform .3s ease .1s;
-}
-
-/* Badge "Bientôt" */
-.card-soon{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  z-index:3;
-  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
-  padding:8px 18px;border-radius:4px;
-  background:rgba(0,0,0,.5);border:var(--glass-bd);
-  color:rgba(240,236,226,.4);backdrop-filter:blur(8px);
-}
-.proj-card.soon{pointer-events:none;opacity:.5}
-
-/* =============================================
-   CTA BOTTOM
-============================================= */
-.cta-section{
-  position:relative;z-index:10;
-  padding:64px 56px;
-  text-align:center;
-  border-top:var(--glass-bd);
-}
-.cta-label{
-  font-size:11px;letter-spacing:3px;text-transform:uppercase;
-  color:var(--teal);margin-bottom:16px;
-  display:flex;align-items:center;justify-content:center;gap:12px;
-}
-.cta-label::before,.cta-label::after{content:'';flex:1;max-width:80px;height:1px;background:var(--teal);opacity:.4}
-.cta-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(32px,4vw,54px);
-  letter-spacing:3px;margin-bottom:28px;
-}
-.cta-btns{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
-
-/* =============================================
-   RESPONSIVE
-============================================= */
-@media(max-width:960px){
-  .page-hero{padding:100px 24px 52px;min-height:auto}
-  .hero-bg-text,.hero-count{display:none}
-  .filter-bar{padding:28px 24px}
-  .portfolio-wrap{padding:40px 24px 64px}
-  .proj-grid{grid-template-columns:1fr}
-  .proj-card.wide{grid-column:auto;min-height:280px}
-  .proj-card{min-height:260px}
-  .cta-section{padding:48px 24px}
-}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
@@ -257,20 +165,13 @@
 <div id="page-overlay"></div>
 <div class="cursor" id="cur"></div>
 <div class="cursor-ring" id="ring"></div>
-<div class="mesh">
-  <div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div>
-  <div class="mesh-blob mb3"></div><div class="mesh-blob mb4"></div>
-</div>
+<div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div><div class="mesh-blob mb4"></div></div>
 <div class="grain"></div>
 
-<!-- SCROLL INDICATOR -->
 <div class="scroll-indicator" id="scrollInd" title="Haut de page">
-  <div class="si-track"></div>
-  <div class="si-fill" id="siFill"></div>
-  <div class="si-label" id="siLabel">↑</div>
+  <div class="si-track"></div><div class="si-fill" id="siFill"></div><div class="si-label" id="siLabel">↑</div>
 </div>
 
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mob-close" onclick="closeMob()">✕</button>
   <a href="index.html" onclick="closeMob()">Accueil</a>
@@ -280,12 +181,8 @@
   <a href="contact.html" onclick="closeMob()">Contact</a>
 </div>
 
-<!-- NAV -->
 <nav id="nav">
-  <a href="index.html" class="logo-block">
-    <span class="logo-name">arthur.</span>
-    <span class="logo-sub">D'une inspiration naît une vision</span>
-  </a>
+  <a href="index.html" class="logo-block"><span class="logo-name">arthur.</span><span class="logo-sub">D'une inspiration naît une vision</span></a>
   <ul class="nav-links">
     <li><a href="portfolio.html" class="active">Portfolio</a></li>
     <li><a href="parcours.html">Parcours</a></li>
@@ -293,163 +190,121 @@
     <li><a href="contact.html">Contact</a></li>
     <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
   </ul>
-  <button class="hamburger" onclick="toggleMob()">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ==================== PAGE HERO ==================== -->
-<div class="page-hero">
-  <div class="hero-bg-text">WORK</div>
-  <div class="hero-count">
-    <div class="hero-count-n">3<em>+</em></div>
-    <div class="hero-count-l">Projets réalisés</div>
+<section class="page-hero">
+  <div class="hero-glow"></div><div class="hero-bg-text">WORK</div>
+  <div class="hero-content">
+    <div class="page-eyebrow">Sélection de projets · 2022 — 2026</div>
+    <h1 class="page-title"><span>PROJETS</span><br><span class="outline">&amp; EXPÉ</span><span class="accent">RIENCES</span></h1>
+    <p class="page-accroche">Du tournoi ATP à la stratégie B2B d'un festival : une sélection de projets où communication, création et exécution terrain se rencontrent.</p>
   </div>
-  <div class="page-eyebrow">Projets &amp; Réalisations</div>
-  <h1 class="page-title">
-    <span>PORT</span><span class="t-stroke">FOL</span><span class="t-teal">IO</span>
-  </h1>
-  <p class="page-accroche">Chaque projet raconte une histoire.</p>
-</div>
+  <div class="hero-meta"><strong>4<em>×</em></strong><span>projets sélectionnés</span></div>
+</section>
 
-<!-- ==================== FILTRES ==================== -->
 <div class="filter-bar" id="filterBar">
-  <span class="filter-label">Filtrer :</span>
+  <span class="filter-label">Filtrer la sélection</span>
   <button class="filter-btn active" data-filter="all">Tous</button>
-  <button class="filter-btn" data-filter="entrepreneuriat">Entrepreneuriat</button>
   <button class="filter-btn" data-filter="communication">Communication</button>
-  <button class="filter-btn" data-filter="formation">Formation</button>
+  <button class="filter-btn" data-filter="entrepreneuriat">Entrepreneuriat</button>
 </div>
 
-<!-- ==================== GRILLE PROJETS ==================== -->
-<div class="portfolio-wrap">
-  <div class="proj-grid" id="projGrid">
+<main class="portfolio-wrap">
+  <div class="section-kicker">Expérience signature</div>
+  <h2 class="section-title">Le projet qui résume le mieux mon profil.</h2>
 
-    <!-- ① Sneakers Business — LARGE -->
-    <a href="projet-sneakers.html" class="proj-card wide reveal" data-cat="entrepreneuriat">
-      <div class="card-top">
-        <span class="card-tag tag-entrepreneuriat">Entrepreneuriat</span>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-bg">👟</div>
-      <div class="card-overlay"></div>
-      <div class="card-body">
-        <div class="card-year">2022 — 2024</div>
-        <div class="card-title">Sneakers Business</div>
-        <div class="card-desc">De la passion culturelle à la stratégie d'acquisition digitale.</div>
-      </div>
-    </a>
-
-    <!-- ② RevoFit -->
-    <a href="projet-revofit.html" class="proj-card reveal" data-cat="entrepreneuriat">
-      <div class="card-top">
-        <span class="card-tag tag-entrepreneuriat">Entrepreneuriat</span>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-bg">💪</div>
-      <div class="card-overlay"></div>
-      <div class="card-body">
-        <div class="card-year">2024</div>
-        <div class="card-title">RevoFit</div>
-        <div class="card-desc">L'alliance de la performance sportive et de l'innovation numérique.</div>
-      </div>
-    </a>
-
-    <!-- ③ Palm'Fest -->
-    <a href="projet-palmfest.html" class="proj-card reveal" data-cat="communication">
-      <div class="card-top">
-        <span class="card-tag tag-communication">Communication</span>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-bg">🌴</div>
-      <div class="card-overlay"></div>
-      <div class="card-body">
-        <div class="card-year">2024</div>
-        <div class="card-title">Palm'Fest</div>
-        <div class="card-desc">Convertir l'énergie d'un festival de 10 000 personnes en stratégie d'acquisition mécénat.</div>
-      </div>
-    </a>
-
-    <!-- ④ Réalisations BUT TC — Bientôt -->
-    <div class="proj-card soon reveal" data-cat="formation">
-      <div class="card-top">
-        <span class="card-tag tag-formation">Formation</span>
-      </div>
-      <div class="card-bg">🎓</div>
-      <div class="card-overlay"></div>
-      <div class="card-body">
-        <div class="card-year">2023 — 2026</div>
-        <div class="card-title">Réalisations BUT TC</div>
-        <div class="card-desc">Projets académiques & Marketing Digital — IUT de Poitiers.</div>
-      </div>
-      <div class="card-soon">Bientôt disponible</div>
+  <a href="projet-garden-open.html" class="featured-card reveal" data-project data-cat="communication">
+    <div class="featured-media">
+      <img src="assets/images/garden-open-2026/communication-team2.jpg" alt="Équipe communication du Royan Atlantique Open au bord du court" loading="eager">
+      <span class="featured-credit">Royan Atlantique Open · équipe communication</span>
     </div>
+    <div class="featured-content">
+      <div class="card-overline">Stage · Communication digitale &amp; événementielle · 2026</div>
+      <h2>ROYAN ATLANTIQUE <span>OPEN</span></h2>
+      <p>Douze semaines au Garden Tennis de Royan avec un temps fort : piloter la communication Instagram d'un ATP Challenger 50, produire du contenu en temps réel et contribuer à l'organisation du tournoi.</p>
+      <div class="kpi-row">
+        <div class="kpi-chip"><strong>2M+</strong><span>vues organiques</span></div>
+        <div class="kpi-chip"><strong>+510</strong><span>abonnés nets</span></div>
+        <div class="kpi-chip"><strong>12 sem.</strong><span>immersion</span></div>
+        <div class="kpi-chip"><strong>ATP 50</strong><span>challenger</span></div>
+      </div>
+      <span class="card-link">Découvrir l'étude de cas <b>↗</b></span>
+    </div>
+  </a>
 
-  </div><!-- /proj-grid -->
-</div><!-- /portfolio-wrap -->
-
-<!-- ==================== CTA CONTACT ==================== -->
-<div class="cta-section reveal">
-  <div class="cta-label">Collaborons ensemble</div>
-  <h2 class="cta-title">Vous avez un projet ?</h2>
-  <div class="cta-btns">
-    <a href="contact.html" class="btn-primary">Me contacter ↗</a>
-    <a href="parcours.html" class="btn-ghost">Découvrir mon parcours →</a>
+  <div class="secondary-head">
+    <div><div class="section-kicker">Autres terrains</div><h2 class="section-title" style="margin-bottom:0">Trois projets complémentaires.</h2></div>
+    <p>Ils montrent d'autres facettes du même profil : B2B, storytelling, entrepreneuriat, branding et culture digitale.</p>
   </div>
-</div>
 
-<!-- FOOTER -->
+  <div class="secondary-grid" id="projectGrid">
+    <a href="projet-palmfest.html" class="project-card palmfest reveal" data-project data-cat="communication">
+      <div class="project-media"><img src="assets/images/palmfest/PM2-cover.png" alt="Création Palm'Fest — communication du festival" loading="lazy"></div>
+      <div class="project-shade"></div>
+      <div class="project-top"><span class="project-tag">Communication B2B · Festival</span><span class="project-arrow">↗</span></div>
+      <div class="project-copy">
+        <div class="project-year">Stage · 2025</div>
+        <h3>PALM'FEST</h3>
+        <p>Stratégie LinkedIn B2B, mécénat et partenaires, création graphique, storytelling et analyse des performances pour un festival ancré sur le territoire royannais.</p>
+        <div class="project-proof"><span>LinkedIn</span><span>Mécénat</span><span>Storytelling</span><span>Création</span></div>
+      </div>
+    </a>
+
+    <a href="projet-sneakers.html" class="project-card sneakers reveal" data-project data-cat="entrepreneuriat">
+      <div class="project-media"><img src="assets/images/sneakers/SNK4.jpg" alt="Feed Instagram Sneakers Business" loading="lazy"></div>
+      <div class="project-shade"></div>
+      <div class="project-top"><span class="project-tag">Entrepreneuriat · Social media</span><span class="project-arrow">↗</span></div>
+      <div class="project-copy">
+        <div class="project-year">Projet personnel · 2022 — 2024</div>
+        <h3>SNEAKERS BUSINESS</h3>
+        <p>Une activité d'achat-revente transformée en laboratoire d'acquisition digitale, de contenu et de culture e-commerce.</p>
+        <div class="project-proof"><span>Instagram</span><span>Acquisition</span><span>E-commerce</span></div>
+      </div>
+    </a>
+
+    <a href="projet-revofit.html" class="project-card revofit reveal" data-project data-cat="entrepreneuriat">
+      <div class="project-media"><img src="assets/images/revofit/RVF2.png" alt="Interface du projet RevoFit" loading="lazy"></div>
+      <div class="project-shade"></div>
+      <div class="project-top"><span class="project-tag">Projet académique · Branding</span><span class="project-arrow">↗</span></div>
+      <div class="project-copy">
+        <div class="project-year">BUT TC · 2024</div>
+        <h3>REVOFIT</h3>
+        <p>Concept de marketplace autour de la création vestimentaire : positionnement, identité visuelle et réflexion d'interface.</p>
+        <div class="project-proof"><span>Branding</span><span>Concept</span><span>UI</span></div>
+      </div>
+    </a>
+  </div>
+</main>
+
+<section class="cta-section reveal">
+  <span>Suite du parcours</span>
+  <h2>DES PROJETS DIFFÉRENTS.<br>UNE MÊME FAÇON DE FAIRE.</h2>
+  <p>Comprendre le contexte, trouver l'angle, produire vite et proprement, puis mesurer ce qui fonctionne.</p>
+  <div class="cta-btns"><a href="parcours.html" class="btn-primary">Découvrir mon parcours ↗</a><a href="contact.html" class="btn-ghost">Me contacter →</a></div>
+</section>
+
 <footer>
   <div class="f-logo">Arthur Viaud · 2026</div>
-  <div class="f-links">
-    <a href="portfolio.html">Portfolio</a>
-    <a href="parcours.html">Parcours</a>
-    <a href="a-propos.html">À Propos</a>
-    <a href="contact.html">Contact</a>
-    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
-  </div>
+  <div class="f-links"><a href="portfolio.html">Portfolio</a><a href="parcours.html">Parcours</a><a href="a-propos.html">À Propos</a><a href="contact.html">Contact</a><a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank" rel="noopener">LinkedIn ↗</a></div>
   <div class="f-copy">D'une inspiration naît une vision</div>
 </footer>
 
 <script src="shared.js" defer></script>
 <script>
-/* =============================================
-   SYSTÈME DE FILTRES — PORTFOLIO
-============================================= */
-(function() {
-  const btns  = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.proj-card');
-
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      /* Activer le bouton cliqué */
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.dataset.filter;
-
-      /* Filtrage avec transition fade */
-      cards.forEach(card => {
-        const match = filter === 'all' || card.dataset.cat === filter;
-
-        if (match) {
-          card.classList.remove('hidden');
-          /* Force reflow pour que la transition se déclenche */
-          card.offsetHeight;
-          card.classList.remove('fade-out');
-          card.classList.add('fade-in');
-        } else {
-          card.classList.add('fade-out');
-          card.classList.remove('fade-in');
-          setTimeout(() => {
-            if (!card.classList.contains('fade-in')) {
-              card.classList.add('hidden');
-            }
-          }, 240);
-        }
-      });
+(function(){
+  const buttons=[...document.querySelectorAll('.filter-btn')];
+  const projects=[...document.querySelectorAll('[data-project]')];
+  buttons.forEach(btn=>btn.addEventListener('click',()=>{
+    buttons.forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    const filter=btn.dataset.filter;
+    projects.forEach(project=>{
+      const cats=(project.dataset.cat||'').split(/\s+/);
+      const show=filter==='all'||cats.includes(filter);
+      project.classList.toggle('is-hidden',!show);
+      if(show){project.classList.remove('is-entering');void project.offsetWidth;project.classList.add('is-entering')}
     });
-  });
+  }));
 })();
 </script>
 </body>

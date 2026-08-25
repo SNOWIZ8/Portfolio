@@ -26,8 +26,9 @@ body{
   font-family:'DM Sans',sans-serif;
   min-height:100vh;
   overflow-x:hidden;
-  cursor:none;
+  cursor:auto;
 }
+body.is-desktop{cursor:none}
 
 /* =============================================
    CURSOR
@@ -316,7 +317,7 @@ footer{
   position:fixed;inset:0;z-index:10000;
   background:linear-gradient(160deg,#0A0F1E 55%,rgba(138,43,226,.35) 100%);
   transform:translateY(0);
-  transition:transform .65s cubic-bezier(0.76,0,0.24,1);
+  transition:transform .28s cubic-bezier(.76,0,.24,1);
   will-change:transform;pointer-events:none;
 }
 #page-overlay.pt-out{transform:translateY(-100%)}
@@ -399,4 +400,15 @@ body.is-desktop .dispo-card:hover{
 @media(max-width:960px){
   .glass-card{transition:background .3s,border-color .3s,transform .3s}
   .btn-primary,.btn-cv,.btn-next,.btn-back,.nav-cta{transition:transform .25s,box-shadow .3s,background .25s,border-color .25s,color .25s}
+}
+\n\n/* ============================================================
+   UX / ACCESSIBILITY PASS — 2026-08
+============================================================ */
+:where(a,button,input,textarea,select,summary):focus-visible{
+  outline:2px solid var(--teal);outline-offset:4px;border-radius:6px;
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-blur{opacity:1!important;transform:none!important;filter:none!important}
 }

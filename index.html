@@ -1,363 +1,402 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<script defer src="/_vercel/speed-insights/script.js"></script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arthur Viaud — Créateur de Contenus & Communicant</title>
-<meta name="description" content="Portfolio d'Arthur Viaud — Créateur de contenus & Communicant. Stage communication & marketing digital disponible dès mai 2026.">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css">
-<link rel="stylesheet" href="home.css">
-<style>
-/* ── Fix 1 — Badge "↓ Continuer" ─────────────────────────────── */
-#scrollContinueBadge {
-  position: absolute; bottom: 24px; left: 50%;
-  transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  opacity: 0; pointer-events: none; z-index: 15;
-  transition: opacity 0.5s ease;
-}
-#scrollContinueBadge.visible { opacity: 1; pointer-events: auto; }
-.scb-arrow {
-  font-size: 14px; color: var(--teal); display: block;
-  animation: scbBounce 1.1s ease infinite;
-}
-.scb-txt {
-  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
-  color: var(--teal); font-family: 'DM Sans', sans-serif; font-weight: 500;
-}
-@keyframes scbBounce {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(5px); }
-}
-/* ── Fix 1 — Compteur cartes ──────────────────────────────────── */
-.proj-counter {
-  position: absolute; right: 14px; bottom: 6px;
-  font-size: 9px; letter-spacing: 2px;
-  color: rgba(240,236,226,0.3);
-  font-family: 'DM Sans', sans-serif;
-  transition: color 0.4s ease;
-  pointer-events: none;
-}
-/* ── Fix 2 — Lisibilité loc-tags ──────────────────────────────── */
-.loc-tag {
-  color: rgba(240,236,226,0.72);
-  background: rgba(255,255,255,0.07);
-  border-color: rgba(255,255,255,0.15);
-}
-.dispo-card.prime .loc-tag {
-  color: rgba(0,242,234,0.88);
-  border-color: rgba(0,242,234,0.28);
-}
-@media (max-width:768px) {
-  .loc-tag { font-size:11px; padding:5px 14px; }
-}
-</style>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A0F1E">
+  <title>Arthur Viaud — Communication marketing, contenu & événementiel</title>
+  <meta name="description" content="Portfolio d'Arthur Viaud — profil communication marketing, création de contenu et événementiel, en fin de double parcours France–Canada. Social media, vidéo, communication terrain et marketing digital.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="visual-polish.css">
 </head>
 <body class="page-home">
 
-<!-- ==================== LOADING SCREEN ==================== -->
-<div id="loader">
-  <div class="loader-curtain lc-left"></div>
-  <div class="loader-curtain lc-right"></div>
-  <div class="loader-content">
-    <div id="loader-logo">
-      <span class="ll">a</span><span class="ll">r</span><span class="ll">t</span><span class="ll">h</span><span class="ll">u</span><span class="ll">r</span><span class="ll">.</span>
-    </div>
-    <div class="loader-bar-wrap" id="loaderBarWrap">
-      <div id="loader-fill"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== EFFETS GLOBAUX ==================== -->
+<!-- Effets globaux -->
 <div id="spotlight"></div>
 <div class="cursor" id="cur"></div>
 <div class="cursor-ring" id="ring"></div>
 <div class="mesh">
-  <div class="mesh-blob mb1"></div>
-  <div class="mesh-blob mb2"></div>
-  <div class="mesh-blob mb3"></div>
-  <div class="mesh-blob mb4"></div>
+  <div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div>
+  <div class="mesh-blob mb3"></div><div class="mesh-blob mb4"></div>
 </div>
 <div class="grain"></div>
 <div class="grid-overlay" id="gridOverlay"></div>
 <div id="page-overlay"></div>
 
-<!-- SCROLL INDICATOR -->
 <div class="scroll-indicator" id="scrollInd" title="Haut de page">
   <div class="si-track"></div>
   <div class="si-fill" id="siFill"></div>
   <div class="si-label" id="siLabel">↑</div>
 </div>
 
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mob-close" onclick="closeMob()">✕</button>
+  <button class="mob-close" onclick="closeMob()" aria-label="Fermer le menu">✕</button>
   <a href="portfolio.html" onclick="closeMob()">Portfolio</a>
   <a href="parcours.html" onclick="closeMob()">Parcours</a>
   <a href="a-propos.html" onclick="closeMob()">À Propos</a>
   <a href="contact.html" onclick="closeMob()">Contact</a>
 </div>
 
-<!-- NAV -->
 <nav id="nav">
-  <a href="index.html" class="logo-block">
+  <a href="index.html" class="logo-block" aria-label="Arthur Viaud — Accueil">
     <span class="logo-name">arthur.</span>
     <span class="logo-sub">D'une inspiration naît une vision</span>
   </a>
   <ul class="nav-links">
+    <li><a href="#experience">Expérience</a></li>
     <li><a href="portfolio.html">Portfolio</a></li>
     <li><a href="parcours.html">Parcours</a></li>
     <li><a href="a-propos.html">À Propos</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>Télécharger CV ↓</a></li>
+    <li><a href="cv-arthur-viaud.pdf" class="nav-cta" download>CV ↓</a></li>
   </ul>
-  <button class="hamburger" onclick="toggleMob()">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" onclick="toggleMob()" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ==================== HERO ==================== -->
-<section class="hero" id="hero">
-
-  <!-- Couche 1 — Grille tech (parallax lente) -->
-  <div class="hero-layer hero-grid-layer" id="heroGridLayer"></div>
-
-  <!-- Couche 2 — Halos flottants mauve/teal -->
-  <div class="hero-layer hero-halos" id="heroHalos">
-    <div class="halo h1"></div>
-    <div class="halo h2"></div>
-    <div class="halo h3"></div>
-  </div>
-
-  <!-- Couches 3 & 4 — Contenu -->
-  <div class="hero-wrap">
-
-    <!-- Couche 3 — Texte hero -->
-    <div class="hero-text-col" id="heroTextCol">
-      <div class="h-eyebrow hero-enter" id="heroEyebrow">
-        <div class="e-dot"></div>
-        <span class="e-txt">Disponible · Stage Communication & Marketing</span>
-      </div>
-      <h1 class="hero-name hero-enter" id="heroName">
-        <span class="hn-line hn-solid">Arthur</span>
-        <br>
-        <span class="hn-line"><span class="hn-stroke">Via</span><span class="hn-teal">ud</span></span>
-      </h1>
-      <p class="hero-tagline hero-enter" id="heroTagline">
-        <strong>Créateur de contenus & Communicant</strong> — transformer vos projets
-        en expériences visuelles percutantes.<br>Double diplomation France · Canada.
-      </p>
-      <div class="hero-btns hero-enter" id="heroBtns">
-        <a href="portfolio.html" class="btn-primary magnetic">Voir mes projets ↗</a>
-        <a href="contact.html" class="btn-ghost magnetic">Me contacter →</a>
-        <div class="dispo-pill"><div class="dp-dot"></div>Dispo dès Mai 2026</div>
-      </div>
+<main>
+  <!-- =========================================================
+       HERO — positionnement professionnel immédiat
+  ========================================================== -->
+  <section class="hero" id="hero">
+    <div class="hero-layer hero-grid-layer" id="heroGridLayer"></div>
+    <div class="hero-layer hero-halos" id="heroHalos">
+      <div class="halo halo-a"></div>
+      <div class="halo halo-b"></div>
+      <div class="halo halo-c"></div>
     </div>
 
-    <!-- Couche 4 — Zone photo (bouge plus lentement) -->
-    <div class="photo-zone hero-enter" id="heroPhotoZone">
-      <div class="photo-frame" id="photoFrame">
-        <div class="corner c-tl"></div>
-        <div class="corner c-tr"></div>
-        <div class="corner c-bl"></div>
-        <div class="corner c-br"></div>
-
-        <!-- Silhouette SVG animée -->
-        <div class="ph-silhouette">
-          <svg viewBox="0 0 100 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path class="sil-path"
-              d="M50 10 C40 10 30 18 30 29 C30 40 40 48 50 48 C60 48 70 40 70 29 C70 18 60 10 50 10 Z
-                 M50 48 L50 62
-                 M22 70 L78 70
-                 M50 62 L50 115
-                 M22 70 L10 105
-                 M78 70 L90 105
-                 M34 115 L66 115
-                 M38 115 L28 168
-                 M62 115 L72 168"
-              stroke="rgba(0,242,234,0.18)" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+    <div class="hero-wrap">
+      <div class="hero-copy" id="heroTextCol">
+        <div class="hero-kicker hero-enter" id="heroKicker">
+          <span class="status-dot"></span>
+          <span>Disponible pour un CDI · Septembre 2026</span>
         </div>
 
-        <!-- Particules flottantes (générées par home.js) -->
-        <div class="ph-particles" id="phParticles"></div>
+        <h1 class="hero-name hero-enter" id="heroName">
+          <span class="hero-line">Arthur</span>
+          <span class="hero-line"><span class="hero-stroke">Via</span><span class="hero-accent">ud</span></span>
+        </h1>
 
-        <!-- Label discret -->
-        <span class="ph-lbl">Photo à venir</span>
+        <div class="hero-role hero-enter" id="heroRole">Communication marketing <span>·</span> Création de contenu <span>·</span> Événementiel</div>
+
+        <p class="hero-lead hero-enter" id="heroLead">
+          Je transforme une stratégie en contenus qui vivent <strong>à l'écran comme sur le terrain</strong> — social media, vidéo, identité visuelle et communication événementielle.
+        </p>
+
+        <div class="hero-actions hero-enter" id="heroActions">
+          <a href="#experience" class="btn-primary">Voir mon expérience phare ↓</a>
+          <a href="cv-arthur-viaud.pdf" class="btn-ghost" download>Télécharger mon CV</a>
+        </div>
+
+        <div class="hero-meta hero-enter" id="heroMeta">
+          <span>France × Canada</span>
+          <span>Double parcours</span>
+          <span>Permis B · Véhicule</span>
+        </div>
+      </div>
+
+      <div class="hero-visual hero-enter" id="heroPhotoZone">
+        <div class="portrait-card" id="portraitCard">
+          <img src="assets/images/arthur/Profile picture.jpg" alt="Arthur Viaud en situation de travail pendant le Royan Atlantique Open" fetchpriority="high">
+          <div class="portrait-shade"></div>
+          <div class="portrait-grid"></div>
+          <div class="portrait-label">
+            <span class="portrait-dot"></span>
+            <span>Royan Atlantique Open · 2026</span>
+          </div>
+          <div class="portrait-corner pc-a"></div><div class="portrait-corner pc-b"></div>
+          <div class="portrait-corner pc-c"></div><div class="portrait-corner pc-d"></div>
+        </div>
+        <div class="floating-note fn-top">ATP Challenger 50</div>
+        <div class="floating-note fn-bottom">Communication digitale · Terrain</div>
       </div>
     </div>
 
-  </div>
-</section>
+    <a class="hero-scroll" href="#proofs" aria-label="Découvrir la suite">
+      <span>Explorer</span><i></i>
+    </a>
+  </section>
 
-<!-- ==================== STATS BAR ==================== -->
-<div class="stats-bar hero-enter" id="statsBar">
-  <div class="stat-item">
-    <div class="stat-n" data-slot-target="3" data-slot-suffix="+">
-      <span class="slot-display">3</span><em>+</em>
+  <!-- =========================================================
+       PROOFS — chiffres qui prouvent plutôt que décorent
+  ========================================================== -->
+  <section class="proofs" id="proofs" aria-label="Résultats clés du Royan Atlantique Open">
+    <div class="proof-item reveal">
+      <div class="proof-value"><span data-count="2">2</span><em>M+</em></div>
+      <div class="proof-label">vues organiques sur la période</div>
     </div>
-    <div class="stat-l">Années d'études</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-n" data-slot-target="2" data-slot-suffix="x">
-      <span class="slot-display">2</span><em>x</em>
+    <div class="proof-item reveal">
+      <div class="proof-value"><span data-count="510">510</span><em>+</em></div>
+      <div class="proof-label">abonnés nets</div>
     </div>
-    <div class="stat-l">Double diplôme FR · CA</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-n" data-slot-target="4" data-slot-suffix="+">
-      <span class="slot-display">4</span><em>+</em>
+    <div class="proof-item reveal">
+      <div class="proof-value"><span data-count="12">12</span><em>sem.</em></div>
+      <div class="proof-label">assistant communication digitale</div>
     </div>
-    <div class="stat-l">Expériences pros</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-n" data-slot-target="3" data-slot-suffix="↗">
-      <span class="slot-display">3</span><em>↗</em>
+    <div class="proof-item reveal">
+      <div class="proof-value proof-word">ATP <em>50</em></div>
+      <div class="proof-label">tournoi professionnel</div>
     </div>
-    <div class="stat-l">Langues parlées</div>
-  </div>
-</div>
+  </section>
 
-<div class="scroll-caret">
-  <div class="sc-line"></div>
-  <span class="sc-lbl">Scroll pour explorer</span>
-</div>
-
-<!-- ==================== 01 · OUTILS & COMPÉTENCES ==================== -->
-<section class="section s-alt">
-  <div class="s-head reveal-left">
-    <span class="s-num">01 <span class="s-sep">///</span></span>
-    <h2 class="s-title">Outils & Compétences</h2>
-    <div class="s-rule"></div>
-  </div>
-  <div class="tools-grid">
-    <div class="glass-card tool-card reveal"><div class="tl tl-ps">Ps</div><div><div class="tool-name">Photoshop</div><div class="tool-cat">Design visuel</div></div></div>
-    <div class="glass-card tool-card reveal"><div class="tl tl-pr">Pr</div><div><div class="tool-name">Premiere Pro</div><div class="tool-cat">Montage vidéo</div></div></div>
-    <div class="glass-card tool-card reveal"><div class="tl tl-cc">CC</div><div><div class="tool-name">CapCut</div><div class="tool-cat">Contenu social</div></div></div>
-    <div class="glass-card tool-card reveal"><div class="tl tl-fr">⬡</div><div><div class="tool-name">Framer</div><div class="tool-cat">Design web</div></div></div>
-    <div class="glass-card tool-card reveal"><div class="tl tl-xl">xl</div><div><div class="tool-name">Excel</div><div class="tool-cat">Analyse données</div></div></div>
-    <div class="glass-card tool-card reveal"><div class="tl tl-st">✍</div><div><div class="tool-name">Storytelling</div><div class="tool-cat">Rédaction & contenu</div></div></div>
-  </div>
-</section>
-
-<!-- ==================== MARQUEE ==================== -->
-<div class="marquee-section" role="marquee" aria-hidden="true">
-  <div class="marquee-inner">
-    <span class="marquee-track">COMMUNICATION <span class="m-dot">·</span> MARKETING DIGITAL <span class="m-dot">·</span> STORYTELLING <span class="m-dot">·</span> CRÉATION <span class="m-dot">·</span> STRATÉGIE <span class="m-dot">·</span> BRAND CONTENT <span class="m-dot">·</span> VIDÉO <span class="m-dot">·</span> RÉSEAUX SOCIAUX <span class="m-dot">·</span>&nbsp;&nbsp;&nbsp;</span>
-    <span class="marquee-track" aria-hidden="true">COMMUNICATION <span class="m-dot">·</span> MARKETING DIGITAL <span class="m-dot">·</span> STORYTELLING <span class="m-dot">·</span> CRÉATION <span class="m-dot">·</span> STRATÉGIE <span class="m-dot">·</span> BRAND CONTENT <span class="m-dot">·</span> VIDÉO <span class="m-dot">·</span> RÉSEAUX SOCIAUX <span class="m-dot">·</span>&nbsp;&nbsp;&nbsp;</span>
-  </div>
-</div>
-
-<!-- ==================== 02 · PROJETS EN VEDETTE (HORIZONTAL SCROLL) ==================== -->
-<div id="projets" class="proj-h-section">
-  <div class="proj-track" id="projTrack">
-
-    <!-- Header reste visible pendant le scroll horizontal -->
-    <div class="proj-track-header reveal-left">
-      <span class="s-num">02 <span class="s-sep">///</span></span>
-      <h2 class="s-title">Projets en Vedette</h2>
-      <div class="s-rule"></div>
+  <!-- =========================================================
+       01 — EXPERIENCE SIGNATURE
+  ========================================================== -->
+  <section class="home-section signature" id="experience">
+    <div class="section-heading reveal-left">
+      <span class="section-index">01 ///</span>
+      <div>
+        <span class="section-eyebrow">Expérience signature</span>
+        <h2>Royan Atlantique Open <span>2026</span></h2>
+      </div>
+      <div class="section-rule"></div>
     </div>
 
-    <!-- Conteneur des cartes scrollables -->
-    <div class="proj-cards-wrap" id="projCardsWrap">
-      <div class="proj-inner" id="projInner">
+    <div class="signature-grid">
+      <article class="signature-media reveal-scale">
+        <img src="assets/images/garden-open-2026/communication-team2.jpg" alt="Équipe communication du Royan Atlantique Open au bord du court" loading="lazy">
+        <div class="signature-media-overlay"></div>
+        <div class="signature-media-copy">
+          <span>Garden Tennis de Royan · Groupe TSL</span>
+          <strong>De la stratégie au direct.</strong>
+        </div>
+        <div class="photo-credit">Équipe communication · semaine du tournoi</div>
+      </article>
 
-        <a href="projet-sneakers.html" class="proj-card" data-cursor-label="VOIR →">
-          <div class="proj-bg-emoji">👟</div>
-          <div class="proj-arrow">↗</div>
-          <div class="proj-tag">Entrepreneuriat · 2022–2024</div>
-          <h3 class="proj-title">Sneakers<br>Business</h3>
-          <div class="proj-glare" aria-hidden="true"></div>
-        </a>
+      <div class="signature-copy reveal-right">
+        <div class="signature-role">Assistant communication digitale · 12 semaines</div>
+        <p class="signature-intro">Pilotage du compte Instagram du tournoi, création de contenus, interviews, communication en temps réel et appui opérationnel sur un événement où le planning pouvait basculer en quelques heures.</p>
 
-        <a href="projet-revofit.html" class="proj-card" data-cursor-label="VOIR →">
-          <div class="proj-bg-emoji">💪</div>
-          <div class="proj-arrow">↗</div>
-          <div class="proj-tag">Projet Entrepreneurial · 2024</div>
-          <h3 class="proj-title">RevoFit</h3>
-          <div class="proj-glare" aria-hidden="true"></div>
-        </a>
+        <div class="mission-grid">
+          <div class="mission-card glass-card">
+            <span>01</span><strong>Piloter</strong>
+            <p>Instagram, ligne éditoriale, planning média et suivi des performances.</p>
+          </div>
+          <div class="mission-card glass-card">
+            <span>02</span><strong>Produire</strong>
+            <p>Reels, stories, interviews et montage vidéo.</p>
+          </div>
+          <div class="mission-card glass-card">
+            <span>03</span><strong>Réagir</strong>
+            <p>Couverture live, adaptation aux imprévus et communication à chaud.</p>
+          </div>
+          <div class="mission-card glass-card">
+            <span>04</span><strong>Faire vivre</strong>
+            <p>Installation, logistique, bénévoles et gestion opérationnelle.</p>
+          </div>
+        </div>
 
-        <a href="projet-palmfest.html" class="proj-card" data-cursor-label="VOIR →">
-          <div class="proj-bg-emoji">🌴</div>
-          <div class="proj-arrow">↗</div>
-          <div class="proj-tag">Stage Communication · 2024</div>
-          <h3 class="proj-title">Palm'Fest<br>Stratégie B2B</h3>
-          <div class="proj-glare" aria-hidden="true"></div>
-        </a>
+        <a href="projet-garden-open.html" class="signature-case-link">Voir l’étude de cas complète <span>↗</span></a>
 
+        <div class="signature-side-projects">
+          <span>En parallèle</span>
+          <div><b>OPEN 17</b> · identité graphique & projet web</div>
+          <div><b>E-commerce</b> · participation à un projet de boutique Shopify mutualisée</div>
+        </div>
       </div>
     </div>
 
-    <!-- Badge "↓ Continuer" — visible quand scrollProgress ≥ 0.85 -->
-    <div id="scrollContinueBadge">
-      <span class="scb-arrow">↓</span>
-      <span class="scb-txt">Continuer</span>
+    <div class="proof-gallery">
+      <article class="proof-media proof-story reveal">
+        <div class="proof-media-img"><img src="assets/images/garden-open-2026/social/Story score.png" alt="Story de résultat de match du Royan Atlantique Open" loading="lazy"></div>
+        <div class="proof-media-info">
+          <span>Live social</span><strong>Informer pendant le tournoi</strong>
+          <p>Scores, résultats et formats adaptés au rythme de la compétition.</p>
+        </div>
+      </article>
+
+      <article class="proof-media proof-creative reveal">
+        <div class="proof-media-img"><img src="assets/images/garden-open-2026/social/Post Double exposure 2.jpg" alt="Création graphique en double exposition pour le Royan Atlantique Open" loading="lazy"></div>
+        <div class="proof-media-info">
+          <span>Création graphique</span><strong>Construire une identité reconnaissable</strong>
+          <p>Déclinaisons éditoriales, visuels social media et cohérence de marque.</p>
+        </div>
+      </article>
+
+      <article class="proof-media proof-video reveal">
+        <div class="proof-media-img video-shell">
+          <video src="assets/videos/garden-open-2026/video-match.MP4" autoplay muted loop playsinline preload="metadata" aria-label="Extrait court de contenu vidéo réalisé autour d'un match"></video>
+          <div class="video-live"><i></i> Match content</div>
+        </div>
+        <div class="proof-media-info">
+          <span>Vidéo terrain</span><strong>Créer dans l'instant</strong>
+          <p>Formats verticaux conçus pour alimenter la couverture sociale du tournoi.</p>
+        </div>
+      </article>
     </div>
 
+    <div class="home-case-more reveal">
+      <div>
+        <span>Pour aller plus loin</span>
+        <strong>Interviews joueurs · contenus pratiques · terrain · résultats détaillés</strong>
+      </div>
+      <a href="projet-garden-open.html">Explorer l’étude de cas <b>↗</b></a>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       02 — CAPACITES
+  ========================================================== -->
+  <section class="home-section capabilities">
+    <div class="section-heading reveal-left">
+      <span class="section-index">02 ///</span>
+      <div>
+        <span class="section-eyebrow">Ce que j'apporte</span>
+        <h2>Créer. Développer. <span>Faire vivre.</span></h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="cap-grid">
+      <article class="cap-card glass-card reveal">
+        <div class="cap-no">01</div>
+        <h3>Créer</h3>
+        <p>Donner une forme claire et attractive à un message, quel que soit le support.</p>
+        <ul><li>Identité & supports visuels</li><li>Contenus social media</li><li>Captation & montage vidéo</li><li>Retouche photo & image</li></ul>
+        <div class="cap-tags"><span>Canva</span><span>Photoshop</span><span>Premiere Pro</span><span>CapCut</span></div>
+      </article>
+
+      <article class="cap-card glass-card reveal">
+        <div class="cap-no">02</div>
+        <h3>Développer</h3>
+        <p>Transformer la création en levier de visibilité, de communauté et de projet.</p>
+        <ul><li>Stratégie éditoriale</li><li>Réseaux sociaux & storytelling</li><li>Web / e-commerce</li><li>Analyse de performances</li></ul>
+        <div class="cap-tags"><span>Instagram</span><span>LinkedIn</span><span>Shopify</span><span>KPIs</span></div>
+      </article>
+
+      <article class="cap-card glass-card reveal">
+        <div class="cap-no">03</div>
+        <h3>Faire vivre</h3>
+        <p>Faire exister la communication au-delà de l'écran, au contact des équipes et du public.</p>
+        <ul><li>Communication événementielle</li><li>Couverture en temps réel</li><li>Coordination & logistique</li><li>Gestion des imprévus</li></ul>
+        <div class="cap-tags"><span>Terrain</span><span>Équipe</span><span>Réactivité</span><span>Autonomie</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Marquee : respiration visuelle, pas information critique -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>COMMUNICATION</span><i>·</i><span>CONTENT</span><i>·</i><span>ÉVÉNEMENTIEL</span><i>·</i><span>SOCIAL MEDIA</span><i>·</i><span>VIDÉO</span><i>·</i><span>STORYTELLING</span><i>·</i><span>COMMUNICATION</span><i>·</i><span>CONTENT</span><i>·</i><span>ÉVÉNEMENTIEL</span><i>·</i><span>SOCIAL MEDIA</span><i>·</i><span>VIDÉO</span><i>·</i><span>STORYTELLING</span><i>·</i>
+    </div>
   </div>
 
-  <!-- Indicateur de progression scroll horizontal -->
-  <div class="proj-progress-track">
-    <div class="proj-progress-fill" id="projScrollFill"></div>
-    <div class="proj-counter" id="projCounter">1 / 3</div>
-  </div>
-</div>
+  <!-- =========================================================
+       03 — SELECTED WORK
+  ========================================================== -->
+  <section class="home-section selected-work">
+    <div class="section-heading reveal-left">
+      <span class="section-index">03 ///</span>
+      <div>
+        <span class="section-eyebrow">Autres terrains d'expression</span>
+        <h2>Projets <span>sélectionnés</span></h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
 
-<!-- ==================== 03 · DISPONIBILITÉS ==================== -->
-<section class="section s-alt">
-  <div class="s-head reveal-left">
-    <span class="s-num">03 <span class="s-sep">///</span></span>
-    <h2 class="s-title">Disponibilités</h2>
-    <div class="s-rule"></div>
-  </div>
-  <div class="dispo-grid">
-    <div class="glass-card dispo-card prime reveal-left">
-      <div class="d-badge">Priorité</div>
-      <div class="d-date">Mai → Juillet 2026</div>
-      <div class="d-dur">Stage 3 mois · 4 mai au 24 juillet</div>
-      <div class="d-locs">
-        <span class="loc-tag">Royan</span>
-        <span class="loc-tag">La Rochelle</span>
-        <span class="loc-tag">Bordeaux</span>
-        <span class="loc-tag">Poitiers</span>
-        <span class="loc-tag">Grenoble</span>
-        <span class="loc-tag">Paris</span>
+    <div class="work-grid">
+      <a href="projet-palmfest.html" class="work-card work-main proj-card reveal-scale" data-cursor-label="PALM'FEST →">
+        <img src="assets/images/palmfest/PM2-cover.png" alt="Création Palm'Fest — carrousel sur les coulisses d'un festival" loading="lazy">
+        <div class="work-overlay"></div>
+        <div class="work-top"><span>Stage · Communication B2B</span><small>2025</small></div>
+        <div class="work-bottom">
+          <h3>Palm'Fest</h3>
+          <p>LinkedIn, mécénat, partenaires, création graphique, storytelling et analyse des performances.</p>
+          <span class="work-link">Découvrir le projet ↗</span>
+        </div>
+      </a>
+
+      <a href="projet-sneakers.html" class="work-card work-side proj-card reveal" data-cursor-label="SNEAKERS →">
+        <img src="assets/images/sneakers/SNK4.jpg" alt="Feed Instagram du projet Sneakers Business" loading="lazy">
+        <div class="work-overlay"></div>
+        <div class="work-top"><span>Entrepreneuriat</span><small>2022 — 2024</small></div>
+        <div class="work-bottom"><h3>Sneakers Business</h3><p>Acquisition digitale, contenu social et expérience commerciale.</p></div>
+      </a>
+
+      <a href="projet-revofit.html" class="work-card work-side proj-card reveal" data-cursor-label="REVOFIT →">
+        <img src="assets/images/revofit/RVF2.png" alt="Interface du projet académique RevoFit" loading="lazy">
+        <div class="work-overlay"></div>
+        <div class="work-top"><span>Projet académique</span><small>2024</small></div>
+        <div class="work-bottom"><h3>RevoFit</h3><p>Branding, concept de plateforme et stratégie de communication.</p></div>
+      </a>
+    </div>
+
+    <div class="work-all reveal"><a href="portfolio.html" class="btn-primary">Voir tout le portfolio ↗</a></div>
+  </section>
+
+  <!-- =========================================================
+       04 — TOOLS
+  ========================================================== -->
+  <section class="home-section tools-section">
+    <div class="section-heading reveal-left">
+      <span class="section-index">04 ///</span>
+      <div>
+        <span class="section-eyebrow">Boîte à outils</span>
+        <h2>Des outils au service <span>du résultat.</span></h2>
+      </div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="tools-rows">
+      <div class="tool-row reveal"><span class="tool-family">Design</span><div class="tool-list"><b>Canva</b><b>Photoshop</b></div><small>Très à l'aise</small></div>
+      <div class="tool-row reveal"><span class="tool-family">Vidéo & photo</span><div class="tool-list"><b>Premiere Pro</b><b>CapCut</b><b>Camera Raw</b><b>After Effects</b></div><small>Opérationnel · progression continue</small></div>
+      <div class="tool-row reveal"><span class="tool-family">Bureautique</span><div class="tool-list"><b>PowerPoint</b><b>Word</b><b>Excel</b></div><small>Maîtrisé · Excel correct</small></div>
+      <div class="tool-row reveal"><span class="tool-family">Digital</span><div class="tool-list"><b>Instagram</b><b>LinkedIn</b><b>Shopify</b><b>Trello</b></div><small>Social · e-commerce · organisation</small></div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       05 — PROFILE EXPRESS
+  ========================================================== -->
+  <section class="home-section profile-section">
+    <div class="profile-panel glass-card reveal-scale">
+      <div class="profile-intro">
+        <span class="micro-label">Profil express</span>
+        <h2>Un parcours <span>France × Canada</span>, une approche très terrain.</h2>
+        <p>Profil orienté communication marketing, création de contenu et événementiel, avec une formation commerciale qui me permet aussi de garder en tête les objectifs, les publics et la performance.</p>
+        <a href="parcours.html" class="btn-ghost">Voir mon parcours →</a>
+      </div>
+
+      <div class="profile-facts">
+        <div class="fact"><span class="fact-code">CA</span><div><small>UQAC · 2026</small><strong>Baccalauréat en administration</strong><p>Obtenu dans le cadre d'une double diplomation.</p></div></div>
+        <div class="fact"><span class="fact-code">FR</span><div><small>IUT de Poitiers · 2023—2026</small><strong>BUT Techniques de Commercialisation</strong><p>Marketing digital · e-business · entrepreneuriat. Cursus terminé, jury officiel en septembre 2026.</p></div></div>
+        <div class="fact"><span class="fact-code">LANG</span><div><small>Langues</small><strong>Français · Anglais · Espagnol</strong><p>Natif · B2 · B1.</p></div></div>
+        <div class="fact"><span class="fact-code">MOB</span><div><small>Mobilité</small><strong>Permis B · Véhicule</strong><p>Disponible pour un CDI dès septembre 2026.</p></div></div>
       </div>
     </div>
-    <div class="glass-card dispo-card reveal-right">
-      <div class="d-date">Août → Déc. 2026</div>
-      <div class="d-dur">Stage longue durée · fin août à décembre</div>
-      <div class="d-locs">
-        <span class="loc-tag">Royan</span>
-        <span class="loc-tag">La Rochelle</span>
-        <span class="loc-tag">Bordeaux</span>
-        <span class="loc-tag">Poitiers</span>
-        <span class="loc-tag">Grenoble</span>
-        <span class="loc-tag">Paris</span>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
+  <!-- =========================================================
+       CTA FINAL
+  ========================================================== -->
+  <section class="final-cta reveal">
+    <span class="final-kicker">Disponible · Septembre 2026</span>
+    <h2>Un projet à faire <span>vivre ?</span></h2>
+    <p>Communication marketing, contenu digital ou événementiel : discutons-en.</p>
+    <div class="final-actions">
+      <a href="contact.html" class="btn-primary">Me contacter ↗</a>
+      <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn ↗</a>
+      <a href="cv-arthur-viaud.pdf" download class="btn-ghost">CV ↓</a>
+    </div>
+  </section>
+</main>
+
 <footer>
   <div class="f-logo">Arthur Viaud · 2026</div>
   <div class="f-links">
-    <a href="portfolio.html">Portfolio</a>
-    <a href="parcours.html">Parcours</a>
-    <a href="a-propos.html">À Propos</a>
-    <a href="contact.html">Contact</a>
-    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
+    <a href="portfolio.html">Portfolio</a><a href="parcours.html">Parcours</a><a href="a-propos.html">À Propos</a><a href="contact.html">Contact</a>
+    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
   <div class="f-copy">D'une inspiration naît une vision</div>
 </footer>
 
 <script src="shared.js" defer></script>
+<script src="visual-polish.js" defer></script>
 <script src="home.js" defer></script>
 </body>
 </html>

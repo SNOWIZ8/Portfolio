@@ -5,211 +5,266 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>À Propos — Arthur Viaud</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<meta name="description" content="À propos d'Arthur Viaud — communication marketing, création de contenu, vidéo et événementiel.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
+/* =========================================================
+   À PROPOS V1
+   Page humaine complémentaire au CV / portfolio.
+========================================================= */
 
-/* =============================================
-   PAGE HERO
-============================================= */
-.page-hero{
-  position:relative;z-index:10;
-  min-height:72vh;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:130px 56px 72px;border-bottom:var(--glass-bd);overflow:hidden;
+#spotlight{position:fixed;inset:0;z-index:3;pointer-events:none}
+
+/* ---------- HERO ---------- */
+.about-hero{
+  position:relative;z-index:10;min-height:88vh;
+  display:flex;align-items:flex-end;overflow:hidden;
+  padding:138px 56px 72px;border-bottom:var(--glass-bd);
 }
-.hero-bg-text{
-  position:absolute;right:-30px;bottom:-50px;
+.about-hero-grid{
+  position:absolute;inset:0;opacity:.4;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 89px,rgba(240,236,226,.023) 90px),
+    repeating-linear-gradient(90deg,transparent,transparent 89px,rgba(240,236,226,.023) 90px);
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 92%);
+}
+.about-watermark{
+  position:absolute;right:-35px;bottom:-50px;
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(120px,18vw,240px);
-  color:rgba(255,255,255,.02);letter-spacing:6px;
-  pointer-events:none;user-select:none;line-height:1;white-space:nowrap;
+  font-size:clamp(150px,22vw,300px);letter-spacing:6px;line-height:.8;
+  color:rgba(240,236,226,.022);white-space:nowrap;pointer-events:none;
+  will-change:transform;
 }
-.page-eyebrow{
-  font-size:11px;letter-spacing:3px;text-transform:uppercase;
-  color:var(--mauve);margin-bottom:18px;
-  opacity:0;animation:riseUp .7s ease forwards .2s;
+.about-hero-inner{width:100%;max-width:1380px;margin:0 auto;position:relative;z-index:3}
+.about-eyebrow{
   display:flex;align-items:center;gap:12px;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#b48aff;margin-bottom:23px
 }
-.page-eyebrow::before{content:'';width:32px;height:1px;background:var(--mauve)}
-.page-title{
+.about-eyebrow::before{content:'';width:30px;height:1px;background:#b48aff}
+.about-title{
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(52px,8vw,110px);
-  line-height:.87;letter-spacing:3px;
-  opacity:0;animation:riseUp .85s ease forwards .35s;
+  font-size:clamp(74px,11.5vw,158px);letter-spacing:3px;line-height:.84;max-width:1080px;
 }
-.page-title .t-stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
-.page-title .t-mauve{color:var(--mauve)}
-.page-accroche{
-  font-size:clamp(15px,1.6vw,20px);font-weight:300;font-style:italic;
-  color:var(--muted);max-width:620px;line-height:1.65;margin-top:24px;
-  opacity:0;animation:riseUp .85s ease forwards .52s;
-}
-/* Deco tags */
-.hero-deco{
-  position:absolute;top:130px;right:56px;
-  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
-  opacity:0;animation:riseUp .9s ease forwards .65s;
-}
-.deco-tag{
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(240,236,226,.3);border:var(--glass-bd);
-  padding:5px 14px;border-radius:100px;
-  background:var(--glass-bg);backdrop-filter:var(--glass-blur);
-}
-
-/* =============================================
-   SECTION PRINCIPALE — Texte + Photo
-============================================= */
-.about-wrap{
-  position:relative;z-index:10;
-  padding:80px 56px;
-  max-width:1300px;margin:0 auto;
-  display:grid;
-  grid-template-columns:1fr 320px;
-  gap:64px;
-  align-items:start;
-}
-
-/* Bloc texte */
-.about-text-block{}
-.s-head{display:flex;align-items:center;gap:18px;margin-bottom:36px}
-.s-num{font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(240,236,226,.18);letter-spacing:2px}
-.s-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px}
-.s-rule{flex:1;height:1px;background:rgba(255,255,255,.07)}
-
+.about-mask{display:block;overflow:hidden}
+.about-mask-in{display:block}
+.about-title .stroke{-webkit-text-stroke:2px rgba(240,236,226,.2);color:transparent}
+.about-title .mauve{color:var(--mauve)}
 .about-lead{
-  font-size:clamp(16px,1.7vw,21px);font-weight:300;font-style:italic;
-  color:rgba(240,236,226,.8);line-height:1.7;margin-bottom:28px;
+  max-width:790px;margin-top:30px;
+  font-size:clamp(15px,1.5vw,19px);font-weight:300;line-height:1.75;color:var(--muted)
 }
-.about-lead strong{font-style:normal;font-weight:500;color:var(--cream)}
-.about-body{
-  font-size:15px;font-weight:300;line-height:1.9;
-  color:rgba(240,236,226,.68);
+.about-lead strong{color:var(--cream);font-weight:500}
+.about-tags{
+  display:flex;gap:8px;flex-wrap:wrap;margin-top:30px
 }
-.about-body p{margin-bottom:22px}
-.about-body p:last-child{margin-bottom:0}
+.about-tag{
+  border:var(--glass-bd);background:var(--glass-bg);backdrop-filter:var(--glass-blur);
+  border-radius:100px;padding:7px 13px;
+  font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(240,236,226,.42)
+}
+.about-tag.accent{color:#c3a2ff;border-color:rgba(138,43,226,.24)}
 
-/* Quote décorative */
-.about-quote{
-  margin:36px 0;padding:28px 32px;
-  background:rgba(138,43,226,.06);
-  border-left:3px solid var(--mauve);
-  border-radius:0 var(--radius) var(--radius) 0;
-  font-size:17px;font-weight:300;font-style:italic;
-  color:rgba(240,236,226,.75);line-height:1.7;
-}
+.js-ready .about-enter{opacity:0;transform:translateY(20px)}
+.js-ready .about-mask-in{transform:translateY(112%)}
 
-/* Colonne photo + infos */
-.about-side{}
-.photo-card{
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
-  overflow:hidden;margin-bottom:18px;
-  position:relative;
-}
-.photo-card img{
-  width:100%;display:block;
-  object-fit:cover;object-position:center top;
-  aspect-ratio:.82;
-}
-.photo-placeholder{
-  aspect-ratio:.82;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-  background:linear-gradient(135deg,rgba(138,43,226,.08),rgba(0,242,234,.05));
-}
-.ph-icon{
-  width:74px;height:74px;border-radius:50%;
-  background:rgba(138,43,226,.1);
-  border:1px dashed rgba(138,43,226,.3);
-  display:flex;align-items:center;justify-content:center;font-size:28px;
-}
-.ph-lbl{font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(240,236,226,.2)}
-.photo-card::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:30%;
-  background:linear-gradient(to top,rgba(10,15,30,.5),transparent);
-  pointer-events:none;
-}
+/* ---------- GENERIC ---------- */
+.about-section{position:relative;z-index:10;padding:92px 56px}
+.about-inner{max-width:1380px;margin:0 auto}
+.a-head{display:flex;align-items:center;gap:18px;margin-bottom:16px}
+.a-num{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:rgba(240,236,226,.18)}
+.a-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,4.2vw,58px);letter-spacing:3px}
+.a-rule{height:1px;flex:1;background:rgba(255,255,255,.07)}
+.a-lead{max-width:730px;font-size:14px;line-height:1.75;color:var(--muted);font-weight:300;margin-bottom:46px}
 
-/* Infos condensées */
-.info-card{
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
-  padding:24px;
+/* ---------- PORTRAIT / MANIFESTO ---------- */
+.manifesto-grid{
+  display:grid;grid-template-columns:minmax(0,1.2fr) 380px;gap:28px;align-items:stretch
 }
-.info-row{
-  display:flex;align-items:center;gap:12px;
-  padding:10px 0;border-bottom:var(--glass-bd);
-  font-size:13px;
+.manifesto-card{
+  position:relative;overflow:hidden;
+  border:var(--glass-bd);background:var(--glass-bg);backdrop-filter:var(--glass-blur);
+  border-radius:16px;padding:42px 38px;min-height:560px;
+  display:flex;flex-direction:column;justify-content:space-between
 }
-.info-row:last-child{border-bottom:none;padding-bottom:0}
-.info-icon{width:22px;text-align:center;font-size:14px;flex-shrink:0}
-.info-label{color:var(--muted);flex-shrink:0;min-width:80px}
-.info-value{color:var(--cream);font-weight:400}
-
-/* =============================================
-   SECTION PASSIONS
-============================================= */
-.passions-section{
-  position:relative;z-index:10;
-  padding:0 56px 80px;
+.manifesto-card::before{
+  content:'';position:absolute;width:360px;height:360px;border-radius:50%;
+  left:-180px;bottom:-180px;background:var(--mauve);filter:blur(120px);opacity:.08;pointer-events:none
 }
-.passions-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
+.manifesto-kicker{font-size:9px;letter-spacing:2.4px;text-transform:uppercase;color:#b48aff}
+.manifesto-big{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,5.8vw,78px);
+  line-height:.96;letter-spacing:2.5px;max-width:760px;margin-top:28px
 }
-.passion-card{
-  background:var(--glass-bg);border:var(--glass-bd);
-  backdrop-filter:var(--glass-blur);border-radius:var(--radius);
-  padding:28px 24px;
-  transition:background .3s,border-color .3s,transform .3s;
+.manifesto-big .mauve{color:var(--mauve)}
+.manifesto-copy{
+  max-width:730px;font-size:15px;line-height:1.85;font-weight:300;color:rgba(240,236,226,.64);margin-top:28px
 }
-.passion-card:hover{
-  background:rgba(255,255,255,.05);
-  border-color:rgba(138,43,226,.28);
-  transform:translateY(-4px);
-}
-.passion-icon{font-size:32px;margin-bottom:14px}
-.passion-title{
-  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;
-  color:var(--cream);margin-bottom:10px;
-}
-.passion-desc{
-  font-size:13px;font-weight:300;line-height:1.7;
-  color:rgba(240,236,226,.6);
+.manifesto-copy p+p{margin-top:16px}
+.manifesto-quote{
+  margin-top:34px;padding:18px 0 0;border-top:1px solid rgba(255,255,255,.08);
+  font-size:13px;line-height:1.7;color:rgba(240,236,226,.45);font-style:italic
 }
 
-/* =============================================
-   RESPONSIVE
-============================================= */
+.portrait-card{
+  position:relative;overflow:hidden;border-radius:16px;border:var(--glass-bd);
+  background:var(--glass-bg);min-height:560px
+}
+.portrait-card img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%
+}
+.portrait-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,15,30,.92) 0%,rgba(10,15,30,.18) 48%,rgba(10,15,30,.04) 100%)
+}
+.portrait-meta{
+  position:absolute;left:24px;right:24px;bottom:24px;z-index:2
+}
+.portrait-name{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px}
+.portrait-role{font-size:11px;line-height:1.55;color:rgba(240,236,226,.6);margin-top:5px}
+.portrait-status{
+  display:inline-flex;margin-top:12px;padding:6px 10px;border-radius:100px;
+  border:1px solid rgba(0,242,234,.2);color:var(--teal);
+  font-size:8px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(10,15,30,.42)
+}
+
+/* ---------- SIGNALS ---------- */
+.signal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.signal-card{
+  min-height:350px;position:relative;overflow:hidden;
+  border:var(--glass-bd);background:var(--glass-bg);backdrop-filter:var(--glass-blur);
+  border-radius:14px;padding:30px 27px;display:flex;flex-direction:column;justify-content:space-between;
+  transition:transform .32s,border-color .32s,background .32s
+}
+.signal-card:hover{transform:translateY(-6px);border-color:rgba(138,43,226,.28);background:rgba(255,255,255,.045)}
+.signal-index{
+  font-family:'Bebas Neue',sans-serif;font-size:78px;line-height:1;
+  color:rgba(240,236,226,.045);position:absolute;right:18px;top:15px
+}
+.signal-icon{
+  width:46px;height:46px;border:1px solid rgba(255,255,255,.1);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:18px;color:#b48aff;
+  box-shadow:inset 0 0 26px rgba(138,43,226,.04)
+}
+.signal-label{font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:#b48aff;margin-top:34px}
+.signal-title{
+  font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;line-height:1;margin-top:12px
+}
+.signal-copy{font-size:13px;line-height:1.7;color:rgba(240,236,226,.55);margin-top:12px}
+.signal-foot{
+  margin-top:26px;padding-top:16px;border-top:1px solid rgba(255,255,255,.07);
+  font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(240,236,226,.28)
+}
+
+/* ---------- WORKING MODE ---------- */
+.mode-section{
+  border-top:var(--glass-bd);border-bottom:var(--glass-bd);
+  background:rgba(255,255,255,.008)
+}
+.mode-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mode-card{
+  border:1px solid rgba(255,255,255,.085);border-radius:12px;
+  padding:26px 22px;position:relative;overflow:hidden;min-height:240px;
+  background:rgba(255,255,255,.018)
+}
+.mode-n{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--teal);letter-spacing:2px}
+.mode-title{font-family:'Bebas Neue',sans-serif;font-size:27px;letter-spacing:1.6px;margin-top:26px}
+.mode-copy{font-size:12.5px;line-height:1.68;color:rgba(240,236,226,.52);margin-top:10px}
+.mode-line{
+  position:absolute;left:22px;right:22px;bottom:20px;height:1px;background:rgba(255,255,255,.06);overflow:hidden
+}
+.mode-line::after{
+  content:'';display:block;width:0;height:100%;background:linear-gradient(90deg,var(--teal),var(--mauve));
+  transition:width .55s cubic-bezier(.16,1,.3,1)
+}
+.mode-card:hover .mode-line::after{width:100%}
+
+/* ---------- DETAILS ---------- */
+.detail-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}
+.detail-card{
+  border:var(--glass-bd);background:var(--glass-bg);border-radius:14px;padding:31px 28px
+}
+.detail-kicker{font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:var(--teal)}
+.detail-title{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;margin-top:10px}
+.detail-copy{font-size:13px;line-height:1.75;color:rgba(240,236,226,.56);margin-top:12px}
+.detail-list{display:flex;flex-direction:column;margin-top:21px}
+.detail-row{
+  display:grid;grid-template-columns:112px 1fr;gap:14px;
+  padding:12px 0;border-top:1px solid rgba(255,255,255,.07);font-size:12px
+}
+.detail-row span:first-child{color:rgba(240,236,226,.3)}
+.detail-row span:last-child{color:rgba(240,236,226,.72)}
+
+.focus-card{
+  position:relative;overflow:hidden;border:1px solid rgba(138,43,226,.2);
+  background:var(--glass-bg);border-radius:14px;padding:31px 28px
+}
+.focus-card::before{
+  content:'';position:absolute;width:260px;height:260px;border-radius:50%;
+  right:-120px;top:-120px;background:var(--mauve);filter:blur(90px);opacity:.11
+}
+.focus-list{position:relative;z-index:2;display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.focus-item{
+  border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:13px 14px;
+  font-size:11px;letter-spacing:.2px;color:rgba(240,236,226,.62)
+}
+.focus-item strong{color:var(--cream);font-weight:500}
+
+/* ---------- CTA ---------- */
+.about-cta-section{position:relative;z-index:10;padding:0 56px 100px}
+.about-cta{
+  max-width:1380px;margin:0 auto;border:1px solid rgba(138,43,226,.19);
+  border-radius:16px;padding:52px 46px;background:var(--glass-bg);backdrop-filter:var(--glass-blur);
+  display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;position:relative;overflow:hidden
+}
+.about-cta::before{
+  content:'';position:absolute;width:400px;height:260px;border-radius:50%;
+  left:-120px;top:-170px;background:var(--mauve);filter:blur(120px);opacity:.09
+}
+.about-cta-kicker{font-size:9px;letter-spacing:2.3px;text-transform:uppercase;color:#b48aff;position:relative;z-index:2}
+.about-cta-title{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,4vw,56px);letter-spacing:2.4px;margin-top:9px;position:relative;z-index:2
+}
+.about-cta-copy{font-size:13px;line-height:1.65;color:var(--muted);max-width:620px;margin-top:8px;position:relative;z-index:2}
+.about-cta-actions{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:2}
+
+/* ---------- RESPONSIVE ---------- */
 @media(max-width:960px){
-  .page-hero{padding:100px 24px 56px;min-height:auto}
-  .hero-deco,.hero-bg-text{display:none}
-  .about-wrap{grid-template-columns:1fr;gap:40px;padding:56px 24px}
-  .about-side{max-width:320px}
-  .passions-section{padding-left:24px;padding-right:24px;padding-bottom:56px}
-  .passions-grid{grid-template-columns:1fr 1fr}
+  .about-hero{min-height:auto;padding:120px 24px 58px}
+  .about-watermark{display:none}
+  .about-section{padding:64px 24px}
+  .manifesto-grid{grid-template-columns:1fr}
+  .portrait-card{min-height:500px}
+  .signal-grid{grid-template-columns:1fr}
+  .signal-card{min-height:280px}
+  .mode-grid{grid-template-columns:1fr 1fr}
+  .detail-grid{grid-template-columns:1fr}
+  .about-cta-section{padding:0 24px 64px}
+  .about-cta{grid-template-columns:1fr;padding:38px 26px}
 }
-@media(max-width:600px){
-  .passions-grid{grid-template-columns:1fr}
+@media(max-width:560px){
+  .mode-grid{grid-template-columns:1fr}
+  .detail-row{grid-template-columns:1fr;gap:4px}
+  .about-title{font-size:clamp(64px,20vw,92px)}
+}
+
+/* motion safety */
+@media(prefers-reduced-motion:reduce){
+  .js-ready .about-enter,.js-ready .about-mask-in{opacity:1!important;transform:none!important}
 }
 </style>
 </head>
-<body>
+<body class="page-about">
 
 <div id="page-overlay"></div>
+<div id="spotlight"></div>
 <div class="cursor" id="cur"></div>
 <div class="cursor-ring" id="ring"></div>
-<div class="mesh">
-  <div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div>
-  <div class="mesh-blob mb3"></div><div class="mesh-blob mb4"></div>
-</div>
+<div class="mesh"><div class="mesh-blob mb1"></div><div class="mesh-blob mb2"></div><div class="mesh-blob mb3"></div><div class="mesh-blob mb4"></div></div>
 <div class="grain"></div>
 
 <div class="scroll-indicator" id="scrollInd">
-  <div class="si-track"></div>
-  <div class="si-fill" id="siFill"></div>
-  <div class="si-label" id="siLabel">↓</div>
+  <div class="si-track"></div><div class="si-fill" id="siFill"></div><div class="si-label" id="siLabel">↓</div>
 </div>
 
 <div class="mobile-menu" id="mobileMenu">
@@ -236,137 +291,219 @@
   <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ==================== PAGE HERO ==================== -->
-<section class="page-hero">
-  <div class="hero-bg-text">L'HUMAIN</div>
-  <div class="hero-deco">
-    <span class="deco-tag">France · Canada</span>
-    <span class="deco-tag">Communicant & Créateur</span>
-    <span class="deco-tag">BUT TC 3ème année</span>
-  </div>
-  <div class="page-eyebrow">L'HUMAIN DERRIÈRE LE CRÉATEUR</div>
-  <h1 class="page-title">
-    <span>À</span><br>
-    <span class="t-stroke">PRO</span><span class="t-mauve">POS</span>
-  </h1>
-  <p class="page-accroche">"Passionné avant d'être stratège, créateur avant d'être communicant."</p>
-</section>
+<!-- HERO -->
+<section class="about-hero" id="aboutHero">
+  <div class="about-hero-grid" id="aboutHeroGrid"></div>
+  <div class="about-watermark" id="aboutWatermark">L'HUMAIN</div>
 
-<!-- ==================== TEXTE + PHOTO ==================== -->
-<div class="about-wrap">
+  <div class="about-hero-inner">
+    <div class="about-eyebrow about-enter">DERRIÈRE LES PROJETS</div>
 
-  <!-- Texte -->
-  <div class="about-text-block reveal">
-    <div class="s-head">
-      <span class="s-num">01 ///</span>
-      <h2 class="s-title">Mon Histoire</h2>
-      <div class="s-rule"></div>
-    </div>
+    <h1 class="about-title">
+      <span class="about-mask"><span class="about-mask-in">CURIEUX PAR</span></span>
+      <span class="about-mask"><span class="about-mask-in"><span class="stroke">NATURE.</span></span></span>
+      <span class="about-mask"><span class="about-mask-in mauve">CRÉATIF PAR RÉFLEXE.</span></span>
+    </h1>
 
-    <p class="about-lead">
-      Passionné par <strong>l'événementiel, la culture musicale et l'univers de la mode urbaine</strong>, j'ai toujours eu à cœur d'allier mes centres d'intérêt à mon parcours académique et professionnel.
+    <p class="about-lead about-enter">
+      J’aime les projets où il faut à la fois <strong>comprendre une idée</strong>, trouver la bonne manière de la raconter,
+      puis la transformer en quelque chose que les gens ont réellement envie de regarder, suivre ou vivre.
     </p>
 
-    <div class="about-body">
-      <p>Pour moi, la communication n'est pas qu'une question d'outils, c'est l'art de transmettre une émotion et de fédérer une communauté autour d'un projet qui vibre.</p>
-
-      <div class="about-quote">
-        "Mon parcours est le reflet direct de cette philosophie : j'ai pu lier entrepreneuriat et culture vestimentaire en conceptualisant la marketplace RevoFit lors d'un projet d'étude, plonger dans la stratégie d'acquisition avec mon activité Sneakers Business, et vivre l'adrénaline du terrain lors de mon stage au Palm'Fest."
-      </div>
-
-      <p>Actuellement en double diplomation entre la France et le Canada, j'enrichis ma vision stratégique nord-américaine tout en cultivant ma créativité visuelle. Cette immersion interculturelle à l'UQAC Chicoutimi me permet d'appréhender des problématiques de communication globale avec un regard neuf, toujours ancré dans l'émotion et l'authenticité.</p>
+    <div class="about-tags about-enter">
+      <span class="about-tag">Événementiel</span>
+      <span class="about-tag">Vidéo</span>
+      <span class="about-tag">Photographie</span>
+      <span class="about-tag">Culture digitale</span>
+      <span class="about-tag accent">France × Canada</span>
     </div>
-  </div>
-
-  <!-- Photo + infos -->
-  <div class="about-side reveal">
-    <div class="photo-card">
-      <!-- Remplace par : <img src="assets/images/photo-arthur.jpg" alt="Arthur Viaud"> -->
-      <div class="photo-placeholder">
-        <div class="ph-icon">👤</div>
-        <span class="ph-lbl">Photo à venir</span>
-      </div>
-    </div>
-
-    <div class="info-card">
-      <div class="info-row">
-        <span class="info-icon">🎓</span>
-        <span class="info-label">Statut</span>
-        <span class="info-value">BUT TC 3ème année</span>
-      </div>
-      <div class="info-row">
-        <span class="info-icon">🇫🇷</span>
-        <span class="info-label">France</span>
-        <span class="info-value">IUT de Poitiers</span>
-      </div>
-      <div class="info-row">
-        <span class="info-icon">🇨🇦</span>
-        <span class="info-label">Canada</span>
-        <span class="info-value">UQAC Chicoutimi</span>
-      </div>
-      <div class="info-row">
-        <span class="info-icon">🌍</span>
-        <span class="info-label">Langues</span>
-        <span class="info-value">FR · EN · ES</span>
-      </div>
-      <div class="info-row">
-        <span class="info-icon">📍</span>
-        <span class="info-label">Objectif</span>
-        <span class="info-value">Stage · Mai 2026</span>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ==================== PASSIONS ==================== -->
-<section class="passions-section">
-  <div class="s-head">
-    <span class="s-num">02 ///</span>
-    <h2 class="s-title">Univers & Passions</h2>
-    <div class="s-rule"></div>
-  </div>
-  <div class="passions-grid">
-
-    <div class="passion-card reveal">
-      <div class="passion-icon">🎵</div>
-      <div class="passion-title">Événementiel & Musique</div>
-      <p class="passion-desc">La culture musicale et les événements live sont au cœur de qui je suis. Mon stage au Palm'Fest n'est pas un hasard — c'est la rencontre entre ma passion et ma vocation professionnelle.</p>
-    </div>
-
-    <div class="passion-card reveal">
-      <div class="passion-icon">👟</div>
-      <div class="passion-title">Mode Urbaine & Sneakers</div>
-      <p class="passion-desc">La sneaker culture va bien au-delà de la chaussure : c'est un phénomène social, un langage identitaire. Cette passion m'a amené à créer ma première activité entrepreneuriale entre 2022 et 2024.</p>
-    </div>
-
-    <div class="passion-card reveal">
-      <div class="passion-icon">🎬</div>
-      <div class="passion-title">Création Visuelle & Vidéo</div>
-      <p class="passion-desc">Photoshop, Premiere Pro, CapCut — des outils que j'explore de manière autodidacte depuis des années. La création de contenu est pour moi un terrain de jeu autant qu'un levier professionnel.</p>
-    </div>
-
   </div>
 </section>
 
-<!-- FOOTER NAV -->
-<div class="page-footer-nav">
-  <a href="parcours.html" class="btn-back">← Mon Parcours</a>
-  <a href="contact.html" class="btn-next">Me Contacter →</a>
-</div>
+<!-- 01 -->
+<section class="about-section">
+  <div class="about-inner">
+    <div class="a-head">
+      <span class="a-num">01 ///</span>
+      <h2 class="a-title">Le moteur</h2>
+      <div class="a-rule"></div>
+    </div>
+    <p class="a-lead">Cette page ne répète pas mon CV. Elle explique plutôt pourquoi certains projets m’attirent plus que d’autres et comment j’aborde la communication.</p>
+
+    <div class="manifesto-grid">
+      <article class="manifesto-card reveal">
+        <div>
+          <div class="manifesto-kicker">Ce qui me pousse à créer</div>
+          <h3 class="manifesto-big">Je préfère une communication qui <span class="mauve">se vit</span> à une communication qui se contente d’exister.</h3>
+          <div class="manifesto-copy">
+            <p>Les événements live, la musique, le sport et les univers visuels ont longtemps été des centres d’intérêt personnels. Avec le temps, ils sont aussi devenus des terrains où je comprends le mieux ce que la communication peut apporter : créer une attente, donner une identité, raconter ce qui se passe et prolonger l’expérience après l’événement.</p>
+            <p>Je suis autant attiré par la partie stratégique que par le moment où il faut ouvrir Photoshop, sortir une caméra, monter une vidéo ou trouver une solution avec les moyens disponibles.</p>
+          </div>
+        </div>
+        <div class="manifesto-quote">« Une bonne idée gagne en valeur quand elle peut être comprise vite, ressentie et exécutée proprement. »</div>
+      </article>
+
+      <aside class="portrait-card reveal">
+        <img src="assets/images/arthur/portrait-arthur-2026.webp" alt="Arthur Viaud en situation de travail pendant le Royan Atlantique Open">
+        <div class="portrait-meta">
+          <div class="portrait-name">Arthur Viaud</div>
+          <div class="portrait-role">Communication marketing · création de contenu · événementiel</div>
+          <div class="portrait-status">Disponible CDI · Sept. 2026</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="about-section" style="padding-top:20px">
+  <div class="about-inner">
+    <div class="a-head">
+      <span class="a-num">02 ///</span>
+      <h2 class="a-title">Ce qui nourrit mon regard</h2>
+      <div class="a-rule"></div>
+    </div>
+    <p class="a-lead">Mes centres d’intérêt ne sont pas ajoutés pour remplir une rubrique “passions” : ils influencent directement ma manière de créer.</p>
+
+    <div class="signal-grid">
+      <article class="signal-card reveal">
+        <div>
+          <div class="signal-index">01</div>
+          <div class="signal-icon">⌁</div>
+          <div class="signal-label">Live</div>
+          <h3 class="signal-title">Événementiel & musique</h3>
+          <p class="signal-copy">Ce qui m’intéresse dans un événement, c’est l’énergie collective et la vitesse à laquelle tout se joue. La communication y devient immédiate, visuelle et très concrète.</p>
+        </div>
+        <div class="signal-foot">Festival · sport · communication en temps réel</div>
+      </article>
+
+      <article class="signal-card reveal">
+        <div>
+          <div class="signal-index">02</div>
+          <div class="signal-icon">◉</div>
+          <div class="signal-label">Image</div>
+          <h3 class="signal-title">Photo & vidéo</h3>
+          <p class="signal-copy">Je développe progressivement mon regard en photographie, montage et traitement d’image. La vidéo événementielle est aujourd’hui le terrain que j’ai le plus envie d’approfondir.</p>
+        </div>
+        <div class="signal-foot">Premiere Pro · Camera Raw · création visuelle</div>
+      </article>
+
+      <article class="signal-card reveal">
+        <div>
+          <div class="signal-index">03</div>
+          <div class="signal-icon">↗</div>
+          <div class="signal-label">Culture</div>
+          <h3 class="signal-title">Digital & entrepreneuriat</h3>
+          <p class="signal-copy">La sneaker culture et l’achat-revente m’ont amené très tôt vers les communautés digitales, l’offre, l’acquisition et l’envie de tester mes propres projets plutôt que de rester uniquement dans la théorie.</p>
+        </div>
+        <div class="signal-foot">Sneakers · e-commerce · communautés</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="about-section mode-section">
+  <div class="about-inner">
+    <div class="a-head">
+      <span class="a-num">03 ///</span>
+      <h2 class="a-title">Ma façon de travailler</h2>
+      <div class="a-rule"></div>
+    </div>
+    <p class="a-lead">Quatre réflexes qui reviennent dans mes projets, que je sois en train de préparer une campagne ou de produire pendant un événement.</p>
+
+    <div class="mode-grid">
+      <article class="mode-card reveal">
+        <div class="mode-n">01</div>
+        <h3 class="mode-title">Observer</h3>
+        <p class="mode-copy">Comprendre le contexte, les personnes et les contraintes avant de chercher la solution visuelle.</p>
+        <div class="mode-line"></div>
+      </article>
+      <article class="mode-card reveal">
+        <div class="mode-n">02</div>
+        <h3 class="mode-title">Proposer</h3>
+        <p class="mode-copy">Ne pas attendre uniquement une consigne détaillée : chercher l’angle, le format ou l’idée qui peut faire avancer le projet.</p>
+        <div class="mode-line"></div>
+      </article>
+      <article class="mode-card reveal">
+        <div class="mode-n">03</div>
+        <h3 class="mode-title">Fabriquer</h3>
+        <p class="mode-copy">Passer de l’intention au livrable : contenu social, support graphique, montage vidéo, mise en ligne ou adaptation terrain.</p>
+        <div class="mode-line"></div>
+      </article>
+      <article class="mode-card reveal">
+        <div class="mode-n">04</div>
+        <h3 class="mode-title">Ajuster</h3>
+        <p class="mode-copy">Regarder ce qui fonctionne, absorber les retours et modifier rapidement quand le contexte change.</p>
+        <div class="mode-line"></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="about-section">
+  <div class="about-inner">
+    <div class="a-head">
+      <span class="a-num">04 ///</span>
+      <h2 class="a-title">Quelques repères</h2>
+      <div class="a-rule"></div>
+    </div>
+
+    <div class="detail-grid">
+      <article class="detail-card reveal">
+        <div class="detail-kicker">Profil</div>
+        <h3 class="detail-title">Le cadre derrière la créativité.</h3>
+        <p class="detail-copy">Un parcours commercial et marketing me permet de ne pas dissocier la création de son objectif. Le visuel est important, mais il doit servir quelque chose : une audience, une information, une identité ou une action.</p>
+
+        <div class="detail-list">
+          <div class="detail-row"><span>Formation</span><span>BUT Techniques de Commercialisation + Baccalauréat en administration UQAC</span></div>
+          <div class="detail-row"><span>Langues</span><span>Français natif · Anglais B2 · Espagnol B1</span></div>
+          <div class="detail-row"><span>Mobilité</span><span>Permis B · véhicule</span></div>
+          <div class="detail-row"><span>Disponibilité</span><span>CDI dès septembre 2026</span></div>
+        </div>
+      </article>
+
+      <aside class="focus-card reveal">
+        <div class="detail-kicker" style="color:#b48aff">En ce moment</div>
+        <h3 class="detail-title">Ce que je veux approfondir.</h3>
+        <div class="focus-list">
+          <div class="focus-item"><strong>Vidéo événementielle</strong><br>Captation, rythme, narration et montage.</div>
+          <div class="focus-item"><strong>Photographie</strong><br>Composition, lumière et post-production.</div>
+          <div class="focus-item"><strong>Motion & creative coding</strong><br>Micro-interactions et expériences web plus expressives.</div>
+          <div class="focus-item"><strong>Communication terrain</strong><br>Créer vite sans perdre la cohérence de marque.</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="about-cta-section">
+  <div class="about-cta reveal">
+    <div>
+      <div class="about-cta-kicker">Pour aller plus loin</div>
+      <h2 class="about-cta-title">Les projets racontent le reste.</h2>
+      <p class="about-cta-copy">Royan Atlantique Open, Palm’Fest, Sneakers Business et RevoFit permettent de voir comment ces influences se traduisent en réalisations concrètes.</p>
+    </div>
+    <div class="about-cta-actions">
+      <a href="portfolio.html" class="btn-primary">Voir mes projets ↗</a>
+      <a href="contact.html" class="btn-ghost">Me contacter →</a>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="f-logo">Arthur Viaud · 2026</div>
   <div class="f-links">
-    <a href="portfolio.html">Portfolio</a>
-    <a href="parcours.html">Parcours</a>
-    <a href="a-propos.html">À Propos</a>
-    <a href="contact.html">Contact</a>
-    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank">LinkedIn ↗</a>
+    <a href="portfolio.html">Portfolio</a><a href="parcours.html">Parcours</a>
+    <a href="a-propos.html">À Propos</a><a href="contact.html">Contact</a>
+    <a href="https://www.linkedin.com/in/arthur-viaud-81939b2a6/" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
   <div class="f-copy">D'une inspiration naît une vision</div>
 </footer>
 
-<script src="shared.js" defer></script>
+<script src="shared.js"></script>
+<script src="a-propos.js"></script>
 </body>
 </html>

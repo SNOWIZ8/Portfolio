@@ -50,7 +50,7 @@ if (IS_DESKTOP) document.body.classList.add('is-desktop');
 
     e.preventDefault();
     overlay.classList.remove('pt-out');
-    setTimeout(() => { window.location.href = href; }, 580);
+    setTimeout(() => { window.location.href = href; }, 180);
   });
 })();
 
